@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tool", "Tool", "{A131765C-4FCB-4B5B-8206-331B7EDF0AAE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gen", "Tool\Gen\Gen.csproj", "{5DE31420-9BA1-4203-80D7-D34E265F7226}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibvirtRemote", "LibvirtRemote\LibvirtRemote.csproj", "{3B1C1866-ADB9-4822-B8FA-9F152BA63B22}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibvirtRemote.Test", "LibvirtRemote.Test\LibvirtRemote.Test.csproj", "{77FAF542-EC20-4441-A48C-600F1416FCE2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5DE31420-9BA1-4203-80D7-D34E265F7226}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5DE31420-9BA1-4203-80D7-D34E265F7226}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5DE31420-9BA1-4203-80D7-D34E265F7226}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5DE31420-9BA1-4203-80D7-D34E265F7226}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B1C1866-ADB9-4822-B8FA-9F152BA63B22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B1C1866-ADB9-4822-B8FA-9F152BA63B22}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B1C1866-ADB9-4822-B8FA-9F152BA63B22}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B1C1866-ADB9-4822-B8FA-9F152BA63B22}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77FAF542-EC20-4441-A48C-600F1416FCE2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77FAF542-EC20-4441-A48C-600F1416FCE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77FAF542-EC20-4441-A48C-600F1416FCE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77FAF542-EC20-4441-A48C-600F1416FCE2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{5DE31420-9BA1-4203-80D7-D34E265F7226} = {A131765C-4FCB-4B5B-8206-331B7EDF0AAE}
+	EndGlobalSection
+EndGlobal

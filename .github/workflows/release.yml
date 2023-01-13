@@ -1,0 +1,26 @@
+name: Release
+
+on:
+  push:
+    tags: [ '*' ]
+
+jobs:
+  release:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Prepare |
+        LOCALPKG=`mktemp -d`
+        wget -P "${LOCALPKG}" https://github.com/9506hqwy/xdr-net/releases/download/0.3.0/Xdr.0.3.0.nupkg
+        dotnet nuget add source --name local "${LOCALPKG}"
+    - name: Package
+      run: dotnet pack -c Release -o ./artifacts
+    - name: Create Release
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        find ./artifacts -type f
+        gh config set prompt disabled
+        gh release create ${GITHUB_REF_NAME} ./artifacts/*  -t v${GITHUB_REF_NAME} -d
