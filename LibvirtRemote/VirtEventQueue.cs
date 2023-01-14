@@ -26,7 +26,7 @@ public class VirtEventQueue : IDisposable
         this.Capacity = capacity > 0 ? capacity : VirtEventQueue.DefaultMaxCapacity;
         this.inner = new Queue<IVirtEvent>();
 
-        this.hasItem = new TaskCompletionSource<bool>();
+        this.hasItem = this.ResetHasItem();
         this.semaphore = new SemaphoreSlim(1, 1);
     }
 
@@ -40,7 +40,7 @@ public class VirtEventQueue : IDisposable
         {
             this.inner.Clear();
             this.ReleaseWait(false);
-            this.hasItem = new TaskCompletionSource<bool>();
+            this.ResetHasItem();
             return true;
         });
     }
@@ -61,7 +61,7 @@ public class VirtEventQueue : IDisposable
         {
             if (this.inner.Count == 1)
             {
-                this.hasItem = new TaskCompletionSource<bool>();
+                this.ResetHasItem();
             }
 
             return this.inner.Dequeue();
@@ -142,5 +142,13 @@ public class VirtEventQueue : IDisposable
                 this.hasItem.SetResult(true);
             }
         }
+    }
+
+    private TaskCompletionSource<bool> ResetHasItem()
+    {
+        // https://devblogs.microsoft.com/premier-developer/the-danger-of-taskcompletionsourcet-class/
+        this.hasItem = new TaskCompletionSource<bool>(
+            TaskCreationOptions.RunContinuationsAsynchronously);
+        return this.hasItem;
     }
 }

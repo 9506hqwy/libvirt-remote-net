@@ -6,7 +6,9 @@ public class VirtResponseTask
 
     public VirtResponseTask()
     {
-        this.source = new TaskCompletionSource<VirtResponse>();
+        // https://devblogs.microsoft.com/premier-developer/the-danger-of-taskcompletionsourcet-class/
+        this.source = new TaskCompletionSource<VirtResponse>(
+            TaskCreationOptions.RunContinuationsAsynchronously);
     }
 
     internal Task<VirtResponse> GetResultAsync() => this.source.Task;
