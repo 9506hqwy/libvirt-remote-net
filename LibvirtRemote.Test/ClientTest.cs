@@ -91,6 +91,6 @@ public class ClientTest
         using var virStream = this.client.StorageVolUploadAsync(vol, 0, 0, 0, default).Result;
         using var file = File.OpenRead("/tmp/test.qcow2");
         file.CopyTo(virStream);
-        virStream.WriteCompleted();
+        virStream.WriteCompletedAsync(default).Wait();
     }
 }

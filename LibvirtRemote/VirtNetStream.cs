@@ -66,15 +66,16 @@ public class VirtNetStream : Stream, IDisposable
             buffer.Skip(offset).Take(count).ToArray());
     }
 
-    public void WriteCompleted()
+    public async Task WriteCompletedAsync(CancellationToken cancellationToken)
     {
-        var res = this.client.Request(
+        var res = await this.client.RequestAsync(
             false,
             this.header.Serial,
             this.header.Proc,
             VirNetMessageType.VirNetStream,
             VirNetMessageStatus.VirNetOk,
-            null);
+            null,
+            cancellationToken);
         res.ConvertTo<XdrVoid>();
     }
 
