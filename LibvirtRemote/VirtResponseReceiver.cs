@@ -187,7 +187,7 @@ public class VirtResponseReceiver : IDisposable
         return queue;
     }
 
-    private async Task<bool> EnqueueEvent(VirtResponse response)
+    private async Task<bool> EnqueueEvent(VirtResponse response, CancellationToken cancellationToken)
     {
         IVirtEvent? item = response.ConvertToEvent();
         if (item is null)
@@ -197,7 +197,7 @@ public class VirtResponseReceiver : IDisposable
 
         var callbackId = item.GetCallbackId();
 
-        await this.AddOrGetEventQueue(callbackId).EnqueueAsync(item);
+        await this.AddOrGetEventQueue(callbackId).EnqueueAsync(item, cancellationToken);
 
         return true;
     }
@@ -214,7 +214,7 @@ public class VirtResponseReceiver : IDisposable
                     continue;
                 }
 
-                if (await this.EnqueueEvent(res))
+                if (await this.EnqueueEvent(res, this.listening.Token))
                 {
                     continue;
                 }

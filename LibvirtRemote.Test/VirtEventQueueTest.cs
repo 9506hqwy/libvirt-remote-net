@@ -7,16 +7,16 @@ public class VirtEventQueueTest
     public void ClearAsync()
     {
         var queue = new VirtEventQueue();
-        queue.EnqueueAsync(new Event()).Wait();
-        queue.ClearAsync().Wait();
+        queue.EnqueueAsync(new Event(), default).Wait();
+        queue.ClearAsync(default).Wait();
         Assert.AreEqual(0, queue.Count);
 
         var task = Task.Run(() =>
         {
             Thread.Sleep(100);
-            queue.ClearAsync().Wait();
+            queue.ClearAsync(default).Wait();
             Thread.Sleep(100);
-            queue.EnqueueAsync(new Event()).Wait();
+            queue.EnqueueAsync(new Event(), default).Wait();
         });
 
         // FIXED ME:
@@ -34,12 +34,12 @@ public class VirtEventQueueTest
 
         var queue = new VirtEventQueue();
 
-        Assert.IsFalse(queue.ContainsAsync(e1).Result);
+        Assert.IsFalse(queue.ContainsAsync(e1, default).Result);
 
-        queue.EnqueueAsync(e1).Wait();
+        queue.EnqueueAsync(e1, default).Wait();
 
-        Assert.IsTrue(queue.ContainsAsync(e1).Result);
-        Assert.IsFalse(queue.ContainsAsync(e2).Result);
+        Assert.IsTrue(queue.ContainsAsync(e1, default).Result);
+        Assert.IsFalse(queue.ContainsAsync(e2, default).Result);
     }
 
     [TestMethod]
@@ -48,9 +48,9 @@ public class VirtEventQueueTest
         var e1 = new Event();
 
         var queue = new VirtEventQueue();
-        queue.EnqueueAsync(e1).Wait();
+        queue.EnqueueAsync(e1, default).Wait();
 
-        var e2 = queue.DequeueAsync().Result;
+        var e2 = queue.DequeueAsync(default).Result;
         Assert.AreEqual(e1, e2);
     }
 
@@ -58,7 +58,7 @@ public class VirtEventQueueTest
     public void Dispose()
     {
         var queue = new VirtEventQueue();
-        queue.EnqueueAsync(new Event()).Wait();
+        queue.EnqueueAsync(new Event(), default).Wait();
         queue.Dispose();
         Assert.AreEqual(0, queue.Count);
 
@@ -72,7 +72,7 @@ public class VirtEventQueueTest
 
         try
         {
-            var e = queue.DequeueAsync().Result;
+            var e = queue.DequeueAsync(default).Result;
             Assert.Fail();
         }
         catch (AggregateException e) when (e.InnerException is TaskCanceledException)
@@ -90,13 +90,13 @@ public class VirtEventQueueTest
 
         var queue = new VirtEventQueue();
 
-        Assert.IsFalse(queue.ContainsAsync(e1).Result);
+        Assert.IsFalse(queue.ContainsAsync(e1, default).Result);
 
-        queue.EnqueueAsync(e1).Wait();
-        queue.EnqueueAsync(e2).Wait();
+        queue.EnqueueAsync(e1, default).Wait();
+        queue.EnqueueAsync(e2, default).Wait();
 
-        Assert.IsTrue(queue.ContainsAsync(e1).Result);
-        Assert.IsTrue(queue.ContainsAsync(e2).Result);
+        Assert.IsTrue(queue.ContainsAsync(e1, default).Result);
+        Assert.IsTrue(queue.ContainsAsync(e2, default).Result);
     }
 
     [TestMethod]
@@ -104,15 +104,15 @@ public class VirtEventQueueTest
     {
         var queue = new VirtEventQueue();
 
-        queue.EnqueueAsync(new Event()).Wait();
+        queue.EnqueueAsync(new Event(), default).Wait();
 
-        var e1 = queue.PeekAsync().Result;
-        var e2 = queue.DequeueAsync().Result;
+        var e1 = queue.PeekAsync(default).Result;
+        var e2 = queue.DequeueAsync(default).Result;
         Assert.AreEqual(e1, e2);
 
         try
         {
-            e1 = queue.PeekAsync().Result;
+            e1 = queue.PeekAsync(default).Result;
             Assert.Fail();
         }
         catch (AggregateException e) when (e.InnerException is InvalidOperationException)

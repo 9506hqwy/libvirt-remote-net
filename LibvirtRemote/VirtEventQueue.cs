@@ -34,38 +34,53 @@ public class VirtEventQueue : IDisposable
 
     public int Count => this.inner.Count;
 
-    public Task ClearAsync()
+    public Task ClearAsync(CancellationToken cancellationToken)
     {
-        return this.LockAsync(() =>
-        {
-            this.inner.Clear();
-            this.ReleaseWait(false);
-            this.ResetHasItem();
-            return true;
-        });
+        return this.LockAsync(
+            () =>
+            {
+                this.inner.Clear();
+                this.ReleaseWait(false);
+                this.ResetHasItem();
+                return true;
+            },
+            cancellationToken);
     }
 
-    public Task<bool> ContainsAsync(IVirtEvent item)
+    public Task<bool> ContainsAsync(IVirtEvent item, CancellationToken cancellationToken)
     {
-        return this.LockAsync(() =>
-        {
-            return this.inner.Contains(item);
-        });
+        return this.LockAsync(
+            () =>
+            {
+                return this.inner.Contains(item);
+            },
+            cancellationToken);
     }
 
-    public async Task<IVirtEvent> DequeueAsync()
+    public async Task<IVirtEvent> DequeueAsync(CancellationToken cancellationToken)
     {
+        var tmpHasItem = this.hasItem;
+        cancellationToken.Register(() =>
+        {
+            if (!tmpHasItem.Task.IsCompleted)
+            {
+                tmpHasItem.SetCanceled();
+            }
+        });
+
         await this.hasItem.Task;
 
-        return await this.LockAsync(() =>
-        {
-            if (this.inner.Count == 1)
+        return await this.LockAsync(
+            () =>
             {
-                this.ResetHasItem();
-            }
+                if (this.inner.Count == 1)
+                {
+                    this.ResetHasItem();
+                }
 
-            return this.inner.Dequeue();
-        });
+                return this.inner.Dequeue();
+            },
+            cancellationToken);
     }
 
     public void Dispose()
@@ -74,29 +89,33 @@ public class VirtEventQueue : IDisposable
         GC.SuppressFinalize(this);
     }
 
-    public Task EnqueueAsync(IVirtEvent item)
+    public Task EnqueueAsync(IVirtEvent item, CancellationToken cancellationToken)
     {
-        return this.LockAsync(() =>
-        {
-            while (this.inner.Count >= this.Capacity)
+        return this.LockAsync(
+            () =>
             {
-                this.inner.Dequeue();
-            }
+                while (this.inner.Count >= this.Capacity)
+                {
+                    this.inner.Dequeue();
+                }
 
-            this.inner.Enqueue(item);
+                this.inner.Enqueue(item);
 
-            this.ReleaseWait(false);
+                this.ReleaseWait(false);
 
-            return true;
-        });
+                return true;
+            },
+            cancellationToken);
     }
 
-    public Task<IVirtEvent> PeekAsync()
+    public Task<IVirtEvent> PeekAsync(CancellationToken cancellationToken)
     {
-        return this.LockAsync(() =>
-        {
-            return this.inner.Peek();
-        });
+        return this.LockAsync(
+            () =>
+            {
+                return this.inner.Peek();
+            },
+            cancellationToken);
     }
 
     protected virtual void Dispose(bool disposing)
@@ -116,9 +135,9 @@ public class VirtEventQueue : IDisposable
         this.disposed = true;
     }
 
-    private async Task<T> LockAsync<T>(Func<T> action)
+    private async Task<T> LockAsync<T>(Func<T> action, CancellationToken cancellationToken)
     {
-        await this.semaphore.WaitAsync();
+        await this.semaphore.WaitAsync(cancellationToken);
         try
         {
             return action();

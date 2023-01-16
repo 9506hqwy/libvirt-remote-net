@@ -66,7 +66,7 @@ public class ClientTest
         var callbackId = this.client!.ConnectStoragePoolEventRegisterAnyAsync(0, null, default).Result;
         var eventStream = this.client.GetEventStream(callbackId);
 
-        var e = eventStream.ReadAsync().Result;
+        var e = eventStream.ReadAsync(default).Result;
         Assert.IsNotNull(e);
 
         this.client.DeleteEventStream(eventStream);

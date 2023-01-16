@@ -16,13 +16,13 @@ public class VirtEventStream
 
     public int Length => this.queue.Count;
 
-    public async Task<IVirtEvent> ReadAsync()
+    public async Task<IVirtEvent> ReadAsync(CancellationToken cancellationToken)
     {
-        return await this.queue.DequeueAsync();
+        return await this.queue.DequeueAsync(cancellationToken);
     }
 
-    internal async Task WriteAsync(IVirtEvent item)
+    internal async Task WriteAsync(IVirtEvent item, CancellationToken cancellationToken)
     {
-        await this.queue.EnqueueAsync(item);
+        await this.queue.EnqueueAsync(item, cancellationToken);
     }
 }
