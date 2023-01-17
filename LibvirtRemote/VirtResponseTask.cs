@@ -11,6 +11,8 @@ public class VirtResponseTask
             TaskCreationOptions.RunContinuationsAsynchronously);
     }
 
+    internal bool IsCompleted => this.source.Task.IsCompleted;
+
     internal Task<VirtResponse> GetResultAsync() => this.source.Task;
 
     internal void SetCanceled() => this.source.SetCanceled();

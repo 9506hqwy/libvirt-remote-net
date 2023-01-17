@@ -93,6 +93,14 @@ public partial class VirtClient : IDisposable
     {
         var task = this.receiver.Register(serial, isStream);
 
+        cancellationToken.Register(() =>
+        {
+            if (!task.IsCompleted)
+            {
+                task.SetCanceled();
+            }
+        });
+
         try
         {
             await this.Socket.SendAsync(
