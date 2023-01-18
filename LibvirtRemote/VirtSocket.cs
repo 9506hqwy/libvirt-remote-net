@@ -41,6 +41,14 @@ public class VirtSocket : IDisposable
 
         var resHeaderBytes = await this.ReadByteAsync(24, cancellationToken);
         var resHeader = Utility.ConvertFromBytes<VirNetMessageHeader>(resHeaderBytes);
+        if (resHeader.Prog != Binding.Constants.RemoteProgram)
+        {
+            throw new VirtException($"Invalid program number: {resHeader.Prog}");
+        }
+        else if (resHeader.Vers != Binding.Constants.RemoteProtocolVersion)
+        {
+            throw new VirtException($"Invalid protocol version: {resHeader.Vers}");
+        }
 
         var resBodyLength = pktLen - 28;
         if (resBodyLength == 0)

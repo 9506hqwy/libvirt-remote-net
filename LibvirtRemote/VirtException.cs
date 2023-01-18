@@ -6,6 +6,15 @@ using System.Runtime.Serialization;
 [Serializable]
 public class VirtException : Exception
 {
+    public VirtException(string message)
+        : base(message)
+    {
+        this.Error = new VirNetMessageError
+        {
+            Message = new Xdr.XdrOption<string>(message),
+        };
+    }
+
     public VirtException(VirNetMessageError error)
         : base(error.Message?.Value)
     {
