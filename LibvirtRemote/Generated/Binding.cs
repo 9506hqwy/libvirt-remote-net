@@ -20991,6 +20991,47 @@ namespace Binding {
     }
     
     [System.SerializableAttribute()]
+    [Xdr.XdrStructAttribute()]
+    public partial class RemoteDomainFdAssociateArgs {
+        
+        private RemoteNonnullDomain dom;
+        
+        private string name;
+        
+        private uint flags;
+        
+        [Xdr.XdrElementOrderAttribute(1)]
+        public RemoteNonnullDomain Dom {
+            get {
+                return this.dom;
+            }
+            set {
+                this.dom = value;
+            }
+        }
+        
+        [Xdr.XdrElementOrderAttribute(2)]
+        public string Name {
+            get {
+                return this.name;
+            }
+            set {
+                this.name = value;
+            }
+        }
+        
+        [Xdr.XdrElementOrderAttribute(3)]
+        public uint Flags {
+            get {
+                return this.flags;
+            }
+            set {
+                this.flags = value;
+            }
+        }
+    }
+    
+    [System.SerializableAttribute()]
     public enum RemoteProcedure {
         
         RemoteProcConnectOpen = 1,
@@ -21876,5 +21917,7 @@ namespace Binding {
         RemoteProcDomainRestoreParams = 441,
         
         RemoteProcDomainAbortJobFlags = 442,
+        
+        RemoteProcDomainFdAssociate = 443,
     }
 }
