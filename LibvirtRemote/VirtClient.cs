@@ -26,9 +26,14 @@ public partial class VirtClient : IDisposable
 
     internal VirtSocket Socket { get; }
 
+    public bool DeleteEventStream(int callbackId)
+    {
+        return this.receiver.DeleteEventQueue(callbackId);
+    }
+
     public bool DeleteEventStream(VirtEventStream stream)
     {
-        return this.receiver.DeleteEventQueue(stream.CallbackId);
+        return this.DeleteEventStream(stream.CallbackId);
     }
 
     public void Dispose()
