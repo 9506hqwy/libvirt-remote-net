@@ -11,6 +11,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibvirtRemote", "LibvirtRem
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibvirtRemote.Test", "LibvirtRemote.Test\LibvirtRemote.Test.csproj", "{77FAF542-EC20-4441-A48C-600F1416FCE2}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{2BBC7392-6E8C-4C17-9376-B84DAF046D5E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ListAllDomain", "Examples\ListAllDomain\ListAllDomain.csproj", "{FAEDFCF5-5194-4B39-8F8A-0A9C97423DC8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PollDomainEvent", "Examples\PollDomainEvent\PollDomainEvent.csproj", "{B1145F2F-48DE-40B5-B08E-D7B9EF5ADF69}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,8 +38,18 @@ Global
 		{77FAF542-EC20-4441-A48C-600F1416FCE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{77FAF542-EC20-4441-A48C-600F1416FCE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{77FAF542-EC20-4441-A48C-600F1416FCE2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FAEDFCF5-5194-4B39-8F8A-0A9C97423DC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FAEDFCF5-5194-4B39-8F8A-0A9C97423DC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FAEDFCF5-5194-4B39-8F8A-0A9C97423DC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FAEDFCF5-5194-4B39-8F8A-0A9C97423DC8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1145F2F-48DE-40B5-B08E-D7B9EF5ADF69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1145F2F-48DE-40B5-B08E-D7B9EF5ADF69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1145F2F-48DE-40B5-B08E-D7B9EF5ADF69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1145F2F-48DE-40B5-B08E-D7B9EF5ADF69}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{5DE31420-9BA1-4203-80D7-D34E265F7226} = {A131765C-4FCB-4B5B-8206-331B7EDF0AAE}
+		{FAEDFCF5-5194-4B39-8F8A-0A9C97423DC8} = {2BBC7392-6E8C-4C17-9376-B84DAF046D5E}
+		{B1145F2F-48DE-40B5-B08E-D7B9EF5ADF69} = {2BBC7392-6E8C-4C17-9376-B84DAF046D5E}
 	EndGlobalSection
 EndGlobal
