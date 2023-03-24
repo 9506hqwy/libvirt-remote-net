@@ -104,9 +104,7 @@ internal class MainShell
             "CallWithStreamAsync" :
             "CallAsync";
 
-        var rType = Code.StreamProcs.Contains(procName) ?
-            Code.VirtStreamTypeRef :
-            ret is not null ?
+        var rType = ret is not null ?
             new CodeTypeReference(ret) :
             null;
 
@@ -149,6 +147,22 @@ internal class MainShell
             {
                 var variables = Code.AddDeconstructStatement(method, (CodeVariableReferenceExpression)val, retType!);
                 val = Code.CreateFuncRetValue(variable, retType!, variables);
+            }
+            else if (retType is null)
+            {
+                val = Code.CreateTupleProperty(variable.Name, 1);
+            }
+            else
+            {
+                var retTypes = retType!.GetProperties()
+                    .Select(p => p.PropertyType)
+                    .Select(t => new CodeTypeReference(t))
+                    .ToList();
+                retTypes.Insert(0, Code.VirtStreamTypeRef);
+
+                var variables = Code.AddDeconstructTupleStatement(method, (CodeVariableReferenceExpression)val, retType!);
+
+                val = Code.CreateFuncRetValue(retTypes.ToArray(), variables);
             }
 
             method.Statements.Add(new CodeMethodReturnStatement(val));

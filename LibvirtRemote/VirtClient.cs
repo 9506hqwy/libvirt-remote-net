@@ -64,16 +64,17 @@ public partial class VirtClient : IDisposable
         return res.ConvertTo<T>();
     }
 
-    internal async Task<VirtNetStream> CallWithStreamAsync<T>(
+    internal async Task<Tuple<VirtNetStream, T?>> CallWithStreamAsync<T>(
         RemoteProcedure proc,
         object? request,
         CancellationToken cancellationToken)
     {
         var res = await this.CallAsync(true, proc, request, cancellationToken);
-        res.ConvertTo<T>();
+        var val = res.ConvertTo<T>();
 
         var stream = this.receiver.GetStream(res.Header.Serial);
-        return new VirtNetStream(this, stream, res.Header);
+        var virStream = new VirtNetStream(this, stream, res.Header);
+        return new Tuple<VirtNetStream, T?>(virStream, val);
     }
 
     internal VirtResponse Request(

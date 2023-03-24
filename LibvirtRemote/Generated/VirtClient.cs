@@ -2151,11 +2151,11 @@ namespace LibvirtRemote {
             innerReq.DomXml = domXml;
             var innerTask = this.DomainMigratePrepareTunnelWrappedAsync(innerReq, cancellationToken);
             var innerRes = await innerTask;
-            return innerRes;
+            return innerRes.Item1;
         }
         
-        public async Task<VirtNetStream> DomainMigratePrepareTunnelWrappedAsync(Binding.RemoteDomainMigratePrepareTunnelArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallWithStreamAsync<VirtNetStream>(Binding.RemoteProcedure.RemoteProcDomainMigratePrepareTunnel, arg, cancellationToken);
+        public async Task<Tuple<VirtNetStream, Xdr.XdrVoid>> DomainMigratePrepareTunnelWrappedAsync(Binding.RemoteDomainMigratePrepareTunnelArgs arg, System.Threading.CancellationToken cancellationToken) {
+            var innerTask = this.CallWithStreamAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainMigratePrepareTunnel, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -2847,11 +2847,11 @@ namespace LibvirtRemote {
             innerReq.Flags = flags;
             var innerTask = this.DomainOpenConsoleWrappedAsync(innerReq, cancellationToken);
             var innerRes = await innerTask;
-            return innerRes;
+            return innerRes.Item1;
         }
         
-        public async Task<VirtNetStream> DomainOpenConsoleWrappedAsync(Binding.RemoteDomainOpenConsoleArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallWithStreamAsync<VirtNetStream>(Binding.RemoteProcedure.RemoteProcDomainOpenConsole, arg, cancellationToken);
+        public async Task<Tuple<VirtNetStream, Xdr.XdrVoid>> DomainOpenConsoleWrappedAsync(Binding.RemoteDomainOpenConsoleArgs arg, System.Threading.CancellationToken cancellationToken) {
+            var innerTask = this.CallWithStreamAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainOpenConsole, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -2954,11 +2954,11 @@ namespace LibvirtRemote {
             innerReq.Flags = flags;
             var innerTask = this.StorageVolUploadWrappedAsync(innerReq, cancellationToken);
             var innerRes = await innerTask;
-            return innerRes;
+            return innerRes.Item1;
         }
         
-        public async Task<VirtNetStream> StorageVolUploadWrappedAsync(Binding.RemoteStorageVolUploadArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallWithStreamAsync<VirtNetStream>(Binding.RemoteProcedure.RemoteProcStorageVolUpload, arg, cancellationToken);
+        public async Task<Tuple<VirtNetStream, Xdr.XdrVoid>> StorageVolUploadWrappedAsync(Binding.RemoteStorageVolUploadArgs arg, System.Threading.CancellationToken cancellationToken) {
+            var innerTask = this.CallWithStreamAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcStorageVolUpload, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -2971,11 +2971,11 @@ namespace LibvirtRemote {
             innerReq.Flags = flags;
             var innerTask = this.StorageVolDownloadWrappedAsync(innerReq, cancellationToken);
             var innerRes = await innerTask;
-            return innerRes;
+            return innerRes.Item1;
         }
         
-        public async Task<VirtNetStream> StorageVolDownloadWrappedAsync(Binding.RemoteStorageVolDownloadArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallWithStreamAsync<VirtNetStream>(Binding.RemoteProcedure.RemoteProcStorageVolDownload, arg, cancellationToken);
+        public async Task<Tuple<VirtNetStream, Xdr.XdrVoid>> StorageVolDownloadWrappedAsync(Binding.RemoteStorageVolDownloadArgs arg, System.Threading.CancellationToken cancellationToken) {
+            var innerTask = this.CallWithStreamAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcStorageVolDownload, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -2993,18 +2993,21 @@ namespace LibvirtRemote {
             await innerTask;
         }
         
-        public async Task<VirtNetStream> DomainScreenshotAsync(Binding.RemoteNonnullDomain dom, uint screen, uint flags, System.Threading.CancellationToken cancellationToken) {
+        public async Task<Tuple<VirtNetStream, Xdr.XdrOption<string>>> DomainScreenshotAsync(Binding.RemoteNonnullDomain dom, uint screen, uint flags, System.Threading.CancellationToken cancellationToken) {
             var innerReq = new Binding.RemoteDomainScreenshotArgs();
             innerReq.Dom = dom;
             innerReq.Screen = screen;
             innerReq.Flags = flags;
             var innerTask = this.DomainScreenshotWrappedAsync(innerReq, cancellationToken);
             var innerRes = await innerTask;
-            return innerRes;
+            var innerStream = innerRes.Item1;
+            var innerRes2 = innerRes.Item2;
+            var innerMime = innerRes2.Mime;
+            return new Tuple<VirtNetStream, Xdr.XdrOption<string>>(innerStream, innerMime);
         }
         
-        public async Task<VirtNetStream> DomainScreenshotWrappedAsync(Binding.RemoteDomainScreenshotArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallWithStreamAsync<VirtNetStream>(Binding.RemoteProcedure.RemoteProcDomainScreenshot, arg, cancellationToken);
+        public async Task<Tuple<VirtNetStream, Binding.RemoteDomainScreenshotRet>> DomainScreenshotWrappedAsync(Binding.RemoteDomainScreenshotArgs arg, System.Threading.CancellationToken cancellationToken) {
+            var innerTask = this.CallWithStreamAsync<Binding.RemoteDomainScreenshotRet>(Binding.RemoteProcedure.RemoteProcDomainScreenshot, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -3067,7 +3070,7 @@ namespace LibvirtRemote {
             return innerRes;
         }
         
-        public async Task<VirtNetStream> DomainMigratePrepareTunnel3Async(System.Collections.Generic.List<byte> cookieIn, ulong flags, Xdr.XdrOption<string> dname, ulong resource, string domXml, System.Threading.CancellationToken cancellationToken) {
+        public async Task<Tuple<VirtNetStream, System.Collections.Generic.List<byte>>> DomainMigratePrepareTunnel3Async(System.Collections.Generic.List<byte> cookieIn, ulong flags, Xdr.XdrOption<string> dname, ulong resource, string domXml, System.Threading.CancellationToken cancellationToken) {
             var innerReq = new Binding.RemoteDomainMigratePrepareTunnel3Args();
             innerReq.CookieIn = cookieIn;
             innerReq.Flags = flags;
@@ -3076,11 +3079,14 @@ namespace LibvirtRemote {
             innerReq.DomXml = domXml;
             var innerTask = this.DomainMigratePrepareTunnel3WrappedAsync(innerReq, cancellationToken);
             var innerRes = await innerTask;
-            return innerRes;
+            var innerStream = innerRes.Item1;
+            var innerRes2 = innerRes.Item2;
+            var innerCookieOut = innerRes2.CookieOut;
+            return new Tuple<VirtNetStream, System.Collections.Generic.List<byte>>(innerStream, innerCookieOut);
         }
         
-        public async Task<VirtNetStream> DomainMigratePrepareTunnel3WrappedAsync(Binding.RemoteDomainMigratePrepareTunnel3Args arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallWithStreamAsync<VirtNetStream>(Binding.RemoteProcedure.RemoteProcDomainMigratePrepareTunnel3, arg, cancellationToken);
+        public async Task<Tuple<VirtNetStream, Binding.RemoteDomainMigratePrepareTunnel3Ret>> DomainMigratePrepareTunnel3WrappedAsync(Binding.RemoteDomainMigratePrepareTunnel3Args arg, System.Threading.CancellationToken cancellationToken) {
+            var innerTask = this.CallWithStreamAsync<Binding.RemoteDomainMigratePrepareTunnel3Ret>(Binding.RemoteProcedure.RemoteProcDomainMigratePrepareTunnel3, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -4251,11 +4257,11 @@ namespace LibvirtRemote {
             innerReq.Flags = flags;
             var innerTask = this.DomainOpenChannelWrappedAsync(innerReq, cancellationToken);
             var innerRes = await innerTask;
-            return innerRes;
+            return innerRes.Item1;
         }
         
-        public async Task<VirtNetStream> DomainOpenChannelWrappedAsync(Binding.RemoteDomainOpenChannelArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallWithStreamAsync<VirtNetStream>(Binding.RemoteProcedure.RemoteProcDomainOpenChannel, arg, cancellationToken);
+        public async Task<Tuple<VirtNetStream, Xdr.XdrVoid>> DomainOpenChannelWrappedAsync(Binding.RemoteDomainOpenChannelArgs arg, System.Threading.CancellationToken cancellationToken) {
+            var innerTask = this.CallWithStreamAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainOpenChannel, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }

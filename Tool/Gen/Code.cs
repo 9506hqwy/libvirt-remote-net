@@ -125,6 +125,61 @@ internal static class Code
         return variables.ToArray();
     }
 
+    internal static CodeVariableDeclarationStatement[] AddDeconstructTupleStatement(
+        CodeMemberMethod method,
+        CodeVariableReferenceExpression response,
+        Type type)
+    {
+        const string response2 = "innerRes2";
+
+        var properties = type.GetProperties();
+        if (properties.Length > 7)
+        {
+            return new CodeVariableDeclarationStatement[0];
+        }
+
+        var variables = new List<CodeVariableDeclarationStatement>();
+        {
+            var assign = new CodeVariableDeclarationStatement(
+                "var",
+                $"innerStream")
+            {
+                InitExpression = Code.CreateTupleProperty(response.VariableName, 1),
+            };
+            variables.Add(assign);
+
+            method.Statements.Add(assign);
+        }
+
+        {
+            var assign = new CodeVariableDeclarationStatement(
+                "var",
+                response2)
+            {
+                InitExpression = Code.CreateTupleProperty(response.VariableName, 2),
+            };
+
+            method.Statements.Add(assign);
+        }
+
+        foreach (var property in properties)
+        {
+            var assign = new CodeVariableDeclarationStatement(
+                "var",
+                $"inner{Utility.ToPropertyName(property.Name)}")
+            {
+                InitExpression = new CodePropertyReferenceExpression(
+                    new CodeVariableReferenceExpression(response2),
+                    Utility.ToPropertyName(property.Name)),
+            };
+            variables.Add(assign);
+
+            method.Statements.Add(assign);
+        }
+
+        return variables.ToArray();
+    }
+
     internal static FuncArgs? AddFuncArgs(CodeMemberMethod method, Type? type, bool isWrapped)
     {
         var args = type is null ? null : new FuncArgs(type, isWrapped);
@@ -144,8 +199,32 @@ internal static class Code
 
         if (Code.StreamProcs.Contains(procName))
         {
-            method.ReturnType.TypeArguments.Add(Code.VirtStreamTypeRef);
-            return null;
+            CodeTypeReference? tuple;
+            if (type is null && !isWrapped)
+            {
+                tuple = Code.VirtStreamTypeRef;
+            }
+            else if (type is null && isWrapped)
+            {
+                tuple = new CodeTypeReference("Tuple");
+                tuple.TypeArguments.Add(Code.VirtStreamTypeRef);
+                tuple.TypeArguments.Add(typeof(Xdr.XdrVoid));
+            }
+            else if (isWrapped)
+            {
+                tuple = new CodeTypeReference("Tuple");
+                tuple.TypeArguments.Add(Code.VirtStreamTypeRef);
+                tuple.TypeArguments.Add(new CodeTypeReference(type!));
+            }
+            else
+            {
+                tuple = new CodeTypeReference("Tuple");
+                tuple.TypeArguments.Add(Code.VirtStreamTypeRef);
+                tuple.TypeArguments.Add(Code.CreateFuncRetType(type!, isWrapped));
+            }
+
+            method.ReturnType.TypeArguments.Add(tuple!);
+            return type;
         }
         else if (type is not null)
         {
@@ -278,23 +357,53 @@ internal static class Code
         {
             // Tuple は 7 個まで。
             var retTypes = type!.GetProperties().Select(p => p.PropertyType).ToArray();
-            var tuple = Code.CreateTupleRef(retTypes);
-
-            var ctor = new CodeObjectCreateExpression(tuple);
-            ctor.Parameters.AddRange(variables
-                .Select(v => new CodeVariableReferenceExpression(v.Name))
-                .ToArray());
-
-            return ctor;
+            return Code.CreateFuncRetValue(retTypes, variables);
         }
 
         return new CodeVariableReferenceExpression(variable.Name);
     }
 
+    internal static CodeExpression CreateFuncRetValue(
+        Type[] types,
+        CodeVariableDeclarationStatement[] variables)
+    {
+        return Code.CreateFuncRetValue(
+            types.Select(t => new CodeTypeReference(t)).ToArray(),
+            variables);
+    }
+
+    internal static CodeExpression CreateFuncRetValue(
+        CodeTypeReference[] types,
+        CodeVariableDeclarationStatement[] variables)
+    {
+        var tuple = Code.CreateTupleRef(types);
+
+        var ctor = new CodeObjectCreateExpression(tuple);
+        ctor.Parameters.AddRange(variables
+            .Select(v => new CodeVariableReferenceExpression(v.Name))
+            .ToArray());
+
+        return ctor;
+    }
+
+    internal static CodeExpression CreateTupleProperty(
+        string variableName,
+        int index)
+    {
+        return new CodePropertyReferenceExpression(
+            new CodeVariableReferenceExpression(variableName),
+            $"Item{index}");
+    }
+
     internal static CodeTypeReference CreateTupleRef(Type[] types)
     {
+        return Code.CreateTupleRef(types.Select(t => new CodeTypeReference(t)).ToArray());
+    }
+
+    internal static CodeTypeReference CreateTupleRef(CodeTypeReference[] types)
+    {
         var tuple = new CodeTypeReference("Tuple");
-        tuple.TypeArguments.AddRange(types.Select(t => new CodeTypeReference(t)).ToArray());
+        tuple.TypeArguments.AddRange(types);
         return tuple;
     }
 

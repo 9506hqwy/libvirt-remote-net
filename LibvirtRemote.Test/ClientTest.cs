@@ -61,6 +61,21 @@ public class ClientTest
 
     [TestMethod]
     [Ignore]
+    public void DomainScreenshotAsync()
+    {
+        (var doms, var _) = this.client!.ConnectListAllDomainsAsync(1, 1 | 2, default).Result;
+        var dom = doms.First(d => d.Name == "test");
+
+        (var virStream, var mime) = this.client.DomainScreenshotAsync(dom, 0, 0, default).Result;
+        using var file = File.OpenWrite("/tmp/test.ppm");
+        virStream.CopyTo(file);
+        file.Flush();
+        virStream.Dispose();
+        Assert.IsNotNull(mime);
+    }
+
+    [TestMethod]
+    [Ignore]
     public void StoragePoolEventLifecycle()
     {
         var callbackId = this.client!.ConnectStoragePoolEventRegisterAnyAsync(0, null, default).Result;
