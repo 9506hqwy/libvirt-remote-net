@@ -168,6 +168,7 @@ public partial class VirtClient : IDisposable
     {
         return proc switch
         {
+            LxcProcedure lxc => (int)lxc,
             QemuProcedure qemu => (int)qemu,
             RemoteProcedure remote => (int)remote,
             _ => throw new InvalidProgramException(),
@@ -178,6 +179,7 @@ public partial class VirtClient : IDisposable
     {
         return proc switch
         {
+            LxcProcedure _ => Binding.Constants.LxcProtocolVersion,
             QemuProcedure _ => Binding.Constants.QemuProtocolVersion,
             RemoteProcedure _ => Binding.Constants.RemoteProtocolVersion,
             _ => throw new InvalidProgramException(),
@@ -188,6 +190,7 @@ public partial class VirtClient : IDisposable
     {
         return proc switch
         {
+            LxcProcedure _ => Binding.Constants.LxcProgram,
             QemuProcedure _ => Binding.Constants.QemuProgram,
             RemoteProcedure _ => Binding.Constants.RemoteProgram,
             _ => throw new InvalidProgramException(),

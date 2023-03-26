@@ -244,6 +244,9 @@ internal static class Code
     {
         var progFlag = procName switch
         {
+            LxcProcedure _ => new CodeFieldReferenceExpression(
+                new CodeTypeReferenceExpression(typeof(Constants).Name),
+                nameof(Constants.LxcProgram)),
             QemuProcedure _ => new CodeFieldReferenceExpression(
                 new CodeTypeReferenceExpression(typeof(Constants).Name),
                 nameof(Constants.QemuProgram)),

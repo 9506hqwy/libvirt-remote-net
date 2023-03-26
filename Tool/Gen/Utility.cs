@@ -6,6 +6,8 @@ using System.Text.RegularExpressions;
 
 internal static class Utility
 {
+    internal const string LxcPrefix = "Lxc";
+
     internal const string QemuPrefix = "Qemu";
 
     internal const string RemotePrefix = "Remote";

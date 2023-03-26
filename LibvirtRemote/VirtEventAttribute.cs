@@ -15,6 +15,12 @@ public class VirtEventAttribute : Attribute
             .ToArray();
     }
 
+    public VirtEventAttribute(uint prog, LxcProcedure proc)
+    {
+        this.Prog = prog;
+        this.Proc = (int)proc;
+    }
+
     public VirtEventAttribute(uint prog, QemuProcedure proc)
     {
         this.Prog = prog;

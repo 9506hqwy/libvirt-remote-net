@@ -32,6 +32,11 @@ internal class MainShell
             IsPartial = true,
         };
 
+        foreach ((var procName, var methodName, var argType, var retType) in Utility.EnumerateMethod<LxcProcedure>(Utility.LxcPrefix))
+        {
+            this.AddMemberToCls(procName, methodName, argType, retType, cls);
+        }
+
         foreach ((var procName, var methodName, var argType, var retType) in Utility.EnumerateMethod<QemuProcedure>(Utility.QemuPrefix))
         {
             this.AddMemberToCls(procName, methodName, argType, retType, cls);
@@ -54,6 +59,12 @@ internal class MainShell
 
         var intf = Code.CreateEventInterface();
         ns.Types.Add(intf);
+
+        foreach ((var procName, var eventType) in Utility.EnumerateEvent<LxcProcedure>(Utility.LxcPrefix))
+        {
+            var cls = Code.CreateEventImpl(procName, eventType, intf);
+            ns.Types.Add(cls);
+        }
 
         foreach ((var procName, var eventType) in Utility.EnumerateEvent<QemuProcedure>(Utility.QemuPrefix))
         {

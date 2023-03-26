@@ -41,12 +41,14 @@ public class VirtSocket : IDisposable
 
         var resHeaderBytes = await this.ReadByteAsync(24, cancellationToken);
         var resHeader = Utility.ConvertFromBytes<VirNetMessageHeader>(resHeaderBytes);
-        if (resHeader.Prog != Binding.Constants.QemuProgram &&
+        if (resHeader.Prog != Binding.Constants.LxcProgram &&
+            resHeader.Prog != Binding.Constants.QemuProgram &&
             resHeader.Prog != Binding.Constants.RemoteProgram)
         {
             throw new VirtException($"Invalid program number: {resHeader.Prog}");
         }
         else if (
+            resHeader.Vers != Binding.Constants.LxcProtocolVersion &&
             resHeader.Vers != Binding.Constants.QemuProtocolVersion &&
             resHeader.Vers != Binding.Constants.RemoteProtocolVersion)
         {

@@ -178,6 +178,10 @@ namespace Binding {
         
         public const uint VirTypedParamString = 7u;
         
+        public const uint LxcProgram = 425984u;
+        
+        public const uint LxcProtocolVersion = 1u;
+        
         public const uint QemuProgram = 536903815u;
         
         public const uint QemuProtocolVersion = 1u;
@@ -21923,6 +21927,41 @@ namespace Binding {
         RemoteProcDomainAbortJobFlags = 442,
         
         RemoteProcDomainFdAssociate = 443,
+    }
+    
+    [System.SerializableAttribute()]
+    [Xdr.XdrStructAttribute()]
+    public partial class LxcDomainOpenNamespaceArgs {
+        
+        private RemoteNonnullDomain dom;
+        
+        private uint flags;
+        
+        [Xdr.XdrElementOrderAttribute(1)]
+        public RemoteNonnullDomain Dom {
+            get {
+                return this.dom;
+            }
+            set {
+                this.dom = value;
+            }
+        }
+        
+        [Xdr.XdrElementOrderAttribute(2)]
+        public uint Flags {
+            get {
+                return this.flags;
+            }
+            set {
+                this.flags = value;
+            }
+        }
+    }
+    
+    [System.SerializableAttribute()]
+    public enum LxcProcedure {
+        
+        LxcProcDomainOpenNamespace = 1,
     }
     
     [System.SerializableAttribute()]

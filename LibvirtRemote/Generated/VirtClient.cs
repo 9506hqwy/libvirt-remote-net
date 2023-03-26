@@ -12,6 +12,19 @@ namespace LibvirtRemote {
     
     public partial class VirtClient {
         
+        public async Task DomainOpenNamespaceAsync(Binding.RemoteNonnullDomain dom, uint flags, System.Threading.CancellationToken cancellationToken) {
+            var innerReq = new Binding.LxcDomainOpenNamespaceArgs();
+            innerReq.Dom = dom;
+            innerReq.Flags = flags;
+            var innerTask = this.DomainOpenNamespaceWrappedAsync(innerReq, cancellationToken);
+            await innerTask;
+        }
+        
+        public async Task DomainOpenNamespaceWrappedAsync(Binding.LxcDomainOpenNamespaceArgs arg, System.Threading.CancellationToken cancellationToken) {
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.LxcProcedure>(Binding.LxcProcedure.LxcProcDomainOpenNamespace, arg, cancellationToken);
+            await innerTask;
+        }
+        
         public async Task<string> DomainMonitorCommandAsync(Binding.RemoteNonnullDomain dom, string cmd, uint flags, System.Threading.CancellationToken cancellationToken) {
             var innerReq = new Binding.QemuDomainMonitorCommandArgs();
             innerReq.Dom = dom;
