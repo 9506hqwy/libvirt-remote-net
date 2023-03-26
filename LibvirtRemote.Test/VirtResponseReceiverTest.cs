@@ -57,12 +57,16 @@ public class VirtResponseReceiverTest
             socket =>
             {
                 socket.Send(
+                    Binding.Constants.RemoteProgram,
+                    Binding.Constants.RemoteProtocolVersion,
                     1,
                     (int)RemoteProcedure.RemoteProcStorageVolDownload,
                     VirNetMessageType.VirNetStream,
                     VirNetMessageStatus.VirNetOk,
                     null);
                 socket.Send(
+                    Binding.Constants.RemoteProgram,
+                    Binding.Constants.RemoteProtocolVersion,
                     1,
                     (int)RemoteProcedure.RemoteProcStorageVolDownload,
                     VirNetMessageType.VirNetStream,
@@ -100,12 +104,16 @@ public class VirtResponseReceiverTest
             socket =>
             {
                 socket.Send(
+                    Binding.Constants.RemoteProgram,
+                    Binding.Constants.RemoteProtocolVersion,
                     1,
                     (int)RemoteProcedure.RemoteProcStorageVolDownload,
                     VirNetMessageType.VirNetStream,
                     VirNetMessageStatus.VirNetOk,
                     null);
                 socket.Send(
+                    Binding.Constants.RemoteProgram,
+                    Binding.Constants.RemoteProtocolVersion,
                     1,
                     (int)RemoteProcedure.RemoteProcStorageVolDownload,
                     VirNetMessageType.VirNetStream,
@@ -193,7 +201,14 @@ public class VirtResponseReceiverTest
     {
         return this.CreateReceiver(delayRead, socket =>
         {
-            socket.Send(1, (int)proc, type, status, requst);
+            socket.Send(
+                Binding.Constants.RemoteProgram,
+                Binding.Constants.RemoteProtocolVersion,
+                1,
+                (int)proc,
+                type,
+                status,
+                requst);
         });
     }
 

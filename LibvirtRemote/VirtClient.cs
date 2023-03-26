@@ -55,32 +55,32 @@ public partial class VirtClient : IDisposable
         return new VirtEventStream(callbackId, queue);
     }
 
-    internal async Task<T?> CallAsync<T>(
-        RemoteProcedure proc,
+    internal async Task<TRet?> CallAsync<TRet, TProc>(
+        TProc proc,
         object? request,
         CancellationToken cancellationToken)
     {
         var res = await this.CallAsync(false, proc, request, cancellationToken);
-        return res.ConvertTo<T>();
+        return res.ConvertTo<TRet>();
     }
 
-    internal async Task<Tuple<VirtNetStream, T?>> CallWithStreamAsync<T>(
-        RemoteProcedure proc,
+    internal async Task<Tuple<VirtNetStream, TRet?>> CallWithStreamAsync<TRet, TProc>(
+        TProc proc,
         object? request,
         CancellationToken cancellationToken)
     {
         var res = await this.CallAsync(true, proc, request, cancellationToken);
-        var val = res.ConvertTo<T>();
+        var val = res.ConvertTo<TRet>();
 
         var stream = this.receiver.GetStream(res.Header.Serial);
         var virStream = new VirtNetStream(this, stream, res.Header);
-        return new Tuple<VirtNetStream, T?>(virStream, val);
+        return new Tuple<VirtNetStream, TRet?>(virStream, val);
     }
 
-    internal VirtResponse Request(
+    internal VirtResponse Request<TProc>(
         bool isStream,
         uint serial,
-        int proc,
+        TProc proc,
         VirNetMessageType type,
         VirNetMessageStatus status,
         object? request)
@@ -88,10 +88,10 @@ public partial class VirtClient : IDisposable
         return this.RequestAsync(isStream, serial, proc, type, status, request, default).Result;
     }
 
-    internal async Task<VirtResponse> RequestAsync(
+    internal async Task<VirtResponse> RequestAsync<TProc>(
         bool isStream,
         uint serial,
-        int proc,
+        TProc proc,
         VirNetMessageType type,
         VirNetMessageStatus status,
         object? request,
@@ -110,8 +110,10 @@ public partial class VirtClient : IDisposable
         try
         {
             await this.Socket.SendAsync(
+                this.GetProg(proc),
+                this.GetProtoVersion(proc),
                 serial,
-                proc,
+                this.GetProcNumber(proc),
                 type,
                 status,
                 request,
@@ -142,9 +144,9 @@ public partial class VirtClient : IDisposable
         this.disposed = true;
     }
 
-    private Task<VirtResponse> CallAsync(
+    private Task<VirtResponse> CallAsync<TProc>(
         bool isStream,
-        RemoteProcedure proc,
+        TProc proc,
         object? request,
         CancellationToken cancellationToken)
     {
@@ -155,11 +157,41 @@ public partial class VirtClient : IDisposable
         return this.RequestAsync(
             isStream,
             serial,
-            (int)proc,
+            proc,
             VirNetMessageType.VirNetCall,
             VirNetMessageStatus.VirNetOk,
             request,
             cancellationToken);
+    }
+
+    private int GetProcNumber<TProc>(TProc proc)
+    {
+        return proc switch
+        {
+            QemuProcedure qemu => (int)qemu,
+            RemoteProcedure remote => (int)remote,
+            _ => throw new InvalidProgramException(),
+        };
+    }
+
+    private uint GetProtoVersion<TProc>(TProc proc)
+    {
+        return proc switch
+        {
+            QemuProcedure _ => Binding.Constants.QemuProtocolVersion,
+            RemoteProcedure _ => Binding.Constants.RemoteProtocolVersion,
+            _ => throw new InvalidProgramException(),
+        };
+    }
+
+    private uint GetProg<TProc>(TProc proc)
+    {
+        return proc switch
+        {
+            QemuProcedure _ => Binding.Constants.QemuProgram,
+            RemoteProcedure _ => Binding.Constants.RemoteProgram,
+            _ => throw new InvalidProgramException(),
+        };
     }
 
     private uint IncrementSerial()

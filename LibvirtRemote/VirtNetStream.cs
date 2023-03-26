@@ -59,6 +59,8 @@ public class VirtNetStream : Stream, IDisposable
     public override void Write(byte[] buffer, int offset, int count)
     {
         this.client.Socket.Send(
+            this.header.Prog,
+            this.header.Vers,
             this.header.Serial,
             this.header.Proc,
             VirNetMessageType.VirNetStream,

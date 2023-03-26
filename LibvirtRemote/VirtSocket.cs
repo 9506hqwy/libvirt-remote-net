@@ -41,11 +41,14 @@ public class VirtSocket : IDisposable
 
         var resHeaderBytes = await this.ReadByteAsync(24, cancellationToken);
         var resHeader = Utility.ConvertFromBytes<VirNetMessageHeader>(resHeaderBytes);
-        if (resHeader.Prog != Binding.Constants.RemoteProgram)
+        if (resHeader.Prog != Binding.Constants.QemuProgram &&
+            resHeader.Prog != Binding.Constants.RemoteProgram)
         {
             throw new VirtException($"Invalid program number: {resHeader.Prog}");
         }
-        else if (resHeader.Vers != Binding.Constants.RemoteProtocolVersion)
+        else if (
+            resHeader.Vers != Binding.Constants.QemuProtocolVersion &&
+            resHeader.Vers != Binding.Constants.RemoteProtocolVersion)
         {
             throw new VirtException($"Invalid protocol version: {resHeader.Vers}");
         }
@@ -62,16 +65,20 @@ public class VirtSocket : IDisposable
     }
 
     public uint Send(
+        uint prog,
+        uint protoVersion,
         uint serial,
         int proc,
         VirNetMessageType msgType,
         VirNetMessageStatus msgStatus,
         object? request)
     {
-        return this.SendAsync(serial, proc, msgType, msgStatus, request, default).Result;
+        return this.SendAsync(prog, protoVersion, serial, proc, msgType, msgStatus, request, default).Result;
     }
 
     public async Task<uint> SendAsync(
+        uint prog,
+        uint protoVersion,
         uint serial,
         int proc,
         VirNetMessageType msgType,
@@ -83,8 +90,8 @@ public class VirtSocket : IDisposable
 
         var reqHeader = new VirNetMessageHeader
         {
-            Prog = Binding.Constants.RemoteProgram,
-            Vers = Binding.Constants.RemoteProtocolVersion,
+            Prog = prog,
+            Vers = protoVersion,
             Proc = proc,
             Type = msgType,
             Serial = serial,

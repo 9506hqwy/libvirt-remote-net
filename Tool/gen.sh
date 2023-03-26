@@ -4,6 +4,7 @@ set -eu
 
 VERSION="v9.1.0"
 PROTO_URL="https://raw.githubusercontent.com/libvirt/libvirt/${VERSION}/src/rpc/virnetprotocol.x"
+QEMU_URL="https://raw.githubusercontent.com/libvirt/libvirt/${VERSION}/src/remote/qemu_protocol.x"
 REMOTE_URL="https://raw.githubusercontent.com/libvirt/libvirt/${VERSION}/src/remote/remote_protocol.x"
 
 SHDIR=`cd $(dirname $0); pwd`
@@ -19,6 +20,7 @@ EOF
 dotnet rpc-gen ${WORKDIR}/Protocol.x
 cp -f "${WORKDIR}/Protocol.cs" "${SHDIR}/../LibvirtRemote/Generated/"
 
+curl -sSL -o ${WORKDIR}/Qemu.x ${QEMU_URL}
 curl -sSL -o ${WORKDIR}/Binding.x ${REMOTE_URL}
 cat - << EOF >> ${WORKDIR}/Binding.x
 const VIR_SECURITY_MODEL_BUFLEN = 256;
@@ -33,6 +35,7 @@ const VIR_TYPED_PARAM_DOUBLE = 5;
 const VIR_TYPED_PARAM_BOOLEAN = 6;
 const VIR_TYPED_PARAM_STRING = 7;
 EOF
+cat ${WORKDIR}/Qemu.x >> ${WORKDIR}/Binding.x
 dotnet rpc-gen ${WORKDIR}/Binding.x
 cp -f "${WORKDIR}/Binding.cs" "${SHDIR}/../LibvirtRemote/Generated/"
 

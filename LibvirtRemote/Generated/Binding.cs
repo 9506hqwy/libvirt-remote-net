@@ -177,6 +177,10 @@ namespace Binding {
         public const uint VirTypedParamBoolean = 6u;
         
         public const uint VirTypedParamString = 7u;
+        
+        public const uint QemuProgram = 536903815u;
+        
+        public const uint QemuProtocolVersion = 1u;
     }
     
     [System.SerializableAttribute()]
@@ -21919,5 +21923,407 @@ namespace Binding {
         RemoteProcDomainAbortJobFlags = 442,
         
         RemoteProcDomainFdAssociate = 443,
+    }
+    
+    [System.SerializableAttribute()]
+    [Xdr.XdrStructAttribute()]
+    public partial class QemuDomainMonitorCommandArgs {
+        
+        private RemoteNonnullDomain dom;
+        
+        private string cmd;
+        
+        private uint flags;
+        
+        [Xdr.XdrElementOrderAttribute(1)]
+        public RemoteNonnullDomain Dom {
+            get {
+                return this.dom;
+            }
+            set {
+                this.dom = value;
+            }
+        }
+        
+        [Xdr.XdrElementOrderAttribute(2)]
+        public string Cmd {
+            get {
+                return this.cmd;
+            }
+            set {
+                this.cmd = value;
+            }
+        }
+        
+        [Xdr.XdrElementOrderAttribute(3)]
+        public uint Flags {
+            get {
+                return this.flags;
+            }
+            set {
+                this.flags = value;
+            }
+        }
+    }
+    
+    [System.SerializableAttribute()]
+    [Xdr.XdrStructAttribute()]
+    public partial class QemuDomainMonitorCommandRet {
+        
+        private string result;
+        
+        [Xdr.XdrElementOrderAttribute(1)]
+        public string Result {
+            get {
+                return this.result;
+            }
+            set {
+                this.result = value;
+            }
+        }
+    }
+    
+    [System.SerializableAttribute()]
+    [Xdr.XdrStructAttribute()]
+    public partial class QemuDomainAttachArgs {
+        
+        private uint pidValue;
+        
+        private uint flags;
+        
+        [Xdr.XdrElementOrderAttribute(1)]
+        public uint PidValue {
+            get {
+                return this.pidValue;
+            }
+            set {
+                this.pidValue = value;
+            }
+        }
+        
+        [Xdr.XdrElementOrderAttribute(2)]
+        public uint Flags {
+            get {
+                return this.flags;
+            }
+            set {
+                this.flags = value;
+            }
+        }
+    }
+    
+    [System.SerializableAttribute()]
+    [Xdr.XdrStructAttribute()]
+    public partial class QemuDomainAttachRet {
+        
+        private RemoteNonnullDomain dom;
+        
+        [Xdr.XdrElementOrderAttribute(1)]
+        public RemoteNonnullDomain Dom {
+            get {
+                return this.dom;
+            }
+            set {
+                this.dom = value;
+            }
+        }
+    }
+    
+    [System.SerializableAttribute()]
+    [Xdr.XdrStructAttribute()]
+    public partial class QemuDomainAgentCommandArgs {
+        
+        private RemoteNonnullDomain dom;
+        
+        private string cmd;
+        
+        private int timeout;
+        
+        private uint flags;
+        
+        [Xdr.XdrElementOrderAttribute(1)]
+        public RemoteNonnullDomain Dom {
+            get {
+                return this.dom;
+            }
+            set {
+                this.dom = value;
+            }
+        }
+        
+        [Xdr.XdrElementOrderAttribute(2)]
+        public string Cmd {
+            get {
+                return this.cmd;
+            }
+            set {
+                this.cmd = value;
+            }
+        }
+        
+        [Xdr.XdrElementOrderAttribute(3)]
+        public int Timeout {
+            get {
+                return this.timeout;
+            }
+            set {
+                this.timeout = value;
+            }
+        }
+        
+        [Xdr.XdrElementOrderAttribute(4)]
+        public uint Flags {
+            get {
+                return this.flags;
+            }
+            set {
+                this.flags = value;
+            }
+        }
+    }
+    
+    [System.SerializableAttribute()]
+    [Xdr.XdrStructAttribute()]
+    public partial class QemuDomainAgentCommandRet {
+        
+        private Xdr.XdrOption<string> result;
+        
+        [Xdr.XdrElementOrderAttribute(1)]
+        public Xdr.XdrOption<string> Result {
+            get {
+                return this.result;
+            }
+            set {
+                this.result = value;
+            }
+        }
+    }
+    
+    [System.SerializableAttribute()]
+    [Xdr.XdrStructAttribute()]
+    public partial class QemuConnectDomainMonitorEventRegisterArgs {
+        
+        private Xdr.XdrOption<RemoteNonnullDomain> dom;
+        
+        private Xdr.XdrOption<string> @event;
+        
+        private uint flags;
+        
+        [Xdr.XdrElementOrderAttribute(1)]
+        public Xdr.XdrOption<RemoteNonnullDomain> Dom {
+            get {
+                return this.dom;
+            }
+            set {
+                this.dom = value;
+            }
+        }
+        
+        [Xdr.XdrElementOrderAttribute(2)]
+        public Xdr.XdrOption<string> Event {
+            get {
+                return this.@event;
+            }
+            set {
+                this.@event = value;
+            }
+        }
+        
+        [Xdr.XdrElementOrderAttribute(3)]
+        public uint Flags {
+            get {
+                return this.flags;
+            }
+            set {
+                this.flags = value;
+            }
+        }
+    }
+    
+    [System.SerializableAttribute()]
+    [Xdr.XdrStructAttribute()]
+    public partial class QemuConnectDomainMonitorEventRegisterRet {
+        
+        private int callbackId;
+        
+        [Xdr.XdrElementOrderAttribute(1)]
+        public int CallbackId {
+            get {
+                return this.callbackId;
+            }
+            set {
+                this.callbackId = value;
+            }
+        }
+    }
+    
+    [System.SerializableAttribute()]
+    [Xdr.XdrStructAttribute()]
+    public partial class QemuConnectDomainMonitorEventDeregisterArgs {
+        
+        private int callbackId;
+        
+        [Xdr.XdrElementOrderAttribute(1)]
+        public int CallbackId {
+            get {
+                return this.callbackId;
+            }
+            set {
+                this.callbackId = value;
+            }
+        }
+    }
+    
+    [System.SerializableAttribute()]
+    [Xdr.XdrStructAttribute()]
+    public partial class QemuDomainMonitorEventMsg {
+        
+        private int callbackId;
+        
+        private RemoteNonnullDomain dom;
+        
+        private string @event;
+        
+        private long seconds;
+        
+        private uint micros;
+        
+        private Xdr.XdrOption<string> details;
+        
+        [Xdr.XdrElementOrderAttribute(1)]
+        public int CallbackId {
+            get {
+                return this.callbackId;
+            }
+            set {
+                this.callbackId = value;
+            }
+        }
+        
+        [Xdr.XdrElementOrderAttribute(2)]
+        public RemoteNonnullDomain Dom {
+            get {
+                return this.dom;
+            }
+            set {
+                this.dom = value;
+            }
+        }
+        
+        [Xdr.XdrElementOrderAttribute(3)]
+        public string Event {
+            get {
+                return this.@event;
+            }
+            set {
+                this.@event = value;
+            }
+        }
+        
+        [Xdr.XdrElementOrderAttribute(4)]
+        public long Seconds {
+            get {
+                return this.seconds;
+            }
+            set {
+                this.seconds = value;
+            }
+        }
+        
+        [Xdr.XdrElementOrderAttribute(5)]
+        public uint Micros {
+            get {
+                return this.micros;
+            }
+            set {
+                this.micros = value;
+            }
+        }
+        
+        [Xdr.XdrElementOrderAttribute(6)]
+        public Xdr.XdrOption<string> Details {
+            get {
+                return this.details;
+            }
+            set {
+                this.details = value;
+            }
+        }
+    }
+    
+    [System.SerializableAttribute()]
+    [Xdr.XdrStructAttribute()]
+    public partial class QemuDomainMonitorCommandWithFilesArgs {
+        
+        private RemoteNonnullDomain dom;
+        
+        private string cmd;
+        
+        private uint flags;
+        
+        [Xdr.XdrElementOrderAttribute(1)]
+        public RemoteNonnullDomain Dom {
+            get {
+                return this.dom;
+            }
+            set {
+                this.dom = value;
+            }
+        }
+        
+        [Xdr.XdrElementOrderAttribute(2)]
+        public string Cmd {
+            get {
+                return this.cmd;
+            }
+            set {
+                this.cmd = value;
+            }
+        }
+        
+        [Xdr.XdrElementOrderAttribute(3)]
+        public uint Flags {
+            get {
+                return this.flags;
+            }
+            set {
+                this.flags = value;
+            }
+        }
+    }
+    
+    [System.SerializableAttribute()]
+    [Xdr.XdrStructAttribute()]
+    public partial class QemuDomainMonitorCommandWithFilesRet {
+        
+        private string result;
+        
+        [Xdr.XdrElementOrderAttribute(1)]
+        public string Result {
+            get {
+                return this.result;
+            }
+            set {
+                this.result = value;
+            }
+        }
+    }
+    
+    [System.SerializableAttribute()]
+    public enum QemuProcedure {
+        
+        QemuProcDomainMonitorCommand = 1,
+        
+        QemuProcDomainAttach = 2,
+        
+        QemuProcDomainAgentCommand = 3,
+        
+        QemuProcConnectDomainMonitorEventRegister = 4,
+        
+        QemuProcConnectDomainMonitorEventDeregister = 5,
+        
+        QemuProcDomainMonitorEvent = 6,
+        
+        QemuProcDomainMonitorCommandWithFiles = 7,
     }
 }

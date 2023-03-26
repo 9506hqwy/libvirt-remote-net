@@ -15,12 +15,21 @@ public class VirtEventAttribute : Attribute
             .ToArray();
     }
 
-    public VirtEventAttribute(RemoteProcedure proc)
+    public VirtEventAttribute(uint prog, QemuProcedure proc)
     {
+        this.Prog = prog;
+        this.Proc = (int)proc;
+    }
+
+    public VirtEventAttribute(uint prog, RemoteProcedure proc)
+    {
+        this.Prog = prog;
         this.Proc = (int)proc;
     }
 
     public int Proc { get; }
+
+    public uint Prog { get; }
 
     public Type? Type { get; private set; }
 

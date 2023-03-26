@@ -12,6 +12,103 @@ namespace LibvirtRemote {
     
     public partial class VirtClient {
         
+        public async Task<string> DomainMonitorCommandAsync(Binding.RemoteNonnullDomain dom, string cmd, uint flags, System.Threading.CancellationToken cancellationToken) {
+            var innerReq = new Binding.QemuDomainMonitorCommandArgs();
+            innerReq.Dom = dom;
+            innerReq.Cmd = cmd;
+            innerReq.Flags = flags;
+            var innerTask = this.DomainMonitorCommandWrappedAsync(innerReq, cancellationToken);
+            var innerRes = await innerTask;
+            var innerResult = innerRes.Result;
+            return innerResult;
+        }
+        
+        public async Task<Binding.QemuDomainMonitorCommandRet> DomainMonitorCommandWrappedAsync(Binding.QemuDomainMonitorCommandArgs arg, System.Threading.CancellationToken cancellationToken) {
+            var innerTask = this.CallAsync<Binding.QemuDomainMonitorCommandRet, Binding.QemuProcedure>(Binding.QemuProcedure.QemuProcDomainMonitorCommand, arg, cancellationToken);
+            var innerRes = await innerTask;
+            return innerRes;
+        }
+        
+        public async Task<Binding.RemoteNonnullDomain> DomainAttachAsync(uint pidValue, uint flags, System.Threading.CancellationToken cancellationToken) {
+            var innerReq = new Binding.QemuDomainAttachArgs();
+            innerReq.PidValue = pidValue;
+            innerReq.Flags = flags;
+            var innerTask = this.DomainAttachWrappedAsync(innerReq, cancellationToken);
+            var innerRes = await innerTask;
+            var innerDom = innerRes.Dom;
+            return innerDom;
+        }
+        
+        public async Task<Binding.QemuDomainAttachRet> DomainAttachWrappedAsync(Binding.QemuDomainAttachArgs arg, System.Threading.CancellationToken cancellationToken) {
+            var innerTask = this.CallAsync<Binding.QemuDomainAttachRet, Binding.QemuProcedure>(Binding.QemuProcedure.QemuProcDomainAttach, arg, cancellationToken);
+            var innerRes = await innerTask;
+            return innerRes;
+        }
+        
+        public async Task<Xdr.XdrOption<string>> DomainAgentCommandAsync(Binding.RemoteNonnullDomain dom, string cmd, int timeout, uint flags, System.Threading.CancellationToken cancellationToken) {
+            var innerReq = new Binding.QemuDomainAgentCommandArgs();
+            innerReq.Dom = dom;
+            innerReq.Cmd = cmd;
+            innerReq.Timeout = timeout;
+            innerReq.Flags = flags;
+            var innerTask = this.DomainAgentCommandWrappedAsync(innerReq, cancellationToken);
+            var innerRes = await innerTask;
+            var innerResult = innerRes.Result;
+            return innerResult;
+        }
+        
+        public async Task<Binding.QemuDomainAgentCommandRet> DomainAgentCommandWrappedAsync(Binding.QemuDomainAgentCommandArgs arg, System.Threading.CancellationToken cancellationToken) {
+            var innerTask = this.CallAsync<Binding.QemuDomainAgentCommandRet, Binding.QemuProcedure>(Binding.QemuProcedure.QemuProcDomainAgentCommand, arg, cancellationToken);
+            var innerRes = await innerTask;
+            return innerRes;
+        }
+        
+        public async Task<int> ConnectDomainMonitorEventRegisterAsync(Xdr.XdrOption<Binding.RemoteNonnullDomain> dom, Xdr.XdrOption<string> @event, uint flags, System.Threading.CancellationToken cancellationToken) {
+            var innerReq = new Binding.QemuConnectDomainMonitorEventRegisterArgs();
+            innerReq.Dom = dom;
+            innerReq.Event = @event;
+            innerReq.Flags = flags;
+            var innerTask = this.ConnectDomainMonitorEventRegisterWrappedAsync(innerReq, cancellationToken);
+            var innerRes = await innerTask;
+            var innerCallbackId = innerRes.CallbackId;
+            return innerCallbackId;
+        }
+        
+        public async Task<Binding.QemuConnectDomainMonitorEventRegisterRet> ConnectDomainMonitorEventRegisterWrappedAsync(Binding.QemuConnectDomainMonitorEventRegisterArgs arg, System.Threading.CancellationToken cancellationToken) {
+            var innerTask = this.CallAsync<Binding.QemuConnectDomainMonitorEventRegisterRet, Binding.QemuProcedure>(Binding.QemuProcedure.QemuProcConnectDomainMonitorEventRegister, arg, cancellationToken);
+            var innerRes = await innerTask;
+            return innerRes;
+        }
+        
+        public async Task ConnectDomainMonitorEventDeregisterAsync(int callbackId, System.Threading.CancellationToken cancellationToken) {
+            var innerReq = new Binding.QemuConnectDomainMonitorEventDeregisterArgs();
+            innerReq.CallbackId = callbackId;
+            var innerTask = this.ConnectDomainMonitorEventDeregisterWrappedAsync(innerReq, cancellationToken);
+            await innerTask;
+        }
+        
+        public async Task ConnectDomainMonitorEventDeregisterWrappedAsync(Binding.QemuConnectDomainMonitorEventDeregisterArgs arg, System.Threading.CancellationToken cancellationToken) {
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.QemuProcedure>(Binding.QemuProcedure.QemuProcConnectDomainMonitorEventDeregister, arg, cancellationToken);
+            await innerTask;
+        }
+        
+        public async Task<string> DomainMonitorCommandWithFilesAsync(Binding.RemoteNonnullDomain dom, string cmd, uint flags, System.Threading.CancellationToken cancellationToken) {
+            var innerReq = new Binding.QemuDomainMonitorCommandWithFilesArgs();
+            innerReq.Dom = dom;
+            innerReq.Cmd = cmd;
+            innerReq.Flags = flags;
+            var innerTask = this.DomainMonitorCommandWithFilesWrappedAsync(innerReq, cancellationToken);
+            var innerRes = await innerTask;
+            var innerResult = innerRes.Result;
+            return innerResult;
+        }
+        
+        public async Task<Binding.QemuDomainMonitorCommandWithFilesRet> DomainMonitorCommandWithFilesWrappedAsync(Binding.QemuDomainMonitorCommandWithFilesArgs arg, System.Threading.CancellationToken cancellationToken) {
+            var innerTask = this.CallAsync<Binding.QemuDomainMonitorCommandWithFilesRet, Binding.QemuProcedure>(Binding.QemuProcedure.QemuProcDomainMonitorCommandWithFiles, arg, cancellationToken);
+            var innerRes = await innerTask;
+            return innerRes;
+        }
+        
         public async Task ConnectOpenAsync(Xdr.XdrOption<string> name, uint flags, System.Threading.CancellationToken cancellationToken) {
             var innerReq = new Binding.RemoteConnectOpenArgs();
             innerReq.Name = name;
@@ -21,7 +118,7 @@ namespace LibvirtRemote {
         }
         
         public async Task ConnectOpenWrappedAsync(Binding.RemoteConnectOpenArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcConnectOpen, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcConnectOpen, arg, cancellationToken);
             await innerTask;
         }
         
@@ -31,7 +128,7 @@ namespace LibvirtRemote {
         }
         
         public async Task ConnectCloseWrappedAsync(System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcConnectClose, null, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcConnectClose, null, cancellationToken);
             await innerTask;
         }
         
@@ -43,7 +140,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteConnectGetTypeRet> ConnectGetTypeWrappedAsync(System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteConnectGetTypeRet>(Binding.RemoteProcedure.RemoteProcConnectGetType, null, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteConnectGetTypeRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcConnectGetType, null, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -56,7 +153,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteConnectGetVersionRet> ConnectGetVersionWrappedAsync(System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteConnectGetVersionRet>(Binding.RemoteProcedure.RemoteProcConnectGetVersion, null, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteConnectGetVersionRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcConnectGetVersion, null, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -71,7 +168,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteConnectGetMaxVcpusRet> ConnectGetMaxVcpusWrappedAsync(Binding.RemoteConnectGetMaxVcpusArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteConnectGetMaxVcpusRet>(Binding.RemoteProcedure.RemoteProcConnectGetMaxVcpus, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteConnectGetMaxVcpusRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcConnectGetMaxVcpus, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -83,7 +180,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteNodeGetInfoRet> NodeGetInfoWrappedAsync(System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteNodeGetInfoRet>(Binding.RemoteProcedure.RemoteProcNodeGetInfo, null, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteNodeGetInfoRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcNodeGetInfo, null, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -96,7 +193,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteConnectGetCapabilitiesRet> ConnectGetCapabilitiesWrappedAsync(System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteConnectGetCapabilitiesRet>(Binding.RemoteProcedure.RemoteProcConnectGetCapabilities, null, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteConnectGetCapabilitiesRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcConnectGetCapabilities, null, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -110,7 +207,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainAttachDeviceWrappedAsync(Binding.RemoteDomainAttachDeviceArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainAttachDevice, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainAttachDevice, arg, cancellationToken);
             await innerTask;
         }
         
@@ -122,7 +219,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainCreateWrappedAsync(Binding.RemoteDomainCreateArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainCreate, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainCreate, arg, cancellationToken);
             await innerTask;
         }
         
@@ -137,7 +234,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainCreateXmlRet> DomainCreateXmlWrappedAsync(Binding.RemoteDomainCreateXmlArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainCreateXmlRet>(Binding.RemoteProcedure.RemoteProcDomainCreateXml, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainCreateXmlRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainCreateXml, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -152,7 +249,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainDefineXmlRet> DomainDefineXmlWrappedAsync(Binding.RemoteDomainDefineXmlArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainDefineXmlRet>(Binding.RemoteProcedure.RemoteProcDomainDefineXml, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainDefineXmlRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainDefineXml, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -165,7 +262,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainDestroyWrappedAsync(Binding.RemoteDomainDestroyArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainDestroy, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainDestroy, arg, cancellationToken);
             await innerTask;
         }
         
@@ -178,7 +275,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainDetachDeviceWrappedAsync(Binding.RemoteDomainDetachDeviceArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainDetachDevice, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainDetachDevice, arg, cancellationToken);
             await innerTask;
         }
         
@@ -193,7 +290,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainGetXmlDescRet> DomainGetXmlDescWrappedAsync(Binding.RemoteDomainGetXmlDescArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainGetXmlDescRet>(Binding.RemoteProcedure.RemoteProcDomainGetXmlDesc, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainGetXmlDescRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainGetXmlDesc, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -208,7 +305,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainGetAutostartRet> DomainGetAutostartWrappedAsync(Binding.RemoteDomainGetAutostartArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainGetAutostartRet>(Binding.RemoteProcedure.RemoteProcDomainGetAutostart, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainGetAutostartRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainGetAutostart, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -227,7 +324,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainGetInfoRet> DomainGetInfoWrappedAsync(Binding.RemoteDomainGetInfoArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainGetInfoRet>(Binding.RemoteProcedure.RemoteProcDomainGetInfo, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainGetInfoRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainGetInfo, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -242,7 +339,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainGetMaxMemoryRet> DomainGetMaxMemoryWrappedAsync(Binding.RemoteDomainGetMaxMemoryArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainGetMaxMemoryRet>(Binding.RemoteProcedure.RemoteProcDomainGetMaxMemory, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainGetMaxMemoryRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainGetMaxMemory, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -257,7 +354,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainGetMaxVcpusRet> DomainGetMaxVcpusWrappedAsync(Binding.RemoteDomainGetMaxVcpusArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainGetMaxVcpusRet>(Binding.RemoteProcedure.RemoteProcDomainGetMaxVcpus, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainGetMaxVcpusRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainGetMaxVcpus, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -272,7 +369,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainGetOsTypeRet> DomainGetOsTypeWrappedAsync(Binding.RemoteDomainGetOsTypeArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainGetOsTypeRet>(Binding.RemoteProcedure.RemoteProcDomainGetOsType, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainGetOsTypeRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainGetOsType, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -290,7 +387,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainGetVcpusRet> DomainGetVcpusWrappedAsync(Binding.RemoteDomainGetVcpusArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainGetVcpusRet>(Binding.RemoteProcedure.RemoteProcDomainGetVcpus, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainGetVcpusRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainGetVcpus, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -305,7 +402,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteConnectListDefinedDomainsRet> ConnectListDefinedDomainsWrappedAsync(Binding.RemoteConnectListDefinedDomainsArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteConnectListDefinedDomainsRet>(Binding.RemoteProcedure.RemoteProcConnectListDefinedDomains, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteConnectListDefinedDomainsRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcConnectListDefinedDomains, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -320,7 +417,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainLookupByIdRet> DomainLookupByIdWrappedAsync(Binding.RemoteDomainLookupByIdArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainLookupByIdRet>(Binding.RemoteProcedure.RemoteProcDomainLookupById, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainLookupByIdRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainLookupById, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -335,7 +432,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainLookupByNameRet> DomainLookupByNameWrappedAsync(Binding.RemoteDomainLookupByNameArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainLookupByNameRet>(Binding.RemoteProcedure.RemoteProcDomainLookupByName, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainLookupByNameRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainLookupByName, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -350,7 +447,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainLookupByUuidRet> DomainLookupByUuidWrappedAsync(Binding.RemoteDomainLookupByUuidArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainLookupByUuidRet>(Binding.RemoteProcedure.RemoteProcDomainLookupByUuid, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainLookupByUuidRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainLookupByUuid, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -363,7 +460,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteConnectNumOfDefinedDomainsRet> ConnectNumOfDefinedDomainsWrappedAsync(System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteConnectNumOfDefinedDomainsRet>(Binding.RemoteProcedure.RemoteProcConnectNumOfDefinedDomains, null, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteConnectNumOfDefinedDomainsRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcConnectNumOfDefinedDomains, null, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -378,7 +475,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainPinVcpuWrappedAsync(Binding.RemoteDomainPinVcpuArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainPinVcpu, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainPinVcpu, arg, cancellationToken);
             await innerTask;
         }
         
@@ -391,7 +488,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainRebootWrappedAsync(Binding.RemoteDomainRebootArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainReboot, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainReboot, arg, cancellationToken);
             await innerTask;
         }
         
@@ -403,7 +500,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainResumeWrappedAsync(Binding.RemoteDomainResumeArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainResume, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainResume, arg, cancellationToken);
             await innerTask;
         }
         
@@ -416,7 +513,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainSetAutostartWrappedAsync(Binding.RemoteDomainSetAutostartArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainSetAutostart, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainSetAutostart, arg, cancellationToken);
             await innerTask;
         }
         
@@ -429,7 +526,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainSetMaxMemoryWrappedAsync(Binding.RemoteDomainSetMaxMemoryArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainSetMaxMemory, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainSetMaxMemory, arg, cancellationToken);
             await innerTask;
         }
         
@@ -442,7 +539,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainSetMemoryWrappedAsync(Binding.RemoteDomainSetMemoryArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainSetMemory, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainSetMemory, arg, cancellationToken);
             await innerTask;
         }
         
@@ -455,7 +552,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainSetVcpusWrappedAsync(Binding.RemoteDomainSetVcpusArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainSetVcpus, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainSetVcpus, arg, cancellationToken);
             await innerTask;
         }
         
@@ -467,7 +564,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainShutdownWrappedAsync(Binding.RemoteDomainShutdownArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainShutdown, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainShutdown, arg, cancellationToken);
             await innerTask;
         }
         
@@ -479,7 +576,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainSuspendWrappedAsync(Binding.RemoteDomainSuspendArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainSuspend, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainSuspend, arg, cancellationToken);
             await innerTask;
         }
         
@@ -491,7 +588,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainUndefineWrappedAsync(Binding.RemoteDomainUndefineArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainUndefine, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainUndefine, arg, cancellationToken);
             await innerTask;
         }
         
@@ -505,7 +602,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteConnectListDefinedNetworksRet> ConnectListDefinedNetworksWrappedAsync(Binding.RemoteConnectListDefinedNetworksArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteConnectListDefinedNetworksRet>(Binding.RemoteProcedure.RemoteProcConnectListDefinedNetworks, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteConnectListDefinedNetworksRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcConnectListDefinedNetworks, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -520,7 +617,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteConnectListDomainsRet> ConnectListDomainsWrappedAsync(Binding.RemoteConnectListDomainsArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteConnectListDomainsRet>(Binding.RemoteProcedure.RemoteProcConnectListDomains, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteConnectListDomainsRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcConnectListDomains, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -535,7 +632,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteConnectListNetworksRet> ConnectListNetworksWrappedAsync(Binding.RemoteConnectListNetworksArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteConnectListNetworksRet>(Binding.RemoteProcedure.RemoteProcConnectListNetworks, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteConnectListNetworksRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcConnectListNetworks, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -548,7 +645,7 @@ namespace LibvirtRemote {
         }
         
         public async Task NetworkCreateWrappedAsync(Binding.RemoteNetworkCreateArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcNetworkCreate, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcNetworkCreate, arg, cancellationToken);
             await innerTask;
         }
         
@@ -562,7 +659,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteNetworkCreateXmlRet> NetworkCreateXmlWrappedAsync(Binding.RemoteNetworkCreateXmlArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteNetworkCreateXmlRet>(Binding.RemoteProcedure.RemoteProcNetworkCreateXml, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteNetworkCreateXmlRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcNetworkCreateXml, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -577,7 +674,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteNetworkDefineXmlRet> NetworkDefineXmlWrappedAsync(Binding.RemoteNetworkDefineXmlArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteNetworkDefineXmlRet>(Binding.RemoteProcedure.RemoteProcNetworkDefineXml, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteNetworkDefineXmlRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcNetworkDefineXml, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -590,7 +687,7 @@ namespace LibvirtRemote {
         }
         
         public async Task NetworkDestroyWrappedAsync(Binding.RemoteNetworkDestroyArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcNetworkDestroy, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcNetworkDestroy, arg, cancellationToken);
             await innerTask;
         }
         
@@ -605,7 +702,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteNetworkGetXmlDescRet> NetworkGetXmlDescWrappedAsync(Binding.RemoteNetworkGetXmlDescArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteNetworkGetXmlDescRet>(Binding.RemoteProcedure.RemoteProcNetworkGetXmlDesc, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteNetworkGetXmlDescRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcNetworkGetXmlDesc, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -620,7 +717,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteNetworkGetAutostartRet> NetworkGetAutostartWrappedAsync(Binding.RemoteNetworkGetAutostartArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteNetworkGetAutostartRet>(Binding.RemoteProcedure.RemoteProcNetworkGetAutostart, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteNetworkGetAutostartRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcNetworkGetAutostart, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -635,7 +732,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteNetworkGetBridgeNameRet> NetworkGetBridgeNameWrappedAsync(Binding.RemoteNetworkGetBridgeNameArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteNetworkGetBridgeNameRet>(Binding.RemoteProcedure.RemoteProcNetworkGetBridgeName, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteNetworkGetBridgeNameRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcNetworkGetBridgeName, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -650,7 +747,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteNetworkLookupByNameRet> NetworkLookupByNameWrappedAsync(Binding.RemoteNetworkLookupByNameArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteNetworkLookupByNameRet>(Binding.RemoteProcedure.RemoteProcNetworkLookupByName, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteNetworkLookupByNameRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcNetworkLookupByName, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -665,7 +762,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteNetworkLookupByUuidRet> NetworkLookupByUuidWrappedAsync(Binding.RemoteNetworkLookupByUuidArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteNetworkLookupByUuidRet>(Binding.RemoteProcedure.RemoteProcNetworkLookupByUuid, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteNetworkLookupByUuidRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcNetworkLookupByUuid, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -679,7 +776,7 @@ namespace LibvirtRemote {
         }
         
         public async Task NetworkSetAutostartWrappedAsync(Binding.RemoteNetworkSetAutostartArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcNetworkSetAutostart, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcNetworkSetAutostart, arg, cancellationToken);
             await innerTask;
         }
         
@@ -691,7 +788,7 @@ namespace LibvirtRemote {
         }
         
         public async Task NetworkUndefineWrappedAsync(Binding.RemoteNetworkUndefineArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcNetworkUndefine, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcNetworkUndefine, arg, cancellationToken);
             await innerTask;
         }
         
@@ -703,7 +800,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteConnectNumOfDefinedNetworksRet> ConnectNumOfDefinedNetworksWrappedAsync(System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteConnectNumOfDefinedNetworksRet>(Binding.RemoteProcedure.RemoteProcConnectNumOfDefinedNetworks, null, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteConnectNumOfDefinedNetworksRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcConnectNumOfDefinedNetworks, null, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -716,7 +813,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteConnectNumOfDomainsRet> ConnectNumOfDomainsWrappedAsync(System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteConnectNumOfDomainsRet>(Binding.RemoteProcedure.RemoteProcConnectNumOfDomains, null, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteConnectNumOfDomainsRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcConnectNumOfDomains, null, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -729,7 +826,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteConnectNumOfNetworksRet> ConnectNumOfNetworksWrappedAsync(System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteConnectNumOfNetworksRet>(Binding.RemoteProcedure.RemoteProcConnectNumOfNetworks, null, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteConnectNumOfNetworksRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcConnectNumOfNetworks, null, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -744,7 +841,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainCoreDumpWrappedAsync(Binding.RemoteDomainCoreDumpArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainCoreDump, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainCoreDump, arg, cancellationToken);
             await innerTask;
         }
         
@@ -756,7 +853,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainRestoreWrappedAsync(Binding.RemoteDomainRestoreArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainRestore, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainRestore, arg, cancellationToken);
             await innerTask;
         }
         
@@ -769,7 +866,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainSaveWrappedAsync(Binding.RemoteDomainSaveArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainSave, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainSave, arg, cancellationToken);
             await innerTask;
         }
         
@@ -784,7 +881,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainGetSchedulerTypeRet> DomainGetSchedulerTypeWrappedAsync(Binding.RemoteDomainGetSchedulerTypeArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainGetSchedulerTypeRet>(Binding.RemoteProcedure.RemoteProcDomainGetSchedulerType, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainGetSchedulerTypeRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainGetSchedulerType, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -800,7 +897,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainGetSchedulerParametersRet> DomainGetSchedulerParametersWrappedAsync(Binding.RemoteDomainGetSchedulerParametersArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainGetSchedulerParametersRet>(Binding.RemoteProcedure.RemoteProcDomainGetSchedulerParameters, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainGetSchedulerParametersRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainGetSchedulerParameters, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -814,7 +911,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainSetSchedulerParametersWrappedAsync(Binding.RemoteDomainSetSchedulerParametersArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainSetSchedulerParameters, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainSetSchedulerParameters, arg, cancellationToken);
             await innerTask;
         }
         
@@ -826,7 +923,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteConnectGetHostnameRet> ConnectGetHostnameWrappedAsync(System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteConnectGetHostnameRet>(Binding.RemoteProcedure.RemoteProcConnectGetHostname, null, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteConnectGetHostnameRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcConnectGetHostname, null, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -841,7 +938,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteConnectSupportsFeatureRet> ConnectSupportsFeatureWrappedAsync(Binding.RemoteConnectSupportsFeatureArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteConnectSupportsFeatureRet>(Binding.RemoteProcedure.RemoteProcConnectSupportsFeature, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteConnectSupportsFeatureRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcConnectSupportsFeature, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -860,7 +957,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainMigratePrepareRet> DomainMigratePrepareWrappedAsync(Binding.RemoteDomainMigratePrepareArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainMigratePrepareRet>(Binding.RemoteProcedure.RemoteProcDomainMigratePrepare, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainMigratePrepareRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainMigratePrepare, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -878,7 +975,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainMigratePerformWrappedAsync(Binding.RemoteDomainMigratePerformArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainMigratePerform, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainMigratePerform, arg, cancellationToken);
             await innerTask;
         }
         
@@ -895,7 +992,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainMigrateFinishRet> DomainMigrateFinishWrappedAsync(Binding.RemoteDomainMigrateFinishArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainMigrateFinishRet>(Binding.RemoteProcedure.RemoteProcDomainMigrateFinish, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainMigrateFinishRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainMigrateFinish, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -915,7 +1012,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainBlockStatsRet> DomainBlockStatsWrappedAsync(Binding.RemoteDomainBlockStatsArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainBlockStatsRet>(Binding.RemoteProcedure.RemoteProcDomainBlockStats, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainBlockStatsRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainBlockStats, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -930,7 +1027,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainInterfaceStatsRet> DomainInterfaceStatsWrappedAsync(Binding.RemoteDomainInterfaceStatsArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainInterfaceStatsRet>(Binding.RemoteProcedure.RemoteProcDomainInterfaceStats, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainInterfaceStatsRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainInterfaceStats, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -943,7 +1040,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteAuthListRet> AuthListWrappedAsync(System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteAuthListRet>(Binding.RemoteProcedure.RemoteProcAuthList, null, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteAuthListRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcAuthList, null, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -956,7 +1053,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteAuthSaslInitRet> AuthSaslInitWrappedAsync(System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteAuthSaslInitRet>(Binding.RemoteProcedure.RemoteProcAuthSaslInit, null, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteAuthSaslInitRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcAuthSaslInit, null, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -975,7 +1072,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteAuthSaslStartRet> AuthSaslStartWrappedAsync(Binding.RemoteAuthSaslStartArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteAuthSaslStartRet>(Binding.RemoteProcedure.RemoteProcAuthSaslStart, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteAuthSaslStartRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcAuthSaslStart, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -993,7 +1090,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteAuthSaslStepRet> AuthSaslStepWrappedAsync(Binding.RemoteAuthSaslStepArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteAuthSaslStepRet>(Binding.RemoteProcedure.RemoteProcAuthSaslStep, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteAuthSaslStepRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcAuthSaslStep, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -1006,7 +1103,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteAuthPolkitRet> AuthPolkitWrappedAsync(System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteAuthPolkitRet>(Binding.RemoteProcedure.RemoteProcAuthPolkit, null, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteAuthPolkitRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcAuthPolkit, null, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -1019,7 +1116,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteConnectNumOfStoragePoolsRet> ConnectNumOfStoragePoolsWrappedAsync(System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteConnectNumOfStoragePoolsRet>(Binding.RemoteProcedure.RemoteProcConnectNumOfStoragePools, null, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteConnectNumOfStoragePoolsRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcConnectNumOfStoragePools, null, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -1034,7 +1131,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteConnectListStoragePoolsRet> ConnectListStoragePoolsWrappedAsync(Binding.RemoteConnectListStoragePoolsArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteConnectListStoragePoolsRet>(Binding.RemoteProcedure.RemoteProcConnectListStoragePools, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteConnectListStoragePoolsRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcConnectListStoragePools, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -1047,7 +1144,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteConnectNumOfDefinedStoragePoolsRet> ConnectNumOfDefinedStoragePoolsWrappedAsync(System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteConnectNumOfDefinedStoragePoolsRet>(Binding.RemoteProcedure.RemoteProcConnectNumOfDefinedStoragePools, null, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteConnectNumOfDefinedStoragePoolsRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcConnectNumOfDefinedStoragePools, null, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -1062,7 +1159,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteConnectListDefinedStoragePoolsRet> ConnectListDefinedStoragePoolsWrappedAsync(Binding.RemoteConnectListDefinedStoragePoolsArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteConnectListDefinedStoragePoolsRet>(Binding.RemoteProcedure.RemoteProcConnectListDefinedStoragePools, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteConnectListDefinedStoragePoolsRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcConnectListDefinedStoragePools, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -1079,7 +1176,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteConnectFindStoragePoolSourcesRet> ConnectFindStoragePoolSourcesWrappedAsync(Binding.RemoteConnectFindStoragePoolSourcesArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteConnectFindStoragePoolSourcesRet>(Binding.RemoteProcedure.RemoteProcConnectFindStoragePoolSources, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteConnectFindStoragePoolSourcesRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcConnectFindStoragePoolSources, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -1095,7 +1192,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteStoragePoolCreateXmlRet> StoragePoolCreateXmlWrappedAsync(Binding.RemoteStoragePoolCreateXmlArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteStoragePoolCreateXmlRet>(Binding.RemoteProcedure.RemoteProcStoragePoolCreateXml, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteStoragePoolCreateXmlRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcStoragePoolCreateXml, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -1111,7 +1208,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteStoragePoolDefineXmlRet> StoragePoolDefineXmlWrappedAsync(Binding.RemoteStoragePoolDefineXmlArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteStoragePoolDefineXmlRet>(Binding.RemoteProcedure.RemoteProcStoragePoolDefineXml, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteStoragePoolDefineXmlRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcStoragePoolDefineXml, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -1125,7 +1222,7 @@ namespace LibvirtRemote {
         }
         
         public async Task StoragePoolCreateWrappedAsync(Binding.RemoteStoragePoolCreateArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcStoragePoolCreate, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcStoragePoolCreate, arg, cancellationToken);
             await innerTask;
         }
         
@@ -1138,7 +1235,7 @@ namespace LibvirtRemote {
         }
         
         public async Task StoragePoolBuildWrappedAsync(Binding.RemoteStoragePoolBuildArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcStoragePoolBuild, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcStoragePoolBuild, arg, cancellationToken);
             await innerTask;
         }
         
@@ -1150,7 +1247,7 @@ namespace LibvirtRemote {
         }
         
         public async Task StoragePoolDestroyWrappedAsync(Binding.RemoteStoragePoolDestroyArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcStoragePoolDestroy, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcStoragePoolDestroy, arg, cancellationToken);
             await innerTask;
         }
         
@@ -1163,7 +1260,7 @@ namespace LibvirtRemote {
         }
         
         public async Task StoragePoolDeleteWrappedAsync(Binding.RemoteStoragePoolDeleteArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcStoragePoolDelete, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcStoragePoolDelete, arg, cancellationToken);
             await innerTask;
         }
         
@@ -1175,7 +1272,7 @@ namespace LibvirtRemote {
         }
         
         public async Task StoragePoolUndefineWrappedAsync(Binding.RemoteStoragePoolUndefineArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcStoragePoolUndefine, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcStoragePoolUndefine, arg, cancellationToken);
             await innerTask;
         }
         
@@ -1188,7 +1285,7 @@ namespace LibvirtRemote {
         }
         
         public async Task StoragePoolRefreshWrappedAsync(Binding.RemoteStoragePoolRefreshArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcStoragePoolRefresh, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcStoragePoolRefresh, arg, cancellationToken);
             await innerTask;
         }
         
@@ -1202,7 +1299,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteStoragePoolLookupByNameRet> StoragePoolLookupByNameWrappedAsync(Binding.RemoteStoragePoolLookupByNameArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteStoragePoolLookupByNameRet>(Binding.RemoteProcedure.RemoteProcStoragePoolLookupByName, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteStoragePoolLookupByNameRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcStoragePoolLookupByName, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -1217,7 +1314,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteStoragePoolLookupByUuidRet> StoragePoolLookupByUuidWrappedAsync(Binding.RemoteStoragePoolLookupByUuidArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteStoragePoolLookupByUuidRet>(Binding.RemoteProcedure.RemoteProcStoragePoolLookupByUuid, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteStoragePoolLookupByUuidRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcStoragePoolLookupByUuid, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -1232,7 +1329,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteStoragePoolLookupByVolumeRet> StoragePoolLookupByVolumeWrappedAsync(Binding.RemoteStoragePoolLookupByVolumeArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteStoragePoolLookupByVolumeRet>(Binding.RemoteProcedure.RemoteProcStoragePoolLookupByVolume, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteStoragePoolLookupByVolumeRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcStoragePoolLookupByVolume, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -1250,7 +1347,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteStoragePoolGetInfoRet> StoragePoolGetInfoWrappedAsync(Binding.RemoteStoragePoolGetInfoArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteStoragePoolGetInfoRet>(Binding.RemoteProcedure.RemoteProcStoragePoolGetInfo, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteStoragePoolGetInfoRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcStoragePoolGetInfo, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -1266,7 +1363,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteStoragePoolGetXmlDescRet> StoragePoolGetXmlDescWrappedAsync(Binding.RemoteStoragePoolGetXmlDescArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteStoragePoolGetXmlDescRet>(Binding.RemoteProcedure.RemoteProcStoragePoolGetXmlDesc, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteStoragePoolGetXmlDescRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcStoragePoolGetXmlDesc, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -1281,7 +1378,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteStoragePoolGetAutostartRet> StoragePoolGetAutostartWrappedAsync(Binding.RemoteStoragePoolGetAutostartArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteStoragePoolGetAutostartRet>(Binding.RemoteProcedure.RemoteProcStoragePoolGetAutostart, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteStoragePoolGetAutostartRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcStoragePoolGetAutostart, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -1295,7 +1392,7 @@ namespace LibvirtRemote {
         }
         
         public async Task StoragePoolSetAutostartWrappedAsync(Binding.RemoteStoragePoolSetAutostartArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcStoragePoolSetAutostart, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcStoragePoolSetAutostart, arg, cancellationToken);
             await innerTask;
         }
         
@@ -1309,7 +1406,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteStoragePoolNumOfVolumesRet> StoragePoolNumOfVolumesWrappedAsync(Binding.RemoteStoragePoolNumOfVolumesArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteStoragePoolNumOfVolumesRet>(Binding.RemoteProcedure.RemoteProcStoragePoolNumOfVolumes, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteStoragePoolNumOfVolumesRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcStoragePoolNumOfVolumes, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -1325,7 +1422,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteStoragePoolListVolumesRet> StoragePoolListVolumesWrappedAsync(Binding.RemoteStoragePoolListVolumesArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteStoragePoolListVolumesRet>(Binding.RemoteProcedure.RemoteProcStoragePoolListVolumes, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteStoragePoolListVolumesRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcStoragePoolListVolumes, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -1342,7 +1439,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteStorageVolCreateXmlRet> StorageVolCreateXmlWrappedAsync(Binding.RemoteStorageVolCreateXmlArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteStorageVolCreateXmlRet>(Binding.RemoteProcedure.RemoteProcStorageVolCreateXml, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteStorageVolCreateXmlRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcStorageVolCreateXml, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -1356,7 +1453,7 @@ namespace LibvirtRemote {
         }
         
         public async Task StorageVolDeleteWrappedAsync(Binding.RemoteStorageVolDeleteArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcStorageVolDelete, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcStorageVolDelete, arg, cancellationToken);
             await innerTask;
         }
         
@@ -1371,7 +1468,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteStorageVolLookupByNameRet> StorageVolLookupByNameWrappedAsync(Binding.RemoteStorageVolLookupByNameArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteStorageVolLookupByNameRet>(Binding.RemoteProcedure.RemoteProcStorageVolLookupByName, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteStorageVolLookupByNameRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcStorageVolLookupByName, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -1386,7 +1483,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteStorageVolLookupByKeyRet> StorageVolLookupByKeyWrappedAsync(Binding.RemoteStorageVolLookupByKeyArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteStorageVolLookupByKeyRet>(Binding.RemoteProcedure.RemoteProcStorageVolLookupByKey, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteStorageVolLookupByKeyRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcStorageVolLookupByKey, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -1401,7 +1498,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteStorageVolLookupByPathRet> StorageVolLookupByPathWrappedAsync(Binding.RemoteStorageVolLookupByPathArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteStorageVolLookupByPathRet>(Binding.RemoteProcedure.RemoteProcStorageVolLookupByPath, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteStorageVolLookupByPathRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcStorageVolLookupByPath, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -1418,7 +1515,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteStorageVolGetInfoRet> StorageVolGetInfoWrappedAsync(Binding.RemoteStorageVolGetInfoArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteStorageVolGetInfoRet>(Binding.RemoteProcedure.RemoteProcStorageVolGetInfo, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteStorageVolGetInfoRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcStorageVolGetInfo, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -1434,7 +1531,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteStorageVolGetXmlDescRet> StorageVolGetXmlDescWrappedAsync(Binding.RemoteStorageVolGetXmlDescArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteStorageVolGetXmlDescRet>(Binding.RemoteProcedure.RemoteProcStorageVolGetXmlDesc, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteStorageVolGetXmlDescRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcStorageVolGetXmlDesc, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -1449,7 +1546,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteStorageVolGetPathRet> StorageVolGetPathWrappedAsync(Binding.RemoteStorageVolGetPathArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteStorageVolGetPathRet>(Binding.RemoteProcedure.RemoteProcStorageVolGetPath, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteStorageVolGetPathRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcStorageVolGetPath, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -1465,7 +1562,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteNodeGetCellsFreeMemoryRet> NodeGetCellsFreeMemoryWrappedAsync(Binding.RemoteNodeGetCellsFreeMemoryArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteNodeGetCellsFreeMemoryRet>(Binding.RemoteProcedure.RemoteProcNodeGetCellsFreeMemory, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteNodeGetCellsFreeMemoryRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcNodeGetCellsFreeMemory, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -1478,7 +1575,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteNodeGetFreeMemoryRet> NodeGetFreeMemoryWrappedAsync(System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteNodeGetFreeMemoryRet>(Binding.RemoteProcedure.RemoteProcNodeGetFreeMemory, null, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteNodeGetFreeMemoryRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcNodeGetFreeMemory, null, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -1497,7 +1594,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainBlockPeekRet> DomainBlockPeekWrappedAsync(Binding.RemoteDomainBlockPeekArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainBlockPeekRet>(Binding.RemoteProcedure.RemoteProcDomainBlockPeek, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainBlockPeekRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainBlockPeek, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -1515,7 +1612,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainMemoryPeekRet> DomainMemoryPeekWrappedAsync(Binding.RemoteDomainMemoryPeekArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainMemoryPeekRet>(Binding.RemoteProcedure.RemoteProcDomainMemoryPeek, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainMemoryPeekRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainMemoryPeek, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -1528,7 +1625,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteConnectDomainEventRegisterRet> ConnectDomainEventRegisterWrappedAsync(System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteConnectDomainEventRegisterRet>(Binding.RemoteProcedure.RemoteProcConnectDomainEventRegister, null, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteConnectDomainEventRegisterRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcConnectDomainEventRegister, null, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -1541,7 +1638,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteConnectDomainEventDeregisterRet> ConnectDomainEventDeregisterWrappedAsync(System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteConnectDomainEventDeregisterRet>(Binding.RemoteProcedure.RemoteProcConnectDomainEventDeregister, null, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteConnectDomainEventDeregisterRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcConnectDomainEventDeregister, null, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -1561,7 +1658,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainMigratePrepare2Ret> DomainMigratePrepare2WrappedAsync(Binding.RemoteDomainMigratePrepare2Args arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainMigratePrepare2Ret>(Binding.RemoteProcedure.RemoteProcDomainMigratePrepare2, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainMigratePrepare2Ret, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainMigratePrepare2, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -1580,7 +1677,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainMigrateFinish2Ret> DomainMigrateFinish2WrappedAsync(Binding.RemoteDomainMigrateFinish2Args arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainMigrateFinish2Ret>(Binding.RemoteProcedure.RemoteProcDomainMigrateFinish2, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainMigrateFinish2Ret, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainMigrateFinish2, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -1593,7 +1690,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteConnectGetUriRet> ConnectGetUriWrappedAsync(System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteConnectGetUriRet>(Binding.RemoteProcedure.RemoteProcConnectGetUri, null, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteConnectGetUriRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcConnectGetUri, null, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -1609,7 +1706,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteNodeNumOfDevicesRet> NodeNumOfDevicesWrappedAsync(Binding.RemoteNodeNumOfDevicesArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteNodeNumOfDevicesRet>(Binding.RemoteProcedure.RemoteProcNodeNumOfDevices, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteNodeNumOfDevicesRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcNodeNumOfDevices, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -1626,7 +1723,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteNodeListDevicesRet> NodeListDevicesWrappedAsync(Binding.RemoteNodeListDevicesArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteNodeListDevicesRet>(Binding.RemoteProcedure.RemoteProcNodeListDevices, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteNodeListDevicesRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcNodeListDevices, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -1641,7 +1738,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteNodeDeviceLookupByNameRet> NodeDeviceLookupByNameWrappedAsync(Binding.RemoteNodeDeviceLookupByNameArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteNodeDeviceLookupByNameRet>(Binding.RemoteProcedure.RemoteProcNodeDeviceLookupByName, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteNodeDeviceLookupByNameRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcNodeDeviceLookupByName, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -1657,7 +1754,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteNodeDeviceGetXmlDescRet> NodeDeviceGetXmlDescWrappedAsync(Binding.RemoteNodeDeviceGetXmlDescArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteNodeDeviceGetXmlDescRet>(Binding.RemoteProcedure.RemoteProcNodeDeviceGetXmlDesc, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteNodeDeviceGetXmlDescRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcNodeDeviceGetXmlDesc, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -1672,7 +1769,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteNodeDeviceGetParentRet> NodeDeviceGetParentWrappedAsync(Binding.RemoteNodeDeviceGetParentArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteNodeDeviceGetParentRet>(Binding.RemoteProcedure.RemoteProcNodeDeviceGetParent, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteNodeDeviceGetParentRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcNodeDeviceGetParent, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -1687,7 +1784,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteNodeDeviceNumOfCapsRet> NodeDeviceNumOfCapsWrappedAsync(Binding.RemoteNodeDeviceNumOfCapsArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteNodeDeviceNumOfCapsRet>(Binding.RemoteProcedure.RemoteProcNodeDeviceNumOfCaps, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteNodeDeviceNumOfCapsRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcNodeDeviceNumOfCaps, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -1703,7 +1800,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteNodeDeviceListCapsRet> NodeDeviceListCapsWrappedAsync(Binding.RemoteNodeDeviceListCapsArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteNodeDeviceListCapsRet>(Binding.RemoteProcedure.RemoteProcNodeDeviceListCaps, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteNodeDeviceListCapsRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcNodeDeviceListCaps, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -1716,7 +1813,7 @@ namespace LibvirtRemote {
         }
         
         public async Task NodeDeviceDettachWrappedAsync(Binding.RemoteNodeDeviceDettachArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcNodeDeviceDettach, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcNodeDeviceDettach, arg, cancellationToken);
             await innerTask;
         }
         
@@ -1728,7 +1825,7 @@ namespace LibvirtRemote {
         }
         
         public async Task NodeDeviceReAttachWrappedAsync(Binding.RemoteNodeDeviceReAttachArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcNodeDeviceReAttach, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcNodeDeviceReAttach, arg, cancellationToken);
             await innerTask;
         }
         
@@ -1740,7 +1837,7 @@ namespace LibvirtRemote {
         }
         
         public async Task NodeDeviceResetWrappedAsync(Binding.RemoteNodeDeviceResetArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcNodeDeviceReset, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcNodeDeviceReset, arg, cancellationToken);
             await innerTask;
         }
         
@@ -1755,7 +1852,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainGetSecurityLabelRet> DomainGetSecurityLabelWrappedAsync(Binding.RemoteDomainGetSecurityLabelArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainGetSecurityLabelRet>(Binding.RemoteProcedure.RemoteProcDomainGetSecurityLabel, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainGetSecurityLabelRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainGetSecurityLabel, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -1769,7 +1866,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteNodeGetSecurityModelRet> NodeGetSecurityModelWrappedAsync(System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteNodeGetSecurityModelRet>(Binding.RemoteProcedure.RemoteProcNodeGetSecurityModel, null, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteNodeGetSecurityModelRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcNodeGetSecurityModel, null, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -1785,7 +1882,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteNodeDeviceCreateXmlRet> NodeDeviceCreateXmlWrappedAsync(Binding.RemoteNodeDeviceCreateXmlArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteNodeDeviceCreateXmlRet>(Binding.RemoteProcedure.RemoteProcNodeDeviceCreateXml, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteNodeDeviceCreateXmlRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcNodeDeviceCreateXml, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -1798,7 +1895,7 @@ namespace LibvirtRemote {
         }
         
         public async Task NodeDeviceDestroyWrappedAsync(Binding.RemoteNodeDeviceDestroyArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcNodeDeviceDestroy, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcNodeDeviceDestroy, arg, cancellationToken);
             await innerTask;
         }
         
@@ -1815,7 +1912,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteStorageVolCreateXmlFromRet> StorageVolCreateXmlFromWrappedAsync(Binding.RemoteStorageVolCreateXmlFromArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteStorageVolCreateXmlFromRet>(Binding.RemoteProcedure.RemoteProcStorageVolCreateXmlFrom, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteStorageVolCreateXmlFromRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcStorageVolCreateXmlFrom, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -1828,7 +1925,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteConnectNumOfInterfacesRet> ConnectNumOfInterfacesWrappedAsync(System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteConnectNumOfInterfacesRet>(Binding.RemoteProcedure.RemoteProcConnectNumOfInterfaces, null, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteConnectNumOfInterfacesRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcConnectNumOfInterfaces, null, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -1843,7 +1940,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteConnectListInterfacesRet> ConnectListInterfacesWrappedAsync(Binding.RemoteConnectListInterfacesArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteConnectListInterfacesRet>(Binding.RemoteProcedure.RemoteProcConnectListInterfaces, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteConnectListInterfacesRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcConnectListInterfaces, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -1858,7 +1955,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteInterfaceLookupByNameRet> InterfaceLookupByNameWrappedAsync(Binding.RemoteInterfaceLookupByNameArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteInterfaceLookupByNameRet>(Binding.RemoteProcedure.RemoteProcInterfaceLookupByName, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteInterfaceLookupByNameRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcInterfaceLookupByName, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -1873,7 +1970,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteInterfaceLookupByMacStringRet> InterfaceLookupByMacStringWrappedAsync(Binding.RemoteInterfaceLookupByMacStringArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteInterfaceLookupByMacStringRet>(Binding.RemoteProcedure.RemoteProcInterfaceLookupByMacString, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteInterfaceLookupByMacStringRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcInterfaceLookupByMacString, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -1889,7 +1986,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteInterfaceGetXmlDescRet> InterfaceGetXmlDescWrappedAsync(Binding.RemoteInterfaceGetXmlDescArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteInterfaceGetXmlDescRet>(Binding.RemoteProcedure.RemoteProcInterfaceGetXmlDesc, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteInterfaceGetXmlDescRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcInterfaceGetXmlDesc, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -1905,7 +2002,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteInterfaceDefineXmlRet> InterfaceDefineXmlWrappedAsync(Binding.RemoteInterfaceDefineXmlArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteInterfaceDefineXmlRet>(Binding.RemoteProcedure.RemoteProcInterfaceDefineXml, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteInterfaceDefineXmlRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcInterfaceDefineXml, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -1918,7 +2015,7 @@ namespace LibvirtRemote {
         }
         
         public async Task InterfaceUndefineWrappedAsync(Binding.RemoteInterfaceUndefineArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcInterfaceUndefine, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcInterfaceUndefine, arg, cancellationToken);
             await innerTask;
         }
         
@@ -1931,7 +2028,7 @@ namespace LibvirtRemote {
         }
         
         public async Task InterfaceCreateWrappedAsync(Binding.RemoteInterfaceCreateArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcInterfaceCreate, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcInterfaceCreate, arg, cancellationToken);
             await innerTask;
         }
         
@@ -1944,7 +2041,7 @@ namespace LibvirtRemote {
         }
         
         public async Task InterfaceDestroyWrappedAsync(Binding.RemoteInterfaceDestroyArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcInterfaceDestroy, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcInterfaceDestroy, arg, cancellationToken);
             await innerTask;
         }
         
@@ -1960,7 +2057,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteConnectDomainXmlFromNativeRet> ConnectDomainXmlFromNativeWrappedAsync(Binding.RemoteConnectDomainXmlFromNativeArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteConnectDomainXmlFromNativeRet>(Binding.RemoteProcedure.RemoteProcConnectDomainXmlFromNative, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteConnectDomainXmlFromNativeRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcConnectDomainXmlFromNative, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -1977,7 +2074,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteConnectDomainXmlToNativeRet> ConnectDomainXmlToNativeWrappedAsync(Binding.RemoteConnectDomainXmlToNativeArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteConnectDomainXmlToNativeRet>(Binding.RemoteProcedure.RemoteProcConnectDomainXmlToNative, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteConnectDomainXmlToNativeRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcConnectDomainXmlToNative, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -1990,7 +2087,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteConnectNumOfDefinedInterfacesRet> ConnectNumOfDefinedInterfacesWrappedAsync(System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteConnectNumOfDefinedInterfacesRet>(Binding.RemoteProcedure.RemoteProcConnectNumOfDefinedInterfaces, null, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteConnectNumOfDefinedInterfacesRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcConnectNumOfDefinedInterfaces, null, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -2005,7 +2102,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteConnectListDefinedInterfacesRet> ConnectListDefinedInterfacesWrappedAsync(Binding.RemoteConnectListDefinedInterfacesArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteConnectListDefinedInterfacesRet>(Binding.RemoteProcedure.RemoteProcConnectListDefinedInterfaces, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteConnectListDefinedInterfacesRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcConnectListDefinedInterfaces, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -2018,7 +2115,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteConnectNumOfSecretsRet> ConnectNumOfSecretsWrappedAsync(System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteConnectNumOfSecretsRet>(Binding.RemoteProcedure.RemoteProcConnectNumOfSecrets, null, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteConnectNumOfSecretsRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcConnectNumOfSecrets, null, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -2033,7 +2130,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteConnectListSecretsRet> ConnectListSecretsWrappedAsync(Binding.RemoteConnectListSecretsArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteConnectListSecretsRet>(Binding.RemoteProcedure.RemoteProcConnectListSecrets, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteConnectListSecretsRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcConnectListSecrets, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -2048,7 +2145,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteSecretLookupByUuidRet> SecretLookupByUuidWrappedAsync(Binding.RemoteSecretLookupByUuidArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteSecretLookupByUuidRet>(Binding.RemoteProcedure.RemoteProcSecretLookupByUuid, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteSecretLookupByUuidRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcSecretLookupByUuid, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -2064,7 +2161,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteSecretDefineXmlRet> SecretDefineXmlWrappedAsync(Binding.RemoteSecretDefineXmlArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteSecretDefineXmlRet>(Binding.RemoteProcedure.RemoteProcSecretDefineXml, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteSecretDefineXmlRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcSecretDefineXml, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -2080,7 +2177,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteSecretGetXmlDescRet> SecretGetXmlDescWrappedAsync(Binding.RemoteSecretGetXmlDescArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteSecretGetXmlDescRet>(Binding.RemoteProcedure.RemoteProcSecretGetXmlDesc, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteSecretGetXmlDescRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcSecretGetXmlDesc, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -2095,7 +2192,7 @@ namespace LibvirtRemote {
         }
         
         public async Task SecretSetValueWrappedAsync(Binding.RemoteSecretSetValueArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcSecretSetValue, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcSecretSetValue, arg, cancellationToken);
             await innerTask;
         }
         
@@ -2110,7 +2207,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteSecretGetValueRet> SecretGetValueWrappedAsync(Binding.RemoteSecretGetValueArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteSecretGetValueRet>(Binding.RemoteProcedure.RemoteProcSecretGetValue, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteSecretGetValueRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcSecretGetValue, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -2123,7 +2220,7 @@ namespace LibvirtRemote {
         }
         
         public async Task SecretUndefineWrappedAsync(Binding.RemoteSecretUndefineArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcSecretUndefine, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcSecretUndefine, arg, cancellationToken);
             await innerTask;
         }
         
@@ -2138,7 +2235,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteSecretLookupByUsageRet> SecretLookupByUsageWrappedAsync(Binding.RemoteSecretLookupByUsageArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteSecretLookupByUsageRet>(Binding.RemoteProcedure.RemoteProcSecretLookupByUsage, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteSecretLookupByUsageRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcSecretLookupByUsage, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -2155,7 +2252,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Tuple<VirtNetStream, Xdr.XdrVoid>> DomainMigratePrepareTunnelWrappedAsync(Binding.RemoteDomainMigratePrepareTunnelArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallWithStreamAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainMigratePrepareTunnel, arg, cancellationToken);
+            var innerTask = this.CallWithStreamAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainMigratePrepareTunnel, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -2168,7 +2265,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteConnectIsSecureRet> ConnectIsSecureWrappedAsync(System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteConnectIsSecureRet>(Binding.RemoteProcedure.RemoteProcConnectIsSecure, null, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteConnectIsSecureRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcConnectIsSecure, null, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -2183,7 +2280,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainIsActiveRet> DomainIsActiveWrappedAsync(Binding.RemoteDomainIsActiveArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainIsActiveRet>(Binding.RemoteProcedure.RemoteProcDomainIsActive, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainIsActiveRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainIsActive, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -2198,7 +2295,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainIsPersistentRet> DomainIsPersistentWrappedAsync(Binding.RemoteDomainIsPersistentArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainIsPersistentRet>(Binding.RemoteProcedure.RemoteProcDomainIsPersistent, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainIsPersistentRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainIsPersistent, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -2213,7 +2310,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteNetworkIsActiveRet> NetworkIsActiveWrappedAsync(Binding.RemoteNetworkIsActiveArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteNetworkIsActiveRet>(Binding.RemoteProcedure.RemoteProcNetworkIsActive, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteNetworkIsActiveRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcNetworkIsActive, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -2228,7 +2325,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteNetworkIsPersistentRet> NetworkIsPersistentWrappedAsync(Binding.RemoteNetworkIsPersistentArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteNetworkIsPersistentRet>(Binding.RemoteProcedure.RemoteProcNetworkIsPersistent, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteNetworkIsPersistentRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcNetworkIsPersistent, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -2243,7 +2340,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteStoragePoolIsActiveRet> StoragePoolIsActiveWrappedAsync(Binding.RemoteStoragePoolIsActiveArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteStoragePoolIsActiveRet>(Binding.RemoteProcedure.RemoteProcStoragePoolIsActive, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteStoragePoolIsActiveRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcStoragePoolIsActive, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -2258,7 +2355,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteStoragePoolIsPersistentRet> StoragePoolIsPersistentWrappedAsync(Binding.RemoteStoragePoolIsPersistentArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteStoragePoolIsPersistentRet>(Binding.RemoteProcedure.RemoteProcStoragePoolIsPersistent, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteStoragePoolIsPersistentRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcStoragePoolIsPersistent, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -2273,7 +2370,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteInterfaceIsActiveRet> InterfaceIsActiveWrappedAsync(Binding.RemoteInterfaceIsActiveArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteInterfaceIsActiveRet>(Binding.RemoteProcedure.RemoteProcInterfaceIsActive, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteInterfaceIsActiveRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcInterfaceIsActive, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -2286,7 +2383,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteConnectGetLibVersionRet> ConnectGetLibVersionWrappedAsync(System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteConnectGetLibVersionRet>(Binding.RemoteProcedure.RemoteProcConnectGetLibVersion, null, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteConnectGetLibVersionRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcConnectGetLibVersion, null, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -2302,7 +2399,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteConnectCompareCpuRet> ConnectCompareCpuWrappedAsync(Binding.RemoteConnectCompareCpuArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteConnectCompareCpuRet>(Binding.RemoteProcedure.RemoteProcConnectCompareCpu, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteConnectCompareCpuRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcConnectCompareCpu, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -2319,7 +2416,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainMemoryStatsRet> DomainMemoryStatsWrappedAsync(Binding.RemoteDomainMemoryStatsArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainMemoryStatsRet>(Binding.RemoteProcedure.RemoteProcDomainMemoryStats, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainMemoryStatsRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainMemoryStats, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -2334,7 +2431,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainAttachDeviceFlagsWrappedAsync(Binding.RemoteDomainAttachDeviceFlagsArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainAttachDeviceFlags, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainAttachDeviceFlags, arg, cancellationToken);
             await innerTask;
         }
         
@@ -2348,7 +2445,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainDetachDeviceFlagsWrappedAsync(Binding.RemoteDomainDetachDeviceFlagsArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainDetachDeviceFlags, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainDetachDeviceFlags, arg, cancellationToken);
             await innerTask;
         }
         
@@ -2363,7 +2460,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteConnectBaselineCpuRet> ConnectBaselineCpuWrappedAsync(Binding.RemoteConnectBaselineCpuArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteConnectBaselineCpuRet>(Binding.RemoteProcedure.RemoteProcConnectBaselineCpu, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteConnectBaselineCpuRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcConnectBaselineCpu, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -2377,7 +2474,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainGetJobInfoRet> DomainGetJobInfoWrappedAsync(Binding.RemoteDomainGetJobInfoArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainGetJobInfoRet>(Binding.RemoteProcedure.RemoteProcDomainGetJobInfo, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainGetJobInfoRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainGetJobInfo, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -2390,7 +2487,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainAbortJobWrappedAsync(Binding.RemoteDomainAbortJobArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainAbortJob, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainAbortJob, arg, cancellationToken);
             await innerTask;
         }
         
@@ -2403,7 +2500,7 @@ namespace LibvirtRemote {
         }
         
         public async Task StorageVolWipeWrappedAsync(Binding.RemoteStorageVolWipeArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcStorageVolWipe, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcStorageVolWipe, arg, cancellationToken);
             await innerTask;
         }
         
@@ -2417,7 +2514,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainMigrateSetMaxDowntimeWrappedAsync(Binding.RemoteDomainMigrateSetMaxDowntimeArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainMigrateSetMaxDowntime, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainMigrateSetMaxDowntime, arg, cancellationToken);
             await innerTask;
         }
         
@@ -2429,7 +2526,7 @@ namespace LibvirtRemote {
         }
         
         public async Task ConnectDomainEventRegisterAnyWrappedAsync(Binding.RemoteConnectDomainEventRegisterAnyArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcConnectDomainEventRegisterAny, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcConnectDomainEventRegisterAny, arg, cancellationToken);
             await innerTask;
         }
         
@@ -2441,7 +2538,7 @@ namespace LibvirtRemote {
         }
         
         public async Task ConnectDomainEventDeregisterAnyWrappedAsync(Binding.RemoteConnectDomainEventDeregisterAnyArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcConnectDomainEventDeregisterAny, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcConnectDomainEventDeregisterAny, arg, cancellationToken);
             await innerTask;
         }
         
@@ -2455,7 +2552,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainUpdateDeviceFlagsWrappedAsync(Binding.RemoteDomainUpdateDeviceFlagsArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainUpdateDeviceFlags, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainUpdateDeviceFlags, arg, cancellationToken);
             await innerTask;
         }
         
@@ -2469,7 +2566,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteNwfilterLookupByNameRet> NwfilterLookupByNameWrappedAsync(Binding.RemoteNwfilterLookupByNameArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteNwfilterLookupByNameRet>(Binding.RemoteProcedure.RemoteProcNwfilterLookupByName, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteNwfilterLookupByNameRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcNwfilterLookupByName, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -2484,7 +2581,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteNwfilterLookupByUuidRet> NwfilterLookupByUuidWrappedAsync(Binding.RemoteNwfilterLookupByUuidArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteNwfilterLookupByUuidRet>(Binding.RemoteProcedure.RemoteProcNwfilterLookupByUuid, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteNwfilterLookupByUuidRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcNwfilterLookupByUuid, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -2500,7 +2597,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteNwfilterGetXmlDescRet> NwfilterGetXmlDescWrappedAsync(Binding.RemoteNwfilterGetXmlDescArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteNwfilterGetXmlDescRet>(Binding.RemoteProcedure.RemoteProcNwfilterGetXmlDesc, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteNwfilterGetXmlDescRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcNwfilterGetXmlDesc, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -2513,7 +2610,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteConnectNumOfNwfiltersRet> ConnectNumOfNwfiltersWrappedAsync(System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteConnectNumOfNwfiltersRet>(Binding.RemoteProcedure.RemoteProcConnectNumOfNwfilters, null, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteConnectNumOfNwfiltersRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcConnectNumOfNwfilters, null, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -2528,7 +2625,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteConnectListNwfiltersRet> ConnectListNwfiltersWrappedAsync(Binding.RemoteConnectListNwfiltersArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteConnectListNwfiltersRet>(Binding.RemoteProcedure.RemoteProcConnectListNwfilters, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteConnectListNwfiltersRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcConnectListNwfilters, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -2543,7 +2640,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteNwfilterDefineXmlRet> NwfilterDefineXmlWrappedAsync(Binding.RemoteNwfilterDefineXmlArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteNwfilterDefineXmlRet>(Binding.RemoteProcedure.RemoteProcNwfilterDefineXml, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteNwfilterDefineXmlRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcNwfilterDefineXml, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -2556,7 +2653,7 @@ namespace LibvirtRemote {
         }
         
         public async Task NwfilterUndefineWrappedAsync(Binding.RemoteNwfilterUndefineArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcNwfilterUndefine, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcNwfilterUndefine, arg, cancellationToken);
             await innerTask;
         }
         
@@ -2569,7 +2666,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainManagedSaveWrappedAsync(Binding.RemoteDomainManagedSaveArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainManagedSave, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainManagedSave, arg, cancellationToken);
             await innerTask;
         }
         
@@ -2584,7 +2681,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainHasManagedSaveImageRet> DomainHasManagedSaveImageWrappedAsync(Binding.RemoteDomainHasManagedSaveImageArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainHasManagedSaveImageRet>(Binding.RemoteProcedure.RemoteProcDomainHasManagedSaveImage, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainHasManagedSaveImageRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainHasManagedSaveImage, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -2598,7 +2695,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainManagedSaveRemoveWrappedAsync(Binding.RemoteDomainManagedSaveRemoveArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainManagedSaveRemove, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainManagedSaveRemove, arg, cancellationToken);
             await innerTask;
         }
         
@@ -2614,7 +2711,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainSnapshotCreateXmlRet> DomainSnapshotCreateXmlWrappedAsync(Binding.RemoteDomainSnapshotCreateXmlArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainSnapshotCreateXmlRet>(Binding.RemoteProcedure.RemoteProcDomainSnapshotCreateXml, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainSnapshotCreateXmlRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainSnapshotCreateXml, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -2630,7 +2727,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainSnapshotGetXmlDescRet> DomainSnapshotGetXmlDescWrappedAsync(Binding.RemoteDomainSnapshotGetXmlDescArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainSnapshotGetXmlDescRet>(Binding.RemoteProcedure.RemoteProcDomainSnapshotGetXmlDesc, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainSnapshotGetXmlDescRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainSnapshotGetXmlDesc, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -2646,7 +2743,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainSnapshotNumRet> DomainSnapshotNumWrappedAsync(Binding.RemoteDomainSnapshotNumArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainSnapshotNumRet>(Binding.RemoteProcedure.RemoteProcDomainSnapshotNum, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainSnapshotNumRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainSnapshotNum, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -2663,7 +2760,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainSnapshotListNamesRet> DomainSnapshotListNamesWrappedAsync(Binding.RemoteDomainSnapshotListNamesArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainSnapshotListNamesRet>(Binding.RemoteProcedure.RemoteProcDomainSnapshotListNames, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainSnapshotListNamesRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainSnapshotListNames, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -2680,7 +2777,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainSnapshotLookupByNameRet> DomainSnapshotLookupByNameWrappedAsync(Binding.RemoteDomainSnapshotLookupByNameArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainSnapshotLookupByNameRet>(Binding.RemoteProcedure.RemoteProcDomainSnapshotLookupByName, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainSnapshotLookupByNameRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainSnapshotLookupByName, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -2696,7 +2793,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainHasCurrentSnapshotRet> DomainHasCurrentSnapshotWrappedAsync(Binding.RemoteDomainHasCurrentSnapshotArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainHasCurrentSnapshotRet>(Binding.RemoteProcedure.RemoteProcDomainHasCurrentSnapshot, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainHasCurrentSnapshotRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainHasCurrentSnapshot, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -2712,7 +2809,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainSnapshotCurrentRet> DomainSnapshotCurrentWrappedAsync(Binding.RemoteDomainSnapshotCurrentArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainSnapshotCurrentRet>(Binding.RemoteProcedure.RemoteProcDomainSnapshotCurrent, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainSnapshotCurrentRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainSnapshotCurrent, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -2726,7 +2823,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainRevertToSnapshotWrappedAsync(Binding.RemoteDomainRevertToSnapshotArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainRevertToSnapshot, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainRevertToSnapshot, arg, cancellationToken);
             await innerTask;
         }
         
@@ -2739,7 +2836,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainSnapshotDeleteWrappedAsync(Binding.RemoteDomainSnapshotDeleteArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainSnapshotDelete, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainSnapshotDelete, arg, cancellationToken);
             await innerTask;
         }
         
@@ -2757,7 +2854,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainGetBlockInfoRet> DomainGetBlockInfoWrappedAsync(Binding.RemoteDomainGetBlockInfoArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainGetBlockInfoRet>(Binding.RemoteProcedure.RemoteProcDomainGetBlockInfo, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainGetBlockInfoRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainGetBlockInfo, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -2773,7 +2870,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainCreateWithFlagsRet> DomainCreateWithFlagsWrappedAsync(Binding.RemoteDomainCreateWithFlagsArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainCreateWithFlagsRet>(Binding.RemoteProcedure.RemoteProcDomainCreateWithFlags, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainCreateWithFlagsRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainCreateWithFlags, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -2788,7 +2885,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainSetMemoryParametersWrappedAsync(Binding.RemoteDomainSetMemoryParametersArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainSetMemoryParameters, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainSetMemoryParameters, arg, cancellationToken);
             await innerTask;
         }
         
@@ -2805,7 +2902,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainGetMemoryParametersRet> DomainGetMemoryParametersWrappedAsync(Binding.RemoteDomainGetMemoryParametersArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainGetMemoryParametersRet>(Binding.RemoteProcedure.RemoteProcDomainGetMemoryParameters, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainGetMemoryParametersRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainGetMemoryParameters, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -2820,7 +2917,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainSetVcpusFlagsWrappedAsync(Binding.RemoteDomainSetVcpusFlagsArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainSetVcpusFlags, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainSetVcpusFlags, arg, cancellationToken);
             await innerTask;
         }
         
@@ -2835,7 +2932,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainGetVcpusFlagsRet> DomainGetVcpusFlagsWrappedAsync(Binding.RemoteDomainGetVcpusFlagsArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainGetVcpusFlagsRet>(Binding.RemoteProcedure.RemoteProcDomainGetVcpusFlags, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainGetVcpusFlagsRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainGetVcpusFlags, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -2851,7 +2948,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Tuple<VirtNetStream, Xdr.XdrVoid>> DomainOpenConsoleWrappedAsync(Binding.RemoteDomainOpenConsoleArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallWithStreamAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainOpenConsole, arg, cancellationToken);
+            var innerTask = this.CallWithStreamAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainOpenConsole, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -2866,7 +2963,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainIsUpdatedRet> DomainIsUpdatedWrappedAsync(Binding.RemoteDomainIsUpdatedArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainIsUpdatedRet>(Binding.RemoteProcedure.RemoteProcDomainIsUpdated, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainIsUpdatedRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainIsUpdated, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -2881,7 +2978,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteConnectGetSysinfoRet> ConnectGetSysinfoWrappedAsync(Binding.RemoteConnectGetSysinfoArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteConnectGetSysinfoRet>(Binding.RemoteProcedure.RemoteProcConnectGetSysinfo, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteConnectGetSysinfoRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcConnectGetSysinfo, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -2896,7 +2993,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainSetMemoryFlagsWrappedAsync(Binding.RemoteDomainSetMemoryFlagsArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainSetMemoryFlags, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainSetMemoryFlags, arg, cancellationToken);
             await innerTask;
         }
         
@@ -2910,7 +3007,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainSetBlkioParametersWrappedAsync(Binding.RemoteDomainSetBlkioParametersArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainSetBlkioParameters, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainSetBlkioParameters, arg, cancellationToken);
             await innerTask;
         }
         
@@ -2927,7 +3024,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainGetBlkioParametersRet> DomainGetBlkioParametersWrappedAsync(Binding.RemoteDomainGetBlkioParametersArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainGetBlkioParametersRet>(Binding.RemoteProcedure.RemoteProcDomainGetBlkioParameters, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainGetBlkioParametersRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainGetBlkioParameters, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -2942,7 +3039,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainMigrateSetMaxSpeedWrappedAsync(Binding.RemoteDomainMigrateSetMaxSpeedArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainMigrateSetMaxSpeed, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainMigrateSetMaxSpeed, arg, cancellationToken);
             await innerTask;
         }
         
@@ -2958,7 +3055,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Tuple<VirtNetStream, Xdr.XdrVoid>> StorageVolUploadWrappedAsync(Binding.RemoteStorageVolUploadArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallWithStreamAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcStorageVolUpload, arg, cancellationToken);
+            var innerTask = this.CallWithStreamAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcStorageVolUpload, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -2975,7 +3072,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Tuple<VirtNetStream, Xdr.XdrVoid>> StorageVolDownloadWrappedAsync(Binding.RemoteStorageVolDownloadArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallWithStreamAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcStorageVolDownload, arg, cancellationToken);
+            var innerTask = this.CallWithStreamAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcStorageVolDownload, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -2989,7 +3086,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainInjectNmiWrappedAsync(Binding.RemoteDomainInjectNmiArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainInjectNmi, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainInjectNmi, arg, cancellationToken);
             await innerTask;
         }
         
@@ -3007,7 +3104,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Tuple<VirtNetStream, Binding.RemoteDomainScreenshotRet>> DomainScreenshotWrappedAsync(Binding.RemoteDomainScreenshotArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallWithStreamAsync<Binding.RemoteDomainScreenshotRet>(Binding.RemoteProcedure.RemoteProcDomainScreenshot, arg, cancellationToken);
+            var innerTask = this.CallWithStreamAsync<Binding.RemoteDomainScreenshotRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainScreenshot, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -3024,7 +3121,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainGetStateRet> DomainGetStateWrappedAsync(Binding.RemoteDomainGetStateArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainGetStateRet>(Binding.RemoteProcedure.RemoteProcDomainGetState, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainGetStateRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainGetState, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -3044,7 +3141,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainMigrateBegin3Ret> DomainMigrateBegin3WrappedAsync(Binding.RemoteDomainMigrateBegin3Args arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainMigrateBegin3Ret>(Binding.RemoteProcedure.RemoteProcDomainMigrateBegin3, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainMigrateBegin3Ret, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainMigrateBegin3, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -3065,7 +3162,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainMigratePrepare3Ret> DomainMigratePrepare3WrappedAsync(Binding.RemoteDomainMigratePrepare3Args arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainMigratePrepare3Ret>(Binding.RemoteProcedure.RemoteProcDomainMigratePrepare3, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainMigratePrepare3Ret, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainMigratePrepare3, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -3086,7 +3183,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Tuple<VirtNetStream, Binding.RemoteDomainMigratePrepareTunnel3Ret>> DomainMigratePrepareTunnel3WrappedAsync(Binding.RemoteDomainMigratePrepareTunnel3Args arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallWithStreamAsync<Binding.RemoteDomainMigratePrepareTunnel3Ret>(Binding.RemoteProcedure.RemoteProcDomainMigratePrepareTunnel3, arg, cancellationToken);
+            var innerTask = this.CallWithStreamAsync<Binding.RemoteDomainMigratePrepareTunnel3Ret, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainMigratePrepareTunnel3, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -3108,7 +3205,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainMigratePerform3Ret> DomainMigratePerform3WrappedAsync(Binding.RemoteDomainMigratePerform3Args arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainMigratePerform3Ret>(Binding.RemoteProcedure.RemoteProcDomainMigratePerform3, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainMigratePerform3Ret, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainMigratePerform3, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -3129,7 +3226,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainMigrateFinish3Ret> DomainMigrateFinish3WrappedAsync(Binding.RemoteDomainMigrateFinish3Args arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainMigrateFinish3Ret>(Binding.RemoteProcedure.RemoteProcDomainMigrateFinish3, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainMigrateFinish3Ret, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainMigrateFinish3, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -3145,7 +3242,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainMigrateConfirm3WrappedAsync(Binding.RemoteDomainMigrateConfirm3Args arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainMigrateConfirm3, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainMigrateConfirm3, arg, cancellationToken);
             await innerTask;
         }
         
@@ -3159,7 +3256,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainSetSchedulerParametersFlagsWrappedAsync(Binding.RemoteDomainSetSchedulerParametersFlagsArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainSetSchedulerParametersFlags, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainSetSchedulerParametersFlags, arg, cancellationToken);
             await innerTask;
         }
         
@@ -3171,7 +3268,7 @@ namespace LibvirtRemote {
         }
         
         public async Task InterfaceChangeBeginWrappedAsync(Binding.RemoteInterfaceChangeBeginArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcInterfaceChangeBegin, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcInterfaceChangeBegin, arg, cancellationToken);
             await innerTask;
         }
         
@@ -3183,7 +3280,7 @@ namespace LibvirtRemote {
         }
         
         public async Task InterfaceChangeCommitWrappedAsync(Binding.RemoteInterfaceChangeCommitArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcInterfaceChangeCommit, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcInterfaceChangeCommit, arg, cancellationToken);
             await innerTask;
         }
         
@@ -3195,7 +3292,7 @@ namespace LibvirtRemote {
         }
         
         public async Task InterfaceChangeRollbackWrappedAsync(Binding.RemoteInterfaceChangeRollbackArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcInterfaceChangeRollback, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcInterfaceChangeRollback, arg, cancellationToken);
             await innerTask;
         }
         
@@ -3211,7 +3308,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainGetSchedulerParametersFlagsRet> DomainGetSchedulerParametersFlagsWrappedAsync(Binding.RemoteDomainGetSchedulerParametersFlagsArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainGetSchedulerParametersFlagsRet>(Binding.RemoteProcedure.RemoteProcDomainGetSchedulerParametersFlags, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainGetSchedulerParametersFlagsRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainGetSchedulerParametersFlags, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -3227,7 +3324,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainPinVcpuFlagsWrappedAsync(Binding.RemoteDomainPinVcpuFlagsArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainPinVcpuFlags, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainPinVcpuFlags, arg, cancellationToken);
             await innerTask;
         }
         
@@ -3243,7 +3340,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainSendKeyWrappedAsync(Binding.RemoteDomainSendKeyArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainSendKey, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainSendKey, arg, cancellationToken);
             await innerTask;
         }
         
@@ -3260,7 +3357,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteNodeGetCpuStatsRet> NodeGetCpuStatsWrappedAsync(Binding.RemoteNodeGetCpuStatsArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteNodeGetCpuStatsRet>(Binding.RemoteProcedure.RemoteProcNodeGetCpuStats, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteNodeGetCpuStatsRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcNodeGetCpuStats, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -3278,7 +3375,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteNodeGetMemoryStatsRet> NodeGetMemoryStatsWrappedAsync(Binding.RemoteNodeGetMemoryStatsArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteNodeGetMemoryStatsRet>(Binding.RemoteProcedure.RemoteProcNodeGetMemoryStats, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteNodeGetMemoryStatsRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcNodeGetMemoryStats, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -3296,7 +3393,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainGetControlInfoRet> DomainGetControlInfoWrappedAsync(Binding.RemoteDomainGetControlInfoArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainGetControlInfoRet>(Binding.RemoteProcedure.RemoteProcDomainGetControlInfo, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainGetControlInfoRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainGetControlInfo, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -3315,7 +3412,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainGetVcpuPinInfoRet> DomainGetVcpuPinInfoWrappedAsync(Binding.RemoteDomainGetVcpuPinInfoArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainGetVcpuPinInfoRet>(Binding.RemoteProcedure.RemoteProcDomainGetVcpuPinInfo, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainGetVcpuPinInfoRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainGetVcpuPinInfo, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -3329,7 +3426,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainUndefineFlagsWrappedAsync(Binding.RemoteDomainUndefineFlagsArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainUndefineFlags, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainUndefineFlags, arg, cancellationToken);
             await innerTask;
         }
         
@@ -3344,7 +3441,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainSaveFlagsWrappedAsync(Binding.RemoteDomainSaveFlagsArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainSaveFlags, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainSaveFlags, arg, cancellationToken);
             await innerTask;
         }
         
@@ -3358,7 +3455,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainRestoreFlagsWrappedAsync(Binding.RemoteDomainRestoreFlagsArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainRestoreFlags, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainRestoreFlags, arg, cancellationToken);
             await innerTask;
         }
         
@@ -3371,7 +3468,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainDestroyFlagsWrappedAsync(Binding.RemoteDomainDestroyFlagsArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainDestroyFlags, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainDestroyFlags, arg, cancellationToken);
             await innerTask;
         }
         
@@ -3386,7 +3483,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainSaveImageGetXmlDescRet> DomainSaveImageGetXmlDescWrappedAsync(Binding.RemoteDomainSaveImageGetXmlDescArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainSaveImageGetXmlDescRet>(Binding.RemoteProcedure.RemoteProcDomainSaveImageGetXmlDesc, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainSaveImageGetXmlDescRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainSaveImageGetXmlDesc, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -3401,7 +3498,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainSaveImageDefineXmlWrappedAsync(Binding.RemoteDomainSaveImageDefineXmlArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainSaveImageDefineXml, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainSaveImageDefineXml, arg, cancellationToken);
             await innerTask;
         }
         
@@ -3415,7 +3512,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainBlockJobAbortWrappedAsync(Binding.RemoteDomainBlockJobAbortArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainBlockJobAbort, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainBlockJobAbort, arg, cancellationToken);
             await innerTask;
         }
         
@@ -3435,7 +3532,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainGetBlockJobInfoRet> DomainGetBlockJobInfoWrappedAsync(Binding.RemoteDomainGetBlockJobInfoArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainGetBlockJobInfoRet>(Binding.RemoteProcedure.RemoteProcDomainGetBlockJobInfo, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainGetBlockJobInfoRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainGetBlockJobInfo, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -3451,7 +3548,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainBlockJobSetSpeedWrappedAsync(Binding.RemoteDomainBlockJobSetSpeedArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainBlockJobSetSpeed, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainBlockJobSetSpeed, arg, cancellationToken);
             await innerTask;
         }
         
@@ -3466,7 +3563,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainBlockPullWrappedAsync(Binding.RemoteDomainBlockPullArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainBlockPull, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainBlockPull, arg, cancellationToken);
             await innerTask;
         }
         
@@ -3481,7 +3578,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainMigrateGetMaxSpeedRet> DomainMigrateGetMaxSpeedWrappedAsync(Binding.RemoteDomainMigrateGetMaxSpeedArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainMigrateGetMaxSpeedRet>(Binding.RemoteProcedure.RemoteProcDomainMigrateGetMaxSpeed, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainMigrateGetMaxSpeedRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainMigrateGetMaxSpeed, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -3500,7 +3597,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainBlockStatsFlagsRet> DomainBlockStatsFlagsWrappedAsync(Binding.RemoteDomainBlockStatsFlagsArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainBlockStatsFlagsRet>(Binding.RemoteProcedure.RemoteProcDomainBlockStatsFlags, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainBlockStatsFlagsRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainBlockStatsFlags, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -3516,7 +3613,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainSnapshotGetParentRet> DomainSnapshotGetParentWrappedAsync(Binding.RemoteDomainSnapshotGetParentArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainSnapshotGetParentRet>(Binding.RemoteProcedure.RemoteProcDomainSnapshotGetParent, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainSnapshotGetParentRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainSnapshotGetParent, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -3530,7 +3627,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainResetWrappedAsync(Binding.RemoteDomainResetArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainReset, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainReset, arg, cancellationToken);
             await innerTask;
         }
         
@@ -3545,7 +3642,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainSnapshotNumChildrenRet> DomainSnapshotNumChildrenWrappedAsync(Binding.RemoteDomainSnapshotNumChildrenArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainSnapshotNumChildrenRet>(Binding.RemoteProcedure.RemoteProcDomainSnapshotNumChildren, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainSnapshotNumChildrenRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainSnapshotNumChildren, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -3562,7 +3659,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainSnapshotListChildrenNamesRet> DomainSnapshotListChildrenNamesWrappedAsync(Binding.RemoteDomainSnapshotListChildrenNamesArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainSnapshotListChildrenNamesRet>(Binding.RemoteProcedure.RemoteProcDomainSnapshotListChildrenNames, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainSnapshotListChildrenNamesRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainSnapshotListChildrenNames, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -3577,7 +3674,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainOpenGraphicsWrappedAsync(Binding.RemoteDomainOpenGraphicsArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainOpenGraphics, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainOpenGraphics, arg, cancellationToken);
             await innerTask;
         }
         
@@ -3591,7 +3688,7 @@ namespace LibvirtRemote {
         }
         
         public async Task NodeSuspendForDurationWrappedAsync(Binding.RemoteNodeSuspendForDurationArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcNodeSuspendForDuration, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcNodeSuspendForDuration, arg, cancellationToken);
             await innerTask;
         }
         
@@ -3606,7 +3703,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainBlockResizeWrappedAsync(Binding.RemoteDomainBlockResizeArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainBlockResize, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainBlockResize, arg, cancellationToken);
             await innerTask;
         }
         
@@ -3621,7 +3718,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainSetBlockIoTuneWrappedAsync(Binding.RemoteDomainSetBlockIoTuneArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainSetBlockIoTune, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainSetBlockIoTune, arg, cancellationToken);
             await innerTask;
         }
         
@@ -3639,7 +3736,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainGetBlockIoTuneRet> DomainGetBlockIoTuneWrappedAsync(Binding.RemoteDomainGetBlockIoTuneArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainGetBlockIoTuneRet>(Binding.RemoteProcedure.RemoteProcDomainGetBlockIoTune, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainGetBlockIoTuneRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainGetBlockIoTune, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -3654,7 +3751,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainSetNumaParametersWrappedAsync(Binding.RemoteDomainSetNumaParametersArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainSetNumaParameters, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainSetNumaParameters, arg, cancellationToken);
             await innerTask;
         }
         
@@ -3671,7 +3768,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainGetNumaParametersRet> DomainGetNumaParametersWrappedAsync(Binding.RemoteDomainGetNumaParametersArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainGetNumaParametersRet>(Binding.RemoteProcedure.RemoteProcDomainGetNumaParameters, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainGetNumaParametersRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainGetNumaParameters, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -3687,7 +3784,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainSetInterfaceParametersWrappedAsync(Binding.RemoteDomainSetInterfaceParametersArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainSetInterfaceParameters, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainSetInterfaceParameters, arg, cancellationToken);
             await innerTask;
         }
         
@@ -3705,7 +3802,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainGetInterfaceParametersRet> DomainGetInterfaceParametersWrappedAsync(Binding.RemoteDomainGetInterfaceParametersArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainGetInterfaceParametersRet>(Binding.RemoteProcedure.RemoteProcDomainGetInterfaceParameters, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainGetInterfaceParametersRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainGetInterfaceParameters, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -3719,7 +3816,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainShutdownFlagsWrappedAsync(Binding.RemoteDomainShutdownFlagsArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainShutdownFlags, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainShutdownFlags, arg, cancellationToken);
             await innerTask;
         }
         
@@ -3733,7 +3830,7 @@ namespace LibvirtRemote {
         }
         
         public async Task StorageVolWipePatternWrappedAsync(Binding.RemoteStorageVolWipePatternArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcStorageVolWipePattern, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcStorageVolWipePattern, arg, cancellationToken);
             await innerTask;
         }
         
@@ -3747,7 +3844,7 @@ namespace LibvirtRemote {
         }
         
         public async Task StorageVolResizeWrappedAsync(Binding.RemoteStorageVolResizeArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcStorageVolResize, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcStorageVolResize, arg, cancellationToken);
             await innerTask;
         }
         
@@ -3762,7 +3859,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainPmSuspendForDurationWrappedAsync(Binding.RemoteDomainPmSuspendForDurationArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainPmSuspendForDuration, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainPmSuspendForDuration, arg, cancellationToken);
             await innerTask;
         }
         
@@ -3781,7 +3878,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainGetCpuStatsRet> DomainGetCpuStatsWrappedAsync(Binding.RemoteDomainGetCpuStatsArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainGetCpuStatsRet>(Binding.RemoteProcedure.RemoteProcDomainGetCpuStats, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainGetCpuStatsRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainGetCpuStats, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -3799,7 +3896,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainGetDiskErrorsRet> DomainGetDiskErrorsWrappedAsync(Binding.RemoteDomainGetDiskErrorsArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainGetDiskErrorsRet>(Binding.RemoteProcedure.RemoteProcDomainGetDiskErrors, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainGetDiskErrorsRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainGetDiskErrors, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -3817,7 +3914,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainSetMetadataWrappedAsync(Binding.RemoteDomainSetMetadataArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainSetMetadata, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainSetMetadata, arg, cancellationToken);
             await innerTask;
         }
         
@@ -3834,7 +3931,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainGetMetadataRet> DomainGetMetadataWrappedAsync(Binding.RemoteDomainGetMetadataArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainGetMetadataRet>(Binding.RemoteProcedure.RemoteProcDomainGetMetadata, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainGetMetadataRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainGetMetadata, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -3851,7 +3948,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainBlockRebaseWrappedAsync(Binding.RemoteDomainBlockRebaseArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainBlockRebase, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainBlockRebase, arg, cancellationToken);
             await innerTask;
         }
         
@@ -3864,7 +3961,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainPmWakeupWrappedAsync(Binding.RemoteDomainPmWakeupArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainPmWakeup, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainPmWakeup, arg, cancellationToken);
             await innerTask;
         }
         
@@ -3879,7 +3976,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainSnapshotIsCurrentRet> DomainSnapshotIsCurrentWrappedAsync(Binding.RemoteDomainSnapshotIsCurrentArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainSnapshotIsCurrentRet>(Binding.RemoteProcedure.RemoteProcDomainSnapshotIsCurrent, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainSnapshotIsCurrentRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainSnapshotIsCurrent, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -3895,7 +3992,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainSnapshotHasMetadataRet> DomainSnapshotHasMetadataWrappedAsync(Binding.RemoteDomainSnapshotHasMetadataArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainSnapshotHasMetadataRet>(Binding.RemoteProcedure.RemoteProcDomainSnapshotHasMetadata, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainSnapshotHasMetadataRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainSnapshotHasMetadata, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -3912,7 +4009,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteConnectListAllDomainsRet> ConnectListAllDomainsWrappedAsync(Binding.RemoteConnectListAllDomainsArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteConnectListAllDomainsRet>(Binding.RemoteProcedure.RemoteProcConnectListAllDomains, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteConnectListAllDomainsRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcConnectListAllDomains, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -3930,7 +4027,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainListAllSnapshotsRet> DomainListAllSnapshotsWrappedAsync(Binding.RemoteDomainListAllSnapshotsArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainListAllSnapshotsRet>(Binding.RemoteProcedure.RemoteProcDomainListAllSnapshots, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainListAllSnapshotsRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainListAllSnapshots, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -3948,7 +4045,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainSnapshotListAllChildrenRet> DomainSnapshotListAllChildrenWrappedAsync(Binding.RemoteDomainSnapshotListAllChildrenArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainSnapshotListAllChildrenRet>(Binding.RemoteProcedure.RemoteProcDomainSnapshotListAllChildren, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainSnapshotListAllChildrenRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainSnapshotListAllChildren, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -3964,7 +4061,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainGetHostnameRet> DomainGetHostnameWrappedAsync(Binding.RemoteDomainGetHostnameArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainGetHostnameRet>(Binding.RemoteProcedure.RemoteProcDomainGetHostname, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainGetHostnameRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainGetHostname, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -3980,7 +4077,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainGetSecurityLabelListRet> DomainGetSecurityLabelListWrappedAsync(Binding.RemoteDomainGetSecurityLabelListArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainGetSecurityLabelListRet>(Binding.RemoteProcedure.RemoteProcDomainGetSecurityLabelList, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainGetSecurityLabelListRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainGetSecurityLabelList, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -3995,7 +4092,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainPinEmulatorWrappedAsync(Binding.RemoteDomainPinEmulatorArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainPinEmulator, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainPinEmulator, arg, cancellationToken);
             await innerTask;
         }
         
@@ -4012,7 +4109,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainGetEmulatorPinInfoRet> DomainGetEmulatorPinInfoWrappedAsync(Binding.RemoteDomainGetEmulatorPinInfoArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainGetEmulatorPinInfoRet>(Binding.RemoteProcedure.RemoteProcDomainGetEmulatorPinInfo, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainGetEmulatorPinInfoRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainGetEmulatorPinInfo, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -4029,7 +4126,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteConnectListAllStoragePoolsRet> ConnectListAllStoragePoolsWrappedAsync(Binding.RemoteConnectListAllStoragePoolsArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteConnectListAllStoragePoolsRet>(Binding.RemoteProcedure.RemoteProcConnectListAllStoragePools, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteConnectListAllStoragePoolsRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcConnectListAllStoragePools, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -4047,7 +4144,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteStoragePoolListAllVolumesRet> StoragePoolListAllVolumesWrappedAsync(Binding.RemoteStoragePoolListAllVolumesArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteStoragePoolListAllVolumesRet>(Binding.RemoteProcedure.RemoteProcStoragePoolListAllVolumes, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteStoragePoolListAllVolumesRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcStoragePoolListAllVolumes, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -4064,7 +4161,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteConnectListAllNetworksRet> ConnectListAllNetworksWrappedAsync(Binding.RemoteConnectListAllNetworksArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteConnectListAllNetworksRet>(Binding.RemoteProcedure.RemoteProcConnectListAllNetworks, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteConnectListAllNetworksRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcConnectListAllNetworks, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -4081,7 +4178,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteConnectListAllInterfacesRet> ConnectListAllInterfacesWrappedAsync(Binding.RemoteConnectListAllInterfacesArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteConnectListAllInterfacesRet>(Binding.RemoteProcedure.RemoteProcConnectListAllInterfaces, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteConnectListAllInterfacesRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcConnectListAllInterfaces, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -4098,7 +4195,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteConnectListAllNodeDevicesRet> ConnectListAllNodeDevicesWrappedAsync(Binding.RemoteConnectListAllNodeDevicesArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteConnectListAllNodeDevicesRet>(Binding.RemoteProcedure.RemoteProcConnectListAllNodeDevices, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteConnectListAllNodeDevicesRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcConnectListAllNodeDevices, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -4115,7 +4212,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteConnectListAllNwfiltersRet> ConnectListAllNwfiltersWrappedAsync(Binding.RemoteConnectListAllNwfiltersArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteConnectListAllNwfiltersRet>(Binding.RemoteProcedure.RemoteProcConnectListAllNwfilters, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteConnectListAllNwfiltersRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcConnectListAllNwfilters, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -4132,7 +4229,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteConnectListAllSecretsRet> ConnectListAllSecretsWrappedAsync(Binding.RemoteConnectListAllSecretsArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteConnectListAllSecretsRet>(Binding.RemoteProcedure.RemoteProcConnectListAllSecrets, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteConnectListAllSecretsRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcConnectListAllSecrets, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -4146,7 +4243,7 @@ namespace LibvirtRemote {
         }
         
         public async Task NodeSetMemoryParametersWrappedAsync(Binding.RemoteNodeSetMemoryParametersArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcNodeSetMemoryParameters, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcNodeSetMemoryParameters, arg, cancellationToken);
             await innerTask;
         }
         
@@ -4162,7 +4259,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteNodeGetMemoryParametersRet> NodeGetMemoryParametersWrappedAsync(Binding.RemoteNodeGetMemoryParametersArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteNodeGetMemoryParametersRet>(Binding.RemoteProcedure.RemoteProcNodeGetMemoryParameters, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteNodeGetMemoryParametersRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcNodeGetMemoryParameters, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -4180,7 +4277,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainBlockCommitWrappedAsync(Binding.RemoteDomainBlockCommitArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainBlockCommit, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainBlockCommit, arg, cancellationToken);
             await innerTask;
         }
         
@@ -4197,7 +4294,7 @@ namespace LibvirtRemote {
         }
         
         public async Task NetworkUpdateWrappedAsync(Binding.RemoteNetworkUpdateArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcNetworkUpdate, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcNetworkUpdate, arg, cancellationToken);
             await innerTask;
         }
         
@@ -4215,7 +4312,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteNodeGetCpuMapRet> NodeGetCpuMapWrappedAsync(Binding.RemoteNodeGetCpuMapArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteNodeGetCpuMapRet>(Binding.RemoteProcedure.RemoteProcNodeGetCpuMap, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteNodeGetCpuMapRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcNodeGetCpuMap, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -4231,7 +4328,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainFstrimWrappedAsync(Binding.RemoteDomainFstrimArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainFstrim, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainFstrim, arg, cancellationToken);
             await innerTask;
         }
         
@@ -4246,7 +4343,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainSendProcessSignalWrappedAsync(Binding.RemoteDomainSendProcessSignalArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainSendProcessSignal, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainSendProcessSignal, arg, cancellationToken);
             await innerTask;
         }
         
@@ -4261,7 +4358,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Tuple<VirtNetStream, Xdr.XdrVoid>> DomainOpenChannelWrappedAsync(Binding.RemoteDomainOpenChannelArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallWithStreamAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainOpenChannel, arg, cancellationToken);
+            var innerTask = this.CallWithStreamAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainOpenChannel, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -4278,7 +4375,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteNodeDeviceLookupScsiHostByWwnRet> NodeDeviceLookupScsiHostByWwnWrappedAsync(Binding.RemoteNodeDeviceLookupScsiHostByWwnArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteNodeDeviceLookupScsiHostByWwnRet>(Binding.RemoteProcedure.RemoteProcNodeDeviceLookupScsiHostByWwn, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteNodeDeviceLookupScsiHostByWwnRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcNodeDeviceLookupScsiHostByWwn, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -4295,7 +4392,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainGetJobStatsRet> DomainGetJobStatsWrappedAsync(Binding.RemoteDomainGetJobStatsArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainGetJobStatsRet>(Binding.RemoteProcedure.RemoteProcDomainGetJobStats, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainGetJobStatsRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainGetJobStats, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -4311,7 +4408,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainMigrateGetCompressionCacheRet> DomainMigrateGetCompressionCacheWrappedAsync(Binding.RemoteDomainMigrateGetCompressionCacheArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainMigrateGetCompressionCacheRet>(Binding.RemoteProcedure.RemoteProcDomainMigrateGetCompressionCache, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainMigrateGetCompressionCacheRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainMigrateGetCompressionCache, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -4326,7 +4423,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainMigrateSetCompressionCacheWrappedAsync(Binding.RemoteDomainMigrateSetCompressionCacheArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainMigrateSetCompressionCache, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainMigrateSetCompressionCache, arg, cancellationToken);
             await innerTask;
         }
         
@@ -4340,7 +4437,7 @@ namespace LibvirtRemote {
         }
         
         public async Task NodeDeviceDetachFlagsWrappedAsync(Binding.RemoteNodeDeviceDetachFlagsArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcNodeDeviceDetachFlags, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcNodeDeviceDetachFlags, arg, cancellationToken);
             await innerTask;
         }
         
@@ -4357,7 +4454,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainMigrateBegin3ParamsRet> DomainMigrateBegin3ParamsWrappedAsync(Binding.RemoteDomainMigrateBegin3ParamsArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainMigrateBegin3ParamsRet>(Binding.RemoteProcedure.RemoteProcDomainMigrateBegin3Params, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainMigrateBegin3ParamsRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainMigrateBegin3Params, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -4375,7 +4472,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainMigratePrepare3ParamsRet> DomainMigratePrepare3ParamsWrappedAsync(Binding.RemoteDomainMigratePrepare3ParamsArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainMigratePrepare3ParamsRet>(Binding.RemoteProcedure.RemoteProcDomainMigratePrepare3Params, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainMigratePrepare3ParamsRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainMigratePrepare3Params, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -4392,7 +4489,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainMigratePrepareTunnel3ParamsRet> DomainMigratePrepareTunnel3ParamsWrappedAsync(Binding.RemoteDomainMigratePrepareTunnel3ParamsArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainMigratePrepareTunnel3ParamsRet>(Binding.RemoteProcedure.RemoteProcDomainMigratePrepareTunnel3Params, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainMigratePrepareTunnel3ParamsRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainMigratePrepareTunnel3Params, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -4411,7 +4508,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainMigratePerform3ParamsRet> DomainMigratePerform3ParamsWrappedAsync(Binding.RemoteDomainMigratePerform3ParamsArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainMigratePerform3ParamsRet>(Binding.RemoteProcedure.RemoteProcDomainMigratePerform3Params, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainMigratePerform3ParamsRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainMigratePerform3Params, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -4430,7 +4527,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainMigrateFinish3ParamsRet> DomainMigrateFinish3ParamsWrappedAsync(Binding.RemoteDomainMigrateFinish3ParamsArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainMigrateFinish3ParamsRet>(Binding.RemoteProcedure.RemoteProcDomainMigrateFinish3Params, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainMigrateFinish3ParamsRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainMigrateFinish3Params, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -4447,7 +4544,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainMigrateConfirm3ParamsWrappedAsync(Binding.RemoteDomainMigrateConfirm3ParamsArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainMigrateConfirm3Params, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainMigrateConfirm3Params, arg, cancellationToken);
             await innerTask;
         }
         
@@ -4461,7 +4558,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainSetMemoryStatsPeriodWrappedAsync(Binding.RemoteDomainSetMemoryStatsPeriodArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainSetMemoryStatsPeriod, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainSetMemoryStatsPeriod, arg, cancellationToken);
             await innerTask;
         }
         
@@ -4476,7 +4573,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainCreateXmlWithFilesRet> DomainCreateXmlWithFilesWrappedAsync(Binding.RemoteDomainCreateXmlWithFilesArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainCreateXmlWithFilesRet>(Binding.RemoteProcedure.RemoteProcDomainCreateXmlWithFiles, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainCreateXmlWithFilesRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainCreateXmlWithFiles, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -4492,7 +4589,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainCreateWithFilesRet> DomainCreateWithFilesWrappedAsync(Binding.RemoteDomainCreateWithFilesArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainCreateWithFilesRet>(Binding.RemoteProcedure.RemoteProcDomainCreateWithFiles, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainCreateWithFilesRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainCreateWithFiles, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -4510,7 +4607,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteConnectGetCpuModelNamesRet> ConnectGetCpuModelNamesWrappedAsync(Binding.RemoteConnectGetCpuModelNamesArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteConnectGetCpuModelNamesRet>(Binding.RemoteProcedure.RemoteProcConnectGetCpuModelNames, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteConnectGetCpuModelNamesRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcConnectGetCpuModelNames, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -4526,7 +4623,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteConnectNetworkEventRegisterAnyRet> ConnectNetworkEventRegisterAnyWrappedAsync(Binding.RemoteConnectNetworkEventRegisterAnyArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteConnectNetworkEventRegisterAnyRet>(Binding.RemoteProcedure.RemoteProcConnectNetworkEventRegisterAny, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteConnectNetworkEventRegisterAnyRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcConnectNetworkEventRegisterAny, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -4539,7 +4636,7 @@ namespace LibvirtRemote {
         }
         
         public async Task ConnectNetworkEventDeregisterAnyWrappedAsync(Binding.RemoteConnectNetworkEventDeregisterAnyArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcConnectNetworkEventDeregisterAny, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcConnectNetworkEventDeregisterAny, arg, cancellationToken);
             await innerTask;
         }
         
@@ -4554,7 +4651,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteConnectDomainEventCallbackRegisterAnyRet> ConnectDomainEventCallbackRegisterAnyWrappedAsync(Binding.RemoteConnectDomainEventCallbackRegisterAnyArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteConnectDomainEventCallbackRegisterAnyRet>(Binding.RemoteProcedure.RemoteProcConnectDomainEventCallbackRegisterAny, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteConnectDomainEventCallbackRegisterAnyRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcConnectDomainEventCallbackRegisterAny, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -4567,7 +4664,7 @@ namespace LibvirtRemote {
         }
         
         public async Task ConnectDomainEventCallbackDeregisterAnyWrappedAsync(Binding.RemoteConnectDomainEventCallbackDeregisterAnyArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcConnectDomainEventCallbackDeregisterAny, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcConnectDomainEventCallbackDeregisterAny, arg, cancellationToken);
             await innerTask;
         }
         
@@ -4582,7 +4679,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainCoreDumpWithFormatWrappedAsync(Binding.RemoteDomainCoreDumpWithFormatArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainCoreDumpWithFormat, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainCoreDumpWithFormat, arg, cancellationToken);
             await innerTask;
         }
         
@@ -4598,7 +4695,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainFsfreezeRet> DomainFsfreezeWrappedAsync(Binding.RemoteDomainFsfreezeArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainFsfreezeRet>(Binding.RemoteProcedure.RemoteProcDomainFsfreeze, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainFsfreezeRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainFsfreeze, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -4615,7 +4712,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainFsthawRet> DomainFsthawWrappedAsync(Binding.RemoteDomainFsthawArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainFsthawRet>(Binding.RemoteProcedure.RemoteProcDomainFsthaw, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainFsthawRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainFsthaw, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -4632,7 +4729,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainGetTimeRet> DomainGetTimeWrappedAsync(Binding.RemoteDomainGetTimeArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainGetTimeRet>(Binding.RemoteProcedure.RemoteProcDomainGetTime, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainGetTimeRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainGetTime, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -4648,7 +4745,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainSetTimeWrappedAsync(Binding.RemoteDomainSetTimeArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainSetTime, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainSetTime, arg, cancellationToken);
             await innerTask;
         }
         
@@ -4665,7 +4762,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteNodeGetFreePagesRet> NodeGetFreePagesWrappedAsync(Binding.RemoteNodeGetFreePagesArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteNodeGetFreePagesRet>(Binding.RemoteProcedure.RemoteProcNodeGetFreePages, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteNodeGetFreePagesRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcNodeGetFreePages, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -4684,7 +4781,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteNetworkGetDhcpLeasesRet> NetworkGetDhcpLeasesWrappedAsync(Binding.RemoteNetworkGetDhcpLeasesArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteNetworkGetDhcpLeasesRet>(Binding.RemoteProcedure.RemoteProcNetworkGetDhcpLeases, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteNetworkGetDhcpLeasesRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcNetworkGetDhcpLeases, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -4703,7 +4800,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteConnectGetDomainCapabilitiesRet> ConnectGetDomainCapabilitiesWrappedAsync(Binding.RemoteConnectGetDomainCapabilitiesArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteConnectGetDomainCapabilitiesRet>(Binding.RemoteProcedure.RemoteProcConnectGetDomainCapabilities, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteConnectGetDomainCapabilitiesRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcConnectGetDomainCapabilities, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -4718,7 +4815,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainOpenGraphicsFdWrappedAsync(Binding.RemoteDomainOpenGraphicsFdArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainOpenGraphicsFd, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainOpenGraphicsFd, arg, cancellationToken);
             await innerTask;
         }
         
@@ -4734,7 +4831,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteConnectGetAllDomainStatsRet> ConnectGetAllDomainStatsWrappedAsync(Binding.RemoteConnectGetAllDomainStatsArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteConnectGetAllDomainStatsRet>(Binding.RemoteProcedure.RemoteProcConnectGetAllDomainStats, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteConnectGetAllDomainStatsRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcConnectGetAllDomainStats, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -4751,7 +4848,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainBlockCopyWrappedAsync(Binding.RemoteDomainBlockCopyArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainBlockCopy, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainBlockCopy, arg, cancellationToken);
             await innerTask;
         }
         
@@ -4769,7 +4866,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteNodeAllocPagesRet> NodeAllocPagesWrappedAsync(Binding.RemoteNodeAllocPagesArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteNodeAllocPagesRet>(Binding.RemoteProcedure.RemoteProcNodeAllocPages, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteNodeAllocPagesRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcNodeAllocPages, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -4786,7 +4883,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainGetFsinfoRet> DomainGetFsinfoWrappedAsync(Binding.RemoteDomainGetFsinfoArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainGetFsinfoRet>(Binding.RemoteProcedure.RemoteProcDomainGetFsinfo, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainGetFsinfoRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainGetFsinfo, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -4802,7 +4899,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainDefineXmlFlagsRet> DomainDefineXmlFlagsWrappedAsync(Binding.RemoteDomainDefineXmlFlagsArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainDefineXmlFlagsRet>(Binding.RemoteProcedure.RemoteProcDomainDefineXmlFlags, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainDefineXmlFlagsRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainDefineXmlFlags, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -4819,7 +4916,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainGetIothreadInfoRet> DomainGetIothreadInfoWrappedAsync(Binding.RemoteDomainGetIothreadInfoArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainGetIothreadInfoRet>(Binding.RemoteProcedure.RemoteProcDomainGetIothreadInfo, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainGetIothreadInfoRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainGetIothreadInfo, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -4835,7 +4932,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainPinIothreadWrappedAsync(Binding.RemoteDomainPinIothreadArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainPinIothread, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainPinIothread, arg, cancellationToken);
             await innerTask;
         }
         
@@ -4851,7 +4948,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainInterfaceAddressesRet> DomainInterfaceAddressesWrappedAsync(Binding.RemoteDomainInterfaceAddressesArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainInterfaceAddressesRet>(Binding.RemoteProcedure.RemoteProcDomainInterfaceAddresses, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainInterfaceAddressesRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainInterfaceAddresses, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -4866,7 +4963,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainAddIothreadWrappedAsync(Binding.RemoteDomainAddIothreadArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainAddIothread, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainAddIothread, arg, cancellationToken);
             await innerTask;
         }
         
@@ -4880,7 +4977,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainDelIothreadWrappedAsync(Binding.RemoteDomainDelIothreadArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainDelIothread, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainDelIothread, arg, cancellationToken);
             await innerTask;
         }
         
@@ -4895,7 +4992,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainSetUserPasswordWrappedAsync(Binding.RemoteDomainSetUserPasswordArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainSetUserPassword, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainSetUserPassword, arg, cancellationToken);
             await innerTask;
         }
         
@@ -4911,7 +5008,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainRenameRet> DomainRenameWrappedAsync(Binding.RemoteDomainRenameArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainRenameRet>(Binding.RemoteProcedure.RemoteProcDomainRename, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainRenameRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainRename, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -4922,7 +5019,7 @@ namespace LibvirtRemote {
         }
         
         public async Task ConnectRegisterCloseCallbackWrappedAsync(System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcConnectRegisterCloseCallback, null, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcConnectRegisterCloseCallback, null, cancellationToken);
             await innerTask;
         }
         
@@ -4932,7 +5029,7 @@ namespace LibvirtRemote {
         }
         
         public async Task ConnectUnregisterCloseCallbackWrappedAsync(System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcConnectUnregisterCloseCallback, null, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcConnectUnregisterCloseCallback, null, cancellationToken);
             await innerTask;
         }
         
@@ -4945,7 +5042,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainMigrateStartPostCopyWrappedAsync(Binding.RemoteDomainMigrateStartPostCopyArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainMigrateStartPostCopy, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainMigrateStartPostCopy, arg, cancellationToken);
             await innerTask;
         }
         
@@ -4960,7 +5057,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainGetPerfEventsRet> DomainGetPerfEventsWrappedAsync(Binding.RemoteDomainGetPerfEventsArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainGetPerfEventsRet>(Binding.RemoteProcedure.RemoteProcDomainGetPerfEvents, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainGetPerfEventsRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainGetPerfEvents, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -4975,7 +5072,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainSetPerfEventsWrappedAsync(Binding.RemoteDomainSetPerfEventsArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainSetPerfEvents, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainSetPerfEvents, arg, cancellationToken);
             await innerTask;
         }
         
@@ -4990,7 +5087,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteConnectStoragePoolEventRegisterAnyRet> ConnectStoragePoolEventRegisterAnyWrappedAsync(Binding.RemoteConnectStoragePoolEventRegisterAnyArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteConnectStoragePoolEventRegisterAnyRet>(Binding.RemoteProcedure.RemoteProcConnectStoragePoolEventRegisterAny, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteConnectStoragePoolEventRegisterAnyRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcConnectStoragePoolEventRegisterAny, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -5003,7 +5100,7 @@ namespace LibvirtRemote {
         }
         
         public async Task ConnectStoragePoolEventDeregisterAnyWrappedAsync(Binding.RemoteConnectStoragePoolEventDeregisterAnyArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcConnectStoragePoolEventDeregisterAny, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcConnectStoragePoolEventDeregisterAny, arg, cancellationToken);
             await innerTask;
         }
         
@@ -5018,7 +5115,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainGetGuestVcpusRet> DomainGetGuestVcpusWrappedAsync(Binding.RemoteDomainGetGuestVcpusArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainGetGuestVcpusRet>(Binding.RemoteProcedure.RemoteProcDomainGetGuestVcpus, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainGetGuestVcpusRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainGetGuestVcpus, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -5034,7 +5131,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainSetGuestVcpusWrappedAsync(Binding.RemoteDomainSetGuestVcpusArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainSetGuestVcpus, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainSetGuestVcpus, arg, cancellationToken);
             await innerTask;
         }
         
@@ -5049,7 +5146,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteConnectNodeDeviceEventRegisterAnyRet> ConnectNodeDeviceEventRegisterAnyWrappedAsync(Binding.RemoteConnectNodeDeviceEventRegisterAnyArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteConnectNodeDeviceEventRegisterAnyRet>(Binding.RemoteProcedure.RemoteProcConnectNodeDeviceEventRegisterAny, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteConnectNodeDeviceEventRegisterAnyRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcConnectNodeDeviceEventRegisterAny, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -5062,7 +5159,7 @@ namespace LibvirtRemote {
         }
         
         public async Task ConnectNodeDeviceEventDeregisterAnyWrappedAsync(Binding.RemoteConnectNodeDeviceEventDeregisterAnyArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcConnectNodeDeviceEventDeregisterAny, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcConnectNodeDeviceEventDeregisterAny, arg, cancellationToken);
             await innerTask;
         }
         
@@ -5079,7 +5176,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteStorageVolGetInfoFlagsRet> StorageVolGetInfoFlagsWrappedAsync(Binding.RemoteStorageVolGetInfoFlagsArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteStorageVolGetInfoFlagsRet>(Binding.RemoteProcedure.RemoteProcStorageVolGetInfoFlags, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteStorageVolGetInfoFlagsRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcStorageVolGetInfoFlags, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -5095,7 +5192,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteConnectSecretEventRegisterAnyRet> ConnectSecretEventRegisterAnyWrappedAsync(Binding.RemoteConnectSecretEventRegisterAnyArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteConnectSecretEventRegisterAnyRet>(Binding.RemoteProcedure.RemoteProcConnectSecretEventRegisterAny, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteConnectSecretEventRegisterAnyRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcConnectSecretEventRegisterAny, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -5108,7 +5205,7 @@ namespace LibvirtRemote {
         }
         
         public async Task ConnectSecretEventDeregisterAnyWrappedAsync(Binding.RemoteConnectSecretEventDeregisterAnyArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcConnectSecretEventDeregisterAny, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcConnectSecretEventDeregisterAny, arg, cancellationToken);
             await innerTask;
         }
         
@@ -5123,7 +5220,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainSetVcpuWrappedAsync(Binding.RemoteDomainSetVcpuArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainSetVcpu, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainSetVcpu, arg, cancellationToken);
             await innerTask;
         }
         
@@ -5138,7 +5235,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainSetBlockThresholdWrappedAsync(Binding.RemoteDomainSetBlockThresholdArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainSetBlockThreshold, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainSetBlockThreshold, arg, cancellationToken);
             await innerTask;
         }
         
@@ -5153,7 +5250,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainMigrateGetMaxDowntimeRet> DomainMigrateGetMaxDowntimeWrappedAsync(Binding.RemoteDomainMigrateGetMaxDowntimeArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainMigrateGetMaxDowntimeRet>(Binding.RemoteProcedure.RemoteProcDomainMigrateGetMaxDowntime, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainMigrateGetMaxDowntimeRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainMigrateGetMaxDowntime, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -5169,7 +5266,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainManagedSaveGetXmlDescRet> DomainManagedSaveGetXmlDescWrappedAsync(Binding.RemoteDomainManagedSaveGetXmlDescArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainManagedSaveGetXmlDescRet>(Binding.RemoteProcedure.RemoteProcDomainManagedSaveGetXmlDesc, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainManagedSaveGetXmlDescRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainManagedSaveGetXmlDesc, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -5184,7 +5281,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainManagedSaveDefineXmlWrappedAsync(Binding.RemoteDomainManagedSaveDefineXmlArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainManagedSaveDefineXml, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainManagedSaveDefineXml, arg, cancellationToken);
             await innerTask;
         }
         
@@ -5199,7 +5296,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainSetLifecycleActionWrappedAsync(Binding.RemoteDomainSetLifecycleActionArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainSetLifecycleAction, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainSetLifecycleAction, arg, cancellationToken);
             await innerTask;
         }
         
@@ -5213,7 +5310,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteStoragePoolLookupByTargetPathRet> StoragePoolLookupByTargetPathWrappedAsync(Binding.RemoteStoragePoolLookupByTargetPathArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteStoragePoolLookupByTargetPathRet>(Binding.RemoteProcedure.RemoteProcStoragePoolLookupByTargetPath, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteStoragePoolLookupByTargetPathRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcStoragePoolLookupByTargetPath, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -5228,7 +5325,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainDetachDeviceAliasWrappedAsync(Binding.RemoteDomainDetachDeviceAliasArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainDetachDeviceAlias, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainDetachDeviceAlias, arg, cancellationToken);
             await innerTask;
         }
         
@@ -5247,7 +5344,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteConnectCompareHypervisorCpuRet> ConnectCompareHypervisorCpuWrappedAsync(Binding.RemoteConnectCompareHypervisorCpuArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteConnectCompareHypervisorCpuRet>(Binding.RemoteProcedure.RemoteProcConnectCompareHypervisorCpu, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteConnectCompareHypervisorCpuRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcConnectCompareHypervisorCpu, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -5267,7 +5364,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteConnectBaselineHypervisorCpuRet> ConnectBaselineHypervisorCpuWrappedAsync(Binding.RemoteConnectBaselineHypervisorCpuArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteConnectBaselineHypervisorCpuRet>(Binding.RemoteProcedure.RemoteProcConnectBaselineHypervisorCpu, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteConnectBaselineHypervisorCpuRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcConnectBaselineHypervisorCpu, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -5284,7 +5381,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteNodeGetSevInfoRet> NodeGetSevInfoWrappedAsync(Binding.RemoteNodeGetSevInfoArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteNodeGetSevInfoRet>(Binding.RemoteProcedure.RemoteProcNodeGetSevInfo, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteNodeGetSevInfoRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcNodeGetSevInfo, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -5300,7 +5397,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainGetLaunchSecurityInfoRet> DomainGetLaunchSecurityInfoWrappedAsync(Binding.RemoteDomainGetLaunchSecurityInfoArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainGetLaunchSecurityInfoRet>(Binding.RemoteProcedure.RemoteProcDomainGetLaunchSecurityInfo, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainGetLaunchSecurityInfoRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainGetLaunchSecurityInfo, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -5315,7 +5412,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteNwfilterBindingLookupByPortDevRet> NwfilterBindingLookupByPortDevWrappedAsync(Binding.RemoteNwfilterBindingLookupByPortDevArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteNwfilterBindingLookupByPortDevRet>(Binding.RemoteProcedure.RemoteProcNwfilterBindingLookupByPortDev, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteNwfilterBindingLookupByPortDevRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcNwfilterBindingLookupByPortDev, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -5331,7 +5428,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteNwfilterBindingGetXmlDescRet> NwfilterBindingGetXmlDescWrappedAsync(Binding.RemoteNwfilterBindingGetXmlDescArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteNwfilterBindingGetXmlDescRet>(Binding.RemoteProcedure.RemoteProcNwfilterBindingGetXmlDesc, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteNwfilterBindingGetXmlDescRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcNwfilterBindingGetXmlDesc, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -5347,7 +5444,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteNwfilterBindingCreateXmlRet> NwfilterBindingCreateXmlWrappedAsync(Binding.RemoteNwfilterBindingCreateXmlArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteNwfilterBindingCreateXmlRet>(Binding.RemoteProcedure.RemoteProcNwfilterBindingCreateXml, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteNwfilterBindingCreateXmlRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcNwfilterBindingCreateXml, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -5360,7 +5457,7 @@ namespace LibvirtRemote {
         }
         
         public async Task NwfilterBindingDeleteWrappedAsync(Binding.RemoteNwfilterBindingDeleteArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcNwfilterBindingDelete, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcNwfilterBindingDelete, arg, cancellationToken);
             await innerTask;
         }
         
@@ -5376,7 +5473,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteConnectListAllNwfilterBindingsRet> ConnectListAllNwfilterBindingsWrappedAsync(Binding.RemoteConnectListAllNwfilterBindingsArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteConnectListAllNwfilterBindingsRet>(Binding.RemoteProcedure.RemoteProcConnectListAllNwfilterBindings, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteConnectListAllNwfilterBindingsRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcConnectListAllNwfilterBindings, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -5392,7 +5489,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainSetIothreadParamsWrappedAsync(Binding.RemoteDomainSetIothreadParamsArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainSetIothreadParams, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainSetIothreadParams, arg, cancellationToken);
             await innerTask;
         }
         
@@ -5406,7 +5503,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteConnectGetStoragePoolCapabilitiesRet> ConnectGetStoragePoolCapabilitiesWrappedAsync(Binding.RemoteConnectGetStoragePoolCapabilitiesArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteConnectGetStoragePoolCapabilitiesRet>(Binding.RemoteProcedure.RemoteProcConnectGetStoragePoolCapabilities, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteConnectGetStoragePoolCapabilitiesRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcConnectGetStoragePoolCapabilities, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -5424,7 +5521,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteNetworkListAllPortsRet> NetworkListAllPortsWrappedAsync(Binding.RemoteNetworkListAllPortsArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteNetworkListAllPortsRet>(Binding.RemoteProcedure.RemoteProcNetworkListAllPorts, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteNetworkListAllPortsRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcNetworkListAllPorts, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -5440,7 +5537,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteNetworkPortLookupByUuidRet> NetworkPortLookupByUuidWrappedAsync(Binding.RemoteNetworkPortLookupByUuidArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteNetworkPortLookupByUuidRet>(Binding.RemoteProcedure.RemoteProcNetworkPortLookupByUuid, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteNetworkPortLookupByUuidRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcNetworkPortLookupByUuid, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -5457,7 +5554,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteNetworkPortCreateXmlRet> NetworkPortCreateXmlWrappedAsync(Binding.RemoteNetworkPortCreateXmlArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteNetworkPortCreateXmlRet>(Binding.RemoteProcedure.RemoteProcNetworkPortCreateXml, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteNetworkPortCreateXmlRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcNetworkPortCreateXml, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -5475,7 +5572,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteNetworkPortGetParametersRet> NetworkPortGetParametersWrappedAsync(Binding.RemoteNetworkPortGetParametersArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteNetworkPortGetParametersRet>(Binding.RemoteProcedure.RemoteProcNetworkPortGetParameters, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteNetworkPortGetParametersRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcNetworkPortGetParameters, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -5490,7 +5587,7 @@ namespace LibvirtRemote {
         }
         
         public async Task NetworkPortSetParametersWrappedAsync(Binding.RemoteNetworkPortSetParametersArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcNetworkPortSetParameters, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcNetworkPortSetParameters, arg, cancellationToken);
             await innerTask;
         }
         
@@ -5505,7 +5602,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteNetworkPortGetXmlDescRet> NetworkPortGetXmlDescWrappedAsync(Binding.RemoteNetworkPortGetXmlDescArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteNetworkPortGetXmlDescRet>(Binding.RemoteProcedure.RemoteProcNetworkPortGetXmlDesc, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteNetworkPortGetXmlDescRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcNetworkPortGetXmlDesc, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -5519,7 +5616,7 @@ namespace LibvirtRemote {
         }
         
         public async Task NetworkPortDeleteWrappedAsync(Binding.RemoteNetworkPortDeleteArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcNetworkPortDelete, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcNetworkPortDelete, arg, cancellationToken);
             await innerTask;
         }
         
@@ -5535,7 +5632,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainCheckpointCreateXmlRet> DomainCheckpointCreateXmlWrappedAsync(Binding.RemoteDomainCheckpointCreateXmlArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainCheckpointCreateXmlRet>(Binding.RemoteProcedure.RemoteProcDomainCheckpointCreateXml, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainCheckpointCreateXmlRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainCheckpointCreateXml, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -5551,7 +5648,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainCheckpointGetXmlDescRet> DomainCheckpointGetXmlDescWrappedAsync(Binding.RemoteDomainCheckpointGetXmlDescArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainCheckpointGetXmlDescRet>(Binding.RemoteProcedure.RemoteProcDomainCheckpointGetXmlDesc, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainCheckpointGetXmlDescRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainCheckpointGetXmlDesc, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -5569,7 +5666,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainListAllCheckpointsRet> DomainListAllCheckpointsWrappedAsync(Binding.RemoteDomainListAllCheckpointsArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainListAllCheckpointsRet>(Binding.RemoteProcedure.RemoteProcDomainListAllCheckpoints, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainListAllCheckpointsRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainListAllCheckpoints, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -5587,7 +5684,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainCheckpointListAllChildrenRet> DomainCheckpointListAllChildrenWrappedAsync(Binding.RemoteDomainCheckpointListAllChildrenArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainCheckpointListAllChildrenRet>(Binding.RemoteProcedure.RemoteProcDomainCheckpointListAllChildren, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainCheckpointListAllChildrenRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainCheckpointListAllChildren, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -5604,7 +5701,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainCheckpointLookupByNameRet> DomainCheckpointLookupByNameWrappedAsync(Binding.RemoteDomainCheckpointLookupByNameArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainCheckpointLookupByNameRet>(Binding.RemoteProcedure.RemoteProcDomainCheckpointLookupByName, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainCheckpointLookupByNameRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainCheckpointLookupByName, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -5620,7 +5717,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainCheckpointGetParentRet> DomainCheckpointGetParentWrappedAsync(Binding.RemoteDomainCheckpointGetParentArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainCheckpointGetParentRet>(Binding.RemoteProcedure.RemoteProcDomainCheckpointGetParent, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainCheckpointGetParentRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainCheckpointGetParent, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -5634,7 +5731,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainCheckpointDeleteWrappedAsync(Binding.RemoteDomainCheckpointDeleteArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainCheckpointDelete, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainCheckpointDelete, arg, cancellationToken);
             await innerTask;
         }
         
@@ -5650,7 +5747,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainGetGuestInfoRet> DomainGetGuestInfoWrappedAsync(Binding.RemoteDomainGetGuestInfoArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainGetGuestInfoRet>(Binding.RemoteProcedure.RemoteProcDomainGetGuestInfo, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainGetGuestInfoRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainGetGuestInfo, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -5664,7 +5761,7 @@ namespace LibvirtRemote {
         }
         
         public async Task ConnectSetIdentityWrappedAsync(Binding.RemoteConnectSetIdentityArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcConnectSetIdentity, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcConnectSetIdentity, arg, cancellationToken);
             await innerTask;
         }
         
@@ -5680,7 +5777,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainAgentSetResponseTimeoutRet> DomainAgentSetResponseTimeoutWrappedAsync(Binding.RemoteDomainAgentSetResponseTimeoutArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainAgentSetResponseTimeoutRet>(Binding.RemoteProcedure.RemoteProcDomainAgentSetResponseTimeout, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainAgentSetResponseTimeoutRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainAgentSetResponseTimeout, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -5696,7 +5793,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainBackupBeginWrappedAsync(Binding.RemoteDomainBackupBeginArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainBackupBegin, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainBackupBegin, arg, cancellationToken);
             await innerTask;
         }
         
@@ -5711,7 +5808,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainBackupGetXmlDescRet> DomainBackupGetXmlDescWrappedAsync(Binding.RemoteDomainBackupGetXmlDescArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainBackupGetXmlDescRet>(Binding.RemoteProcedure.RemoteProcDomainBackupGetXmlDesc, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainBackupGetXmlDescRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainBackupGetXmlDesc, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -5728,7 +5825,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainAuthorizedSshKeysGetRet> DomainAuthorizedSshKeysGetWrappedAsync(Binding.RemoteDomainAuthorizedSshKeysGetArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainAuthorizedSshKeysGetRet>(Binding.RemoteProcedure.RemoteProcDomainAuthorizedSshKeysGet, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainAuthorizedSshKeysGetRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainAuthorizedSshKeysGet, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -5744,7 +5841,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainAuthorizedSshKeysSetWrappedAsync(Binding.RemoteDomainAuthorizedSshKeysSetArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainAuthorizedSshKeysSet, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainAuthorizedSshKeysSet, arg, cancellationToken);
             await innerTask;
         }
         
@@ -5759,7 +5856,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteDomainGetMessagesRet> DomainGetMessagesWrappedAsync(Binding.RemoteDomainGetMessagesArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteDomainGetMessagesRet>(Binding.RemoteProcedure.RemoteProcDomainGetMessages, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteDomainGetMessagesRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainGetMessages, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -5774,7 +5871,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainStartDirtyRateCalcWrappedAsync(Binding.RemoteDomainStartDirtyRateCalcArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainStartDirtyRateCalc, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainStartDirtyRateCalc, arg, cancellationToken);
             await innerTask;
         }
         
@@ -5789,7 +5886,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteNodeDeviceDefineXmlRet> NodeDeviceDefineXmlWrappedAsync(Binding.RemoteNodeDeviceDefineXmlArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteNodeDeviceDefineXmlRet>(Binding.RemoteProcedure.RemoteProcNodeDeviceDefineXml, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteNodeDeviceDefineXmlRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcNodeDeviceDefineXml, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -5803,7 +5900,7 @@ namespace LibvirtRemote {
         }
         
         public async Task NodeDeviceUndefineWrappedAsync(Binding.RemoteNodeDeviceUndefineArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcNodeDeviceUndefine, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcNodeDeviceUndefine, arg, cancellationToken);
             await innerTask;
         }
         
@@ -5816,7 +5913,7 @@ namespace LibvirtRemote {
         }
         
         public async Task NodeDeviceCreateWrappedAsync(Binding.RemoteNodeDeviceCreateArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcNodeDeviceCreate, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcNodeDeviceCreate, arg, cancellationToken);
             await innerTask;
         }
         
@@ -5831,7 +5928,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteNwfilterDefineXmlFlagsRet> NwfilterDefineXmlFlagsWrappedAsync(Binding.RemoteNwfilterDefineXmlFlagsArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteNwfilterDefineXmlFlagsRet>(Binding.RemoteProcedure.RemoteProcNwfilterDefineXmlFlags, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteNwfilterDefineXmlFlagsRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcNwfilterDefineXmlFlags, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -5847,7 +5944,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteNetworkDefineXmlFlagsRet> NetworkDefineXmlFlagsWrappedAsync(Binding.RemoteNetworkDefineXmlFlagsArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteNetworkDefineXmlFlagsRet>(Binding.RemoteProcedure.RemoteProcNetworkDefineXmlFlags, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteNetworkDefineXmlFlagsRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcNetworkDefineXmlFlags, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -5862,7 +5959,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteNodeDeviceGetAutostartRet> NodeDeviceGetAutostartWrappedAsync(Binding.RemoteNodeDeviceGetAutostartArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteNodeDeviceGetAutostartRet>(Binding.RemoteProcedure.RemoteProcNodeDeviceGetAutostart, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteNodeDeviceGetAutostartRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcNodeDeviceGetAutostart, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -5876,7 +5973,7 @@ namespace LibvirtRemote {
         }
         
         public async Task NodeDeviceSetAutostartWrappedAsync(Binding.RemoteNodeDeviceSetAutostartArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcNodeDeviceSetAutostart, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcNodeDeviceSetAutostart, arg, cancellationToken);
             await innerTask;
         }
         
@@ -5890,7 +5987,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteNodeDeviceIsPersistentRet> NodeDeviceIsPersistentWrappedAsync(Binding.RemoteNodeDeviceIsPersistentArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteNodeDeviceIsPersistentRet>(Binding.RemoteProcedure.RemoteProcNodeDeviceIsPersistent, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteNodeDeviceIsPersistentRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcNodeDeviceIsPersistent, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -5905,7 +6002,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteNodeDeviceIsActiveRet> NodeDeviceIsActiveWrappedAsync(Binding.RemoteNodeDeviceIsActiveArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteNodeDeviceIsActiveRet>(Binding.RemoteProcedure.RemoteProcNodeDeviceIsActive, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteNodeDeviceIsActiveRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcNodeDeviceIsActive, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -5921,7 +6018,7 @@ namespace LibvirtRemote {
         }
         
         public async Task<Binding.RemoteNetworkCreateXmlFlagsRet> NetworkCreateXmlFlagsWrappedAsync(Binding.RemoteNetworkCreateXmlFlagsArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Binding.RemoteNetworkCreateXmlFlagsRet>(Binding.RemoteProcedure.RemoteProcNetworkCreateXmlFlags, arg, cancellationToken);
+            var innerTask = this.CallAsync<Binding.RemoteNetworkCreateXmlFlagsRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcNetworkCreateXmlFlags, arg, cancellationToken);
             var innerRes = await innerTask;
             return innerRes;
         }
@@ -5936,7 +6033,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainSetLaunchSecurityStateWrappedAsync(Binding.RemoteDomainSetLaunchSecurityStateArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainSetLaunchSecurityState, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainSetLaunchSecurityState, arg, cancellationToken);
             await innerTask;
         }
         
@@ -5950,7 +6047,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainSaveParamsWrappedAsync(Binding.RemoteDomainSaveParamsArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainSaveParams, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainSaveParams, arg, cancellationToken);
             await innerTask;
         }
         
@@ -5963,7 +6060,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainRestoreParamsWrappedAsync(Binding.RemoteDomainRestoreParamsArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainRestoreParams, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainRestoreParams, arg, cancellationToken);
             await innerTask;
         }
         
@@ -5976,7 +6073,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainAbortJobFlagsWrappedAsync(Binding.RemoteDomainAbortJobFlagsArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainAbortJobFlags, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainAbortJobFlags, arg, cancellationToken);
             await innerTask;
         }
         
@@ -5990,7 +6087,7 @@ namespace LibvirtRemote {
         }
         
         public async Task DomainFdAssociateWrappedAsync(Binding.RemoteDomainFdAssociateArgs arg, System.Threading.CancellationToken cancellationToken) {
-            var innerTask = this.CallAsync<Xdr.XdrVoid>(Binding.RemoteProcedure.RemoteProcDomainFdAssociate, arg, cancellationToken);
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainFdAssociate, arg, cancellationToken);
             await innerTask;
         }
     }

@@ -15,7 +15,15 @@ namespace Binding {
         int GetCallbackId();
     }
     
-    [VirtEventAttribute(RemoteProcedure.RemoteProcNetworkEventLifecycle)]
+    [VirtEventAttribute(Constants.QemuProgram, QemuProcedure.QemuProcDomainMonitorEvent)]
+    public partial class QemuDomainMonitorEventMsg : IVirtEvent {
+        
+        public int GetCallbackId() {
+            return this.callbackId;
+        }
+    }
+    
+    [VirtEventAttribute(Constants.RemoteProgram, RemoteProcedure.RemoteProcNetworkEventLifecycle)]
     public partial class RemoteNetworkEventLifecycleMsg : IVirtEvent {
         
         public int GetCallbackId() {
@@ -23,7 +31,7 @@ namespace Binding {
         }
     }
     
-    [VirtEventAttribute(RemoteProcedure.RemoteProcDomainEventCallbackLifecycle)]
+    [VirtEventAttribute(Constants.RemoteProgram, RemoteProcedure.RemoteProcDomainEventCallbackLifecycle)]
     public partial class RemoteDomainEventCallbackLifecycleMsg : IVirtEvent {
         
         public int GetCallbackId() {
@@ -31,7 +39,7 @@ namespace Binding {
         }
     }
     
-    [VirtEventAttribute(RemoteProcedure.RemoteProcDomainEventCallbackReboot)]
+    [VirtEventAttribute(Constants.RemoteProgram, RemoteProcedure.RemoteProcDomainEventCallbackReboot)]
     public partial class RemoteDomainEventCallbackRebootMsg : IVirtEvent {
         
         public int GetCallbackId() {
@@ -39,7 +47,7 @@ namespace Binding {
         }
     }
     
-    [VirtEventAttribute(RemoteProcedure.RemoteProcDomainEventCallbackRtcChange)]
+    [VirtEventAttribute(Constants.RemoteProgram, RemoteProcedure.RemoteProcDomainEventCallbackRtcChange)]
     public partial class RemoteDomainEventCallbackRtcChangeMsg : IVirtEvent {
         
         public int GetCallbackId() {
@@ -47,7 +55,7 @@ namespace Binding {
         }
     }
     
-    [VirtEventAttribute(RemoteProcedure.RemoteProcDomainEventCallbackWatchdog)]
+    [VirtEventAttribute(Constants.RemoteProgram, RemoteProcedure.RemoteProcDomainEventCallbackWatchdog)]
     public partial class RemoteDomainEventCallbackWatchdogMsg : IVirtEvent {
         
         public int GetCallbackId() {
@@ -55,7 +63,7 @@ namespace Binding {
         }
     }
     
-    [VirtEventAttribute(RemoteProcedure.RemoteProcDomainEventCallbackIoError)]
+    [VirtEventAttribute(Constants.RemoteProgram, RemoteProcedure.RemoteProcDomainEventCallbackIoError)]
     public partial class RemoteDomainEventCallbackIoErrorMsg : IVirtEvent {
         
         public int GetCallbackId() {
@@ -63,7 +71,7 @@ namespace Binding {
         }
     }
     
-    [VirtEventAttribute(RemoteProcedure.RemoteProcDomainEventCallbackGraphics)]
+    [VirtEventAttribute(Constants.RemoteProgram, RemoteProcedure.RemoteProcDomainEventCallbackGraphics)]
     public partial class RemoteDomainEventCallbackGraphicsMsg : IVirtEvent {
         
         public int GetCallbackId() {
@@ -71,7 +79,7 @@ namespace Binding {
         }
     }
     
-    [VirtEventAttribute(RemoteProcedure.RemoteProcDomainEventCallbackIoErrorReason)]
+    [VirtEventAttribute(Constants.RemoteProgram, RemoteProcedure.RemoteProcDomainEventCallbackIoErrorReason)]
     public partial class RemoteDomainEventCallbackIoErrorReasonMsg : IVirtEvent {
         
         public int GetCallbackId() {
@@ -79,7 +87,7 @@ namespace Binding {
         }
     }
     
-    [VirtEventAttribute(RemoteProcedure.RemoteProcDomainEventCallbackControlError)]
+    [VirtEventAttribute(Constants.RemoteProgram, RemoteProcedure.RemoteProcDomainEventCallbackControlError)]
     public partial class RemoteDomainEventCallbackControlErrorMsg : IVirtEvent {
         
         public int GetCallbackId() {
@@ -87,7 +95,7 @@ namespace Binding {
         }
     }
     
-    [VirtEventAttribute(RemoteProcedure.RemoteProcDomainEventCallbackBlockJob)]
+    [VirtEventAttribute(Constants.RemoteProgram, RemoteProcedure.RemoteProcDomainEventCallbackBlockJob)]
     public partial class RemoteDomainEventCallbackBlockJobMsg : IVirtEvent {
         
         public int GetCallbackId() {
@@ -95,7 +103,7 @@ namespace Binding {
         }
     }
     
-    [VirtEventAttribute(RemoteProcedure.RemoteProcDomainEventCallbackDiskChange)]
+    [VirtEventAttribute(Constants.RemoteProgram, RemoteProcedure.RemoteProcDomainEventCallbackDiskChange)]
     public partial class RemoteDomainEventCallbackDiskChangeMsg : IVirtEvent {
         
         public int GetCallbackId() {
@@ -103,7 +111,7 @@ namespace Binding {
         }
     }
     
-    [VirtEventAttribute(RemoteProcedure.RemoteProcDomainEventCallbackTrayChange)]
+    [VirtEventAttribute(Constants.RemoteProgram, RemoteProcedure.RemoteProcDomainEventCallbackTrayChange)]
     public partial class RemoteDomainEventCallbackTrayChangeMsg : IVirtEvent {
         
         public int GetCallbackId() {
@@ -111,7 +119,7 @@ namespace Binding {
         }
     }
     
-    [VirtEventAttribute(RemoteProcedure.RemoteProcDomainEventCallbackPmwakeup)]
+    [VirtEventAttribute(Constants.RemoteProgram, RemoteProcedure.RemoteProcDomainEventCallbackPmwakeup)]
     public partial class RemoteDomainEventCallbackPmwakeupMsg : IVirtEvent {
         
         public int GetCallbackId() {
@@ -119,7 +127,7 @@ namespace Binding {
         }
     }
     
-    [VirtEventAttribute(RemoteProcedure.RemoteProcDomainEventCallbackPmsuspend)]
+    [VirtEventAttribute(Constants.RemoteProgram, RemoteProcedure.RemoteProcDomainEventCallbackPmsuspend)]
     public partial class RemoteDomainEventCallbackPmsuspendMsg : IVirtEvent {
         
         public int GetCallbackId() {
@@ -127,7 +135,7 @@ namespace Binding {
         }
     }
     
-    [VirtEventAttribute(RemoteProcedure.RemoteProcDomainEventCallbackBalloonChange)]
+    [VirtEventAttribute(Constants.RemoteProgram, RemoteProcedure.RemoteProcDomainEventCallbackBalloonChange)]
     public partial class RemoteDomainEventCallbackBalloonChangeMsg : IVirtEvent {
         
         public int GetCallbackId() {
@@ -135,7 +143,7 @@ namespace Binding {
         }
     }
     
-    [VirtEventAttribute(RemoteProcedure.RemoteProcDomainEventCallbackPmsuspendDisk)]
+    [VirtEventAttribute(Constants.RemoteProgram, RemoteProcedure.RemoteProcDomainEventCallbackPmsuspendDisk)]
     public partial class RemoteDomainEventCallbackPmsuspendDiskMsg : IVirtEvent {
         
         public int GetCallbackId() {
@@ -143,7 +151,7 @@ namespace Binding {
         }
     }
     
-    [VirtEventAttribute(RemoteProcedure.RemoteProcDomainEventCallbackDeviceRemoved)]
+    [VirtEventAttribute(Constants.RemoteProgram, RemoteProcedure.RemoteProcDomainEventCallbackDeviceRemoved)]
     public partial class RemoteDomainEventCallbackDeviceRemovedMsg : IVirtEvent {
         
         public int GetCallbackId() {
@@ -151,7 +159,7 @@ namespace Binding {
         }
     }
     
-    [VirtEventAttribute(RemoteProcedure.RemoteProcDomainEventBlockJob2)]
+    [VirtEventAttribute(Constants.RemoteProgram, RemoteProcedure.RemoteProcDomainEventBlockJob2)]
     public partial class RemoteDomainEventBlockJob2Msg : IVirtEvent {
         
         public int GetCallbackId() {
@@ -159,7 +167,7 @@ namespace Binding {
         }
     }
     
-    [VirtEventAttribute(RemoteProcedure.RemoteProcDomainEventCallbackTunable)]
+    [VirtEventAttribute(Constants.RemoteProgram, RemoteProcedure.RemoteProcDomainEventCallbackTunable)]
     public partial class RemoteDomainEventCallbackTunableMsg : IVirtEvent {
         
         public int GetCallbackId() {
@@ -167,7 +175,7 @@ namespace Binding {
         }
     }
     
-    [VirtEventAttribute(RemoteProcedure.RemoteProcDomainEventCallbackAgentLifecycle)]
+    [VirtEventAttribute(Constants.RemoteProgram, RemoteProcedure.RemoteProcDomainEventCallbackAgentLifecycle)]
     public partial class RemoteDomainEventCallbackAgentLifecycleMsg : IVirtEvent {
         
         public int GetCallbackId() {
@@ -175,7 +183,7 @@ namespace Binding {
         }
     }
     
-    [VirtEventAttribute(RemoteProcedure.RemoteProcDomainEventCallbackDeviceAdded)]
+    [VirtEventAttribute(Constants.RemoteProgram, RemoteProcedure.RemoteProcDomainEventCallbackDeviceAdded)]
     public partial class RemoteDomainEventCallbackDeviceAddedMsg : IVirtEvent {
         
         public int GetCallbackId() {
@@ -183,7 +191,7 @@ namespace Binding {
         }
     }
     
-    [VirtEventAttribute(RemoteProcedure.RemoteProcDomainEventCallbackMigrationIteration)]
+    [VirtEventAttribute(Constants.RemoteProgram, RemoteProcedure.RemoteProcDomainEventCallbackMigrationIteration)]
     public partial class RemoteDomainEventCallbackMigrationIterationMsg : IVirtEvent {
         
         public int GetCallbackId() {
@@ -191,7 +199,7 @@ namespace Binding {
         }
     }
     
-    [VirtEventAttribute(RemoteProcedure.RemoteProcDomainEventCallbackJobCompleted)]
+    [VirtEventAttribute(Constants.RemoteProgram, RemoteProcedure.RemoteProcDomainEventCallbackJobCompleted)]
     public partial class RemoteDomainEventCallbackJobCompletedMsg : IVirtEvent {
         
         public int GetCallbackId() {
@@ -199,7 +207,7 @@ namespace Binding {
         }
     }
     
-    [VirtEventAttribute(RemoteProcedure.RemoteProcDomainEventCallbackDeviceRemovalFailed)]
+    [VirtEventAttribute(Constants.RemoteProgram, RemoteProcedure.RemoteProcDomainEventCallbackDeviceRemovalFailed)]
     public partial class RemoteDomainEventCallbackDeviceRemovalFailedMsg : IVirtEvent {
         
         public int GetCallbackId() {
@@ -207,7 +215,7 @@ namespace Binding {
         }
     }
     
-    [VirtEventAttribute(RemoteProcedure.RemoteProcStoragePoolEventLifecycle)]
+    [VirtEventAttribute(Constants.RemoteProgram, RemoteProcedure.RemoteProcStoragePoolEventLifecycle)]
     public partial class RemoteStoragePoolEventLifecycleMsg : IVirtEvent {
         
         public int GetCallbackId() {
@@ -215,7 +223,7 @@ namespace Binding {
         }
     }
     
-    [VirtEventAttribute(RemoteProcedure.RemoteProcStoragePoolEventRefresh)]
+    [VirtEventAttribute(Constants.RemoteProgram, RemoteProcedure.RemoteProcStoragePoolEventRefresh)]
     public partial class RemoteStoragePoolEventRefreshMsg : IVirtEvent {
         
         public int GetCallbackId() {
@@ -223,7 +231,7 @@ namespace Binding {
         }
     }
     
-    [VirtEventAttribute(RemoteProcedure.RemoteProcNodeDeviceEventLifecycle)]
+    [VirtEventAttribute(Constants.RemoteProgram, RemoteProcedure.RemoteProcNodeDeviceEventLifecycle)]
     public partial class RemoteNodeDeviceEventLifecycleMsg : IVirtEvent {
         
         public int GetCallbackId() {
@@ -231,7 +239,7 @@ namespace Binding {
         }
     }
     
-    [VirtEventAttribute(RemoteProcedure.RemoteProcNodeDeviceEventUpdate)]
+    [VirtEventAttribute(Constants.RemoteProgram, RemoteProcedure.RemoteProcNodeDeviceEventUpdate)]
     public partial class RemoteNodeDeviceEventUpdateMsg : IVirtEvent {
         
         public int GetCallbackId() {
@@ -239,7 +247,7 @@ namespace Binding {
         }
     }
     
-    [VirtEventAttribute(RemoteProcedure.RemoteProcDomainEventCallbackMetadataChange)]
+    [VirtEventAttribute(Constants.RemoteProgram, RemoteProcedure.RemoteProcDomainEventCallbackMetadataChange)]
     public partial class RemoteDomainEventCallbackMetadataChangeMsg : IVirtEvent {
         
         public int GetCallbackId() {
@@ -247,7 +255,7 @@ namespace Binding {
         }
     }
     
-    [VirtEventAttribute(RemoteProcedure.RemoteProcSecretEventLifecycle)]
+    [VirtEventAttribute(Constants.RemoteProgram, RemoteProcedure.RemoteProcSecretEventLifecycle)]
     public partial class RemoteSecretEventLifecycleMsg : IVirtEvent {
         
         public int GetCallbackId() {
@@ -255,7 +263,7 @@ namespace Binding {
         }
     }
     
-    [VirtEventAttribute(RemoteProcedure.RemoteProcSecretEventValueChanged)]
+    [VirtEventAttribute(Constants.RemoteProgram, RemoteProcedure.RemoteProcSecretEventValueChanged)]
     public partial class RemoteSecretEventValueChangedMsg : IVirtEvent {
         
         public int GetCallbackId() {
@@ -263,7 +271,7 @@ namespace Binding {
         }
     }
     
-    [VirtEventAttribute(RemoteProcedure.RemoteProcDomainEventBlockThreshold)]
+    [VirtEventAttribute(Constants.RemoteProgram, RemoteProcedure.RemoteProcDomainEventBlockThreshold)]
     public partial class RemoteDomainEventBlockThresholdMsg : IVirtEvent {
         
         public int GetCallbackId() {
@@ -271,7 +279,7 @@ namespace Binding {
         }
     }
     
-    [VirtEventAttribute(RemoteProcedure.RemoteProcDomainEventMemoryFailure)]
+    [VirtEventAttribute(Constants.RemoteProgram, RemoteProcedure.RemoteProcDomainEventMemoryFailure)]
     public partial class RemoteDomainEventMemoryFailureMsg : IVirtEvent {
         
         public int GetCallbackId() {
@@ -279,7 +287,7 @@ namespace Binding {
         }
     }
     
-    [VirtEventAttribute(RemoteProcedure.RemoteProcDomainEventMemoryDeviceSizeChange)]
+    [VirtEventAttribute(Constants.RemoteProgram, RemoteProcedure.RemoteProcDomainEventMemoryDeviceSizeChange)]
     public partial class RemoteDomainEventMemoryDeviceSizeChangeMsg : IVirtEvent {
         
         public int GetCallbackId() {

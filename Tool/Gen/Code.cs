@@ -19,7 +19,7 @@ internal static class Code
     internal static readonly CodeTypeReference VirtStreamTypeRef =
         new CodeTypeReference("VirtNetStream");
 
-    internal static readonly RemoteProcedure[] StreamProcs = new[]
+    private static readonly RemoteProcedure[] StreamProcs = new[]
     {
         RemoteProcedure.RemoteProcDomainMigratePrepareTunnel,
         RemoteProcedure.RemoteProcDomainOpenConsole,
@@ -30,9 +30,9 @@ internal static class Code
         RemoteProcedure.RemoteProcDomainOpenChannel,
     };
 
-    internal static CodeStatement AddCallAsyncStatement(
+    internal static CodeStatement AddCallAsyncStatement<T>(
         CodeMemberMethod method,
-        RemoteProcedure procName,
+        T procName,
         CodeTypeReference? type,
         CodeMethodReferenceExpression innerMethod,
         CodeExpression[] parameters)
@@ -50,7 +50,7 @@ internal static class Code
         method.Statements.Add(ret);
 
         CodeStatement res =
-            Code.StreamProcs.Contains(procName) ?
+            Code.IsStreamProc(procName) ?
             new CodeVariableDeclarationStatement("var", response)
             {
                 InitExpression = new CodeVariableReferenceExpression($"await {ret.Name}"),
@@ -193,11 +193,11 @@ internal static class Code
         return args;
     }
 
-    internal static Type? AddFuncRet(RemoteProcedure procName, CodeMemberMethod method, Type? type, bool isWrapped)
+    internal static Type? AddFuncRet<T>(T procName, CodeMemberMethod method, Type? type, bool isWrapped)
     {
         method.ReturnType = new CodeTypeReference("async Task");
 
-        if (Code.StreamProcs.Contains(procName))
+        if (Code.IsStreamProc(procName))
         {
             CodeTypeReference? tuple;
             if (type is null && !isWrapped)
@@ -237,14 +237,25 @@ internal static class Code
         }
     }
 
-    internal static CodeTypeDeclaration CreateEventImpl(
-        RemoteProcedure procName,
+    internal static CodeTypeDeclaration CreateEventImpl<T>(
+        T procName,
         Type eventType,
         CodeTypeDeclaration intf)
     {
+        var progFlag = procName switch
+        {
+            QemuProcedure _ => new CodeFieldReferenceExpression(
+                new CodeTypeReferenceExpression(typeof(Constants).Name),
+                nameof(Constants.QemuProgram)),
+            RemoteProcedure _ => new CodeFieldReferenceExpression(
+                new CodeTypeReferenceExpression(typeof(Constants).Name),
+                nameof(Constants.RemoteProgram)),
+            _ => throw new InvalidProgramException(),
+        };
+
         var procFlag = new CodeFieldReferenceExpression(
-            new CodeTypeReferenceExpression(typeof(RemoteProcedure).Name),
-            procName.ToString());
+            new CodeTypeReferenceExpression(typeof(T).Name),
+            procName!.ToString()!);
 
         var cls = new CodeTypeDeclaration(eventType.Name)
         {
@@ -253,6 +264,7 @@ internal static class Code
 
         cls.CustomAttributes.Add(new CodeAttributeDeclaration(
             "VirtEventAttribute",
+            new CodeAttributeArgument(progFlag),
             new CodeAttributeArgument(procFlag)));
 
         cls.BaseTypes.Add(new CodeTypeReference(intf.Name));
@@ -405,6 +417,15 @@ internal static class Code
         var tuple = new CodeTypeReference("Tuple");
         tuple.TypeArguments.AddRange(types);
         return tuple;
+    }
+
+    internal static bool IsStreamProc<T>(T procName)
+    {
+        return procName switch
+        {
+            RemoteProcedure remote => Code.StreamProcs.Contains(remote),
+            _ => false,
+        };
     }
 
     internal static void WriteFile(string path, CodeNamespace ns)

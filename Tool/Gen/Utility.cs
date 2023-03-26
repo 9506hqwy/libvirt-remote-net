@@ -6,15 +6,17 @@ using System.Text.RegularExpressions;
 
 internal static class Utility
 {
-    private const string ProcPrefix = "RemoteProc";
+    internal const string QemuPrefix = "Qemu";
+
+    internal const string RemotePrefix = "Remote";
 
     private static readonly Assembly BindingAsm = typeof(RemoteProcedure).Assembly;
 
-    internal static IEnumerable<Tuple<RemoteProcedure, Type>> EnumerateEvent()
+    internal static IEnumerable<Tuple<T, Type>> EnumerateEvent<T>(string prefix)
     {
-        foreach ((var procName, var proc) in Utility.EnumerateProc())
+        foreach ((var procName, var proc) in Utility.EnumerateProc<T>($"{prefix}Proc"))
         {
-            var eventType = Utility.FindEventType(procName);
+            var eventType = Utility.FindEventType(prefix, procName);
             if (eventType is null)
             {
                 continue;
@@ -25,61 +27,28 @@ internal static class Utility
                 continue;
             }
 
-            yield return new Tuple<RemoteProcedure, Type>((RemoteProcedure)proc.GetValue(null)!, eventType);
+            yield return new Tuple<T, Type>((T)proc.GetValue(null)!, eventType);
         }
     }
 
-    internal static IEnumerable<Tuple<RemoteProcedure, string, Type?, Type?>> EnumerateMethod()
+    internal static IEnumerable<Tuple<T, string, Type?, Type?>> EnumerateMethod<T>(string prefix)
     {
-        foreach ((var procName, var proc) in Utility.EnumerateProc())
+        foreach ((var procName, var proc) in Utility.EnumerateProc<T>($"{prefix}Proc"))
         {
-            var eventType = Utility.FindEventType(procName);
+            var eventType = Utility.FindEventType(prefix, procName);
             if (eventType is not null)
             {
                 continue;
             }
 
-            var argType = Utility.FindFuncArgsType(procName);
-            var retType = Utility.FindFuncRetType(procName);
-            yield return new Tuple<RemoteProcedure, string, Type?, Type?>(
-                (RemoteProcedure)proc.GetValue(null)!,
+            var argType = Utility.FindFuncArgsType(prefix, procName);
+            var retType = Utility.FindFuncRetType(prefix, procName);
+            yield return new Tuple<T, string, Type?, Type?>(
+                (T)proc.GetValue(null)!,
                 procName,
                 argType,
                 retType);
         }
-    }
-
-    internal static IEnumerable<Tuple<string, FieldInfo>> EnumerateProc()
-    {
-        foreach (var proc in typeof(RemoteProcedure).GetFields())
-        {
-            var name = proc.Name.Replace(Utility.ProcPrefix, string.Empty);
-            if (proc.Name != name)
-            {
-                yield return new Tuple<string, FieldInfo>(name, proc);
-            }
-        }
-    }
-
-    internal static Type? FindEventType(string procName)
-    {
-        return Utility.BindingAsm
-            .GetTypes()
-            .FirstOrDefault(t => t.Name == $"Remote{procName}Msg");
-    }
-
-    internal static Type? FindFuncArgsType(string procName)
-    {
-        return Utility.BindingAsm
-            .GetTypes()
-            .FirstOrDefault(t => t.Name == $"Remote{procName}Args");
-    }
-
-    internal static Type? FindFuncRetType(string procName)
-    {
-        return Utility.BindingAsm
-            .GetTypes()
-            .FirstOrDefault(t => t.Name == $"Remote{procName}Ret");
     }
 
     internal static string ToArgName(string value)
@@ -90,6 +59,39 @@ internal static class Utility
     internal static string ToPropertyName(string value)
     {
         return Utility.ToUpperCamelCase(value);
+    }
+
+    private static IEnumerable<Tuple<string, FieldInfo>> EnumerateProc<T>(string prefix)
+    {
+        foreach (var proc in typeof(T).GetFields())
+        {
+            var name = proc.Name.Replace(prefix, string.Empty);
+            if (proc.Name != name)
+            {
+                yield return new Tuple<string, FieldInfo>(name, proc);
+            }
+        }
+    }
+
+    private static Type? FindEventType(string prefix, string procName)
+    {
+        return Utility.BindingAsm
+            .GetTypes()
+            .FirstOrDefault(t => t.Name == $"{prefix}{procName}Msg");
+    }
+
+    private static Type? FindFuncArgsType(string prefix, string procName)
+    {
+        return Utility.BindingAsm
+            .GetTypes()
+            .FirstOrDefault(t => t.Name == $"{prefix}{procName}Args");
+    }
+
+    private static Type? FindFuncRetType(string prefix, string procName)
+    {
+        return Utility.BindingAsm
+            .GetTypes()
+            .FirstOrDefault(t => t.Name == $"{prefix}{procName}Ret");
     }
 
     private static string ToLowerCamelCase(string value)

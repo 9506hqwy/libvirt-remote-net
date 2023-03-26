@@ -6,12 +6,13 @@ using System.Reflection;
 
 public class VirtResponse
 {
-    private static IDictionary<int, MethodInfo> bytesToEvent;
+    private static IDictionary<uint, Dictionary<int, MethodInfo>> bytesToEvent;
 
     static VirtResponse()
     {
         VirtResponse.bytesToEvent = VirtEventAttribute.Attrs
-            .ToDictionary(a => a.Proc, VirtResponse.GetBytesToEvent);
+            .GroupBy(a => a.Prog)
+            .ToDictionary(a => a.Key, a => a.ToDictionary(b => b.Proc, VirtResponse.GetBytesToEvent));
     }
 
     public VirtResponse(VirNetMessageHeader header, byte[]? body)
@@ -50,9 +51,12 @@ public class VirtResponse
 
     public IVirtEvent? ConvertToEvent()
     {
-        if (VirtResponse.bytesToEvent.TryGetValue(this.Header.Proc, out var method))
+        if (VirtResponse.bytesToEvent.TryGetValue(this.Header.Prog, out var methods))
         {
-            return (IVirtEvent)method.Invoke(this, null);
+            if (methods.TryGetValue(this.Header.Proc, out var method))
+            {
+                return (IVirtEvent)method.Invoke(this, null);
+            }
         }
 
         return null;

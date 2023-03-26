@@ -32,13 +32,14 @@ internal class MainShell
             IsPartial = true,
         };
 
-        foreach ((var procName, var methodName, var argType, var retType) in Utility.EnumerateMethod())
+        foreach ((var procName, var methodName, var argType, var retType) in Utility.EnumerateMethod<QemuProcedure>(Utility.QemuPrefix))
         {
-            var method1 = this.ImplementMethod(procName, methodName, argType, retType);
-            cls.Members.Add(method1);
+            this.AddMemberToCls(procName, methodName, argType, retType, cls);
+        }
 
-            var method2 = this.ImplementWrappedMethod(procName, methodName, argType, retType);
-            cls.Members.Add(method2);
+        foreach ((var procName, var methodName, var argType, var retType) in Utility.EnumerateMethod<RemoteProcedure>(Utility.RemotePrefix))
+        {
+            this.AddMemberToCls(procName, methodName, argType, retType, cls);
         }
 
         var ns = new CodeNamespace("LibvirtRemote");
@@ -54,7 +55,13 @@ internal class MainShell
         var intf = Code.CreateEventInterface();
         ns.Types.Add(intf);
 
-        foreach ((RemoteProcedure procName, var eventType) in Utility.EnumerateEvent())
+        foreach ((var procName, var eventType) in Utility.EnumerateEvent<QemuProcedure>(Utility.QemuPrefix))
+        {
+            var cls = Code.CreateEventImpl(procName, eventType, intf);
+            ns.Types.Add(cls);
+        }
+
+        foreach ((var procName, var eventType) in Utility.EnumerateEvent<RemoteProcedure>(Utility.RemotePrefix))
         {
             var cls = Code.CreateEventImpl(procName, eventType, intf);
             ns.Types.Add(cls);
@@ -63,8 +70,8 @@ internal class MainShell
         Code.WriteFile("VirtEvent.cs", ns);
     }
 
-    internal CodeMemberMethod ImplementMethod(
-        RemoteProcedure procName,
+    internal CodeMemberMethod ImplementMethod<T>(
+        T procName,
         string methodName,
         Type? argType,
         Type? retType)
@@ -84,8 +91,8 @@ internal class MainShell
         return method;
     }
 
-    internal CodeMemberMethod ImplementWrappedMethod(
-        RemoteProcedure procName,
+    internal CodeMemberMethod ImplementWrappedMethod<T>(
+        T procName,
         string methodName,
         Type? argType,
         Type? retType)
@@ -100,7 +107,7 @@ internal class MainShell
 
         var ret = Code.AddFuncRet(procName, method, retType, true);
 
-        var innerMethodName = Code.StreamProcs.Contains(procName) ?
+        var innerMethodName = Code.IsStreamProc(procName) ?
             "CallWithStreamAsync" :
             "CallAsync";
 
@@ -113,8 +120,8 @@ internal class MainShell
         return method;
     }
 
-    internal void SetMethod(
-        RemoteProcedure procName,
+    internal void SetMethod<T>(
+        T procName,
         CodeMemberMethod method,
         string methodName,
         FuncArgs? args,
@@ -143,7 +150,7 @@ internal class MainShell
         {
             CodeExpression val = new CodeVariableReferenceExpression(variable.Name);
 
-            if (!Code.StreamProcs.Contains(procName))
+            if (!Code.IsStreamProc(procName))
             {
                 var variables = Code.AddDeconstructStatement(method, (CodeVariableReferenceExpression)val, retType!);
                 val = Code.CreateFuncRetValue(variable, retType!, variables);
@@ -169,16 +176,16 @@ internal class MainShell
         }
     }
 
-    internal void SetWrappedMethod(
+    internal void SetWrappedMethod<T>(
         CodeMemberMethod method,
         string innerMethod,
-        RemoteProcedure procName,
+        T procName,
         FuncArgs? argType,
         CodeTypeReference? retType)
     {
         var procFlag = new CodeFieldReferenceExpression(
-            new CodeTypeReferenceExpression(typeof(RemoteProcedure)),
-            procName.ToString());
+            new CodeTypeReferenceExpression(typeof(T)),
+            procName!.ToString()!);
 
         var callAsync = new CodeMethodReferenceExpression(
             new CodeThisReferenceExpression(),
@@ -191,6 +198,8 @@ internal class MainShell
         {
             callAsync.TypeArguments.Add(retType);
         }
+
+        callAsync.TypeArguments.Add(typeof(T));
 
         var parameters = new List<CodeExpression>();
 
@@ -214,5 +223,14 @@ internal class MainShell
             method.Statements.Add(
                 new CodeMethodReturnStatement(new CodeVariableReferenceExpression(variable.Name)));
         }
+    }
+
+    private void AddMemberToCls<T>(T procName, string methodName, Type? argType, Type? retType, CodeTypeDeclaration cls)
+    {
+        var method1 = this.ImplementMethod(procName, methodName, argType, retType);
+        cls.Members.Add(method1);
+
+        var method2 = this.ImplementWrappedMethod(procName, methodName, argType, retType);
+        cls.Members.Add(method2);
     }
 }

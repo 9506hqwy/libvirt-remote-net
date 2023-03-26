@@ -58,6 +58,8 @@ public class VirtSocketTest
         using var socket = new VirtSocket(mem);
 
         var n = socket.Send(
+            Binding.Constants.RemoteProgram,
+            Binding.Constants.RemoteProtocolVersion,
             1,
             2,
             VirNetMessageType.VirNetCall,
@@ -84,6 +86,8 @@ public class VirtSocketTest
         using var socket = new VirtSocket(mem);
 
         var n = socket.Send(
+            Binding.Constants.RemoteProgram,
+            Binding.Constants.RemoteProtocolVersion,
             1,
             2,
             VirNetMessageType.VirNetCall,
@@ -115,6 +119,8 @@ public class VirtSocketTest
         {
             blocking.WaitOne();
             socket.Send(
+                Binding.Constants.RemoteProgram,
+                Binding.Constants.RemoteProtocolVersion,
                 1,
                 2,
                 VirNetMessageType.VirNetCall,
@@ -126,6 +132,8 @@ public class VirtSocketTest
         {
             blocking.WaitOne();
             socket.Send(
+                Binding.Constants.RemoteProgram,
+                Binding.Constants.RemoteProtocolVersion,
                 3,
                 4,
                 VirNetMessageType.VirNetCall,
