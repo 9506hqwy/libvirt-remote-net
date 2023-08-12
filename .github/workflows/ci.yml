@@ -3,7 +3,7 @@ name: CI
 on:
   push:
     branches: [ main ]
-    tags-ignore: [ '*' ]
+    tags-ignore: [ '**' ]
 
 jobs:
   build:
@@ -12,12 +12,31 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+
     - name: Prepare
       run: |
         LOCALPKG=`mktemp -d`
         wget -P "${LOCALPKG}" https://github.com/9506hqwy/xdr-net/releases/download/0.4.0/Xdr.0.4.0.nupkg
         dotnet nuget add source --name local "${LOCALPKG}"
+
+    - name: Restore dependencies
+      run: dotnet restore
+
     - name: Build
-      run: dotnet build
+      run: dotnet build --no-restore
+
+    - name: Check format
+      run: dotnet format --no-restore --verify-no-changes
+
     - name: Test
-      run: dotnet test
+      run: dotnet test --no-build --verbosity normal --collect:"XPlat Code Coverage" --results-directory ./artifacts
+
+    - name: Generate coverage report
+      run: |
+        dotnet tool install -g dotnet-reportgenerator-globaltool
+        reportgenerator -reports:"./artifacts/*/coverage.cobertura.xml" -targetdir:"./artifacts" -reporttypes:"MarkdownSummaryGithub;TextSummary"
+
+    - name: Report coverage
+      run: |
+        cat "./artifacts/Summary.txt"
+        cat "./artifacts/SummaryGithub.md" > $GITHUB_STEP_SUMMARY

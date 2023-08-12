@@ -1,0 +1,5 @@
+{
+    "coverage-gutters.showLineCoverage": true,
+    "dotnet.defaultSolution": "libvirt-remote-net.sln",
+    "editor.codeLens": false
+}
