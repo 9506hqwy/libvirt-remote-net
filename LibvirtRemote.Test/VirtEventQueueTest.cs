@@ -19,9 +19,11 @@ public class VirtEventQueueTest
             queue.EnqueueAsync(new Event(), default).Wait();
         });
 
-        // FIXED ME:
-        // var e = queue.DequeueAsync().Result;
-        // Assert.AreEqual(0, queue.Count);
+        /*
+           FIXED ME:
+           var e = queue.DequeueAsync().Result;
+           Assert.AreEqual(0, queue.Count);
+         */
 
         task.Wait();
     }
