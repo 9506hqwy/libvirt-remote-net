@@ -6103,5 +6103,40 @@ namespace LibvirtRemote {
             var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainFdAssociate, arg, cancellationToken);
             await innerTask;
         }
+        
+        public async Task NetworkSetMetadataAsync(Binding.RemoteNonnullNetwork network, int type, Xdr.XdrOption<string> metadata, Xdr.XdrOption<string> key, Xdr.XdrOption<string> uri, uint flags, System.Threading.CancellationToken cancellationToken) {
+            var innerReq = new Binding.RemoteNetworkSetMetadataArgs();
+            innerReq.Network = network;
+            innerReq.Type = type;
+            innerReq.Metadata = metadata;
+            innerReq.Key = key;
+            innerReq.Uri = uri;
+            innerReq.Flags = flags;
+            var innerTask = this.NetworkSetMetadataWrappedAsync(innerReq, cancellationToken);
+            await innerTask;
+        }
+        
+        public async Task NetworkSetMetadataWrappedAsync(Binding.RemoteNetworkSetMetadataArgs arg, System.Threading.CancellationToken cancellationToken) {
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcNetworkSetMetadata, arg, cancellationToken);
+            await innerTask;
+        }
+        
+        public async Task<string> NetworkGetMetadataAsync(Binding.RemoteNonnullNetwork network, int type, Xdr.XdrOption<string> uri, uint flags, System.Threading.CancellationToken cancellationToken) {
+            var innerReq = new Binding.RemoteNetworkGetMetadataArgs();
+            innerReq.Network = network;
+            innerReq.Type = type;
+            innerReq.Uri = uri;
+            innerReq.Flags = flags;
+            var innerTask = this.NetworkGetMetadataWrappedAsync(innerReq, cancellationToken);
+            var innerRes = await innerTask;
+            var innerMetadata = innerRes.Metadata;
+            return innerMetadata;
+        }
+        
+        public async Task<Binding.RemoteNetworkGetMetadataRet> NetworkGetMetadataWrappedAsync(Binding.RemoteNetworkGetMetadataArgs arg, System.Threading.CancellationToken cancellationToken) {
+            var innerTask = this.CallAsync<Binding.RemoteNetworkGetMetadataRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcNetworkGetMetadata, arg, cancellationToken);
+            var innerRes = await innerTask;
+            return innerRes;
+        }
     }
 }

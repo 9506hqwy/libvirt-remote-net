@@ -17271,6 +17271,153 @@ namespace Binding {
     
     [System.SerializableAttribute()]
     [Xdr.XdrStructAttribute()]
+    public partial class RemoteNetworkSetMetadataArgs {
+        
+        private RemoteNonnullNetwork network;
+        
+        private int type;
+        
+        private Xdr.XdrOption<string> metadata;
+        
+        private Xdr.XdrOption<string> key;
+        
+        private Xdr.XdrOption<string> uri;
+        
+        private uint flags;
+        
+        [Xdr.XdrElementOrderAttribute(1)]
+        public RemoteNonnullNetwork Network {
+            get {
+                return this.network;
+            }
+            set {
+                this.network = value;
+            }
+        }
+        
+        [Xdr.XdrElementOrderAttribute(2)]
+        public int Type {
+            get {
+                return this.type;
+            }
+            set {
+                this.type = value;
+            }
+        }
+        
+        [Xdr.XdrElementOrderAttribute(3)]
+        public Xdr.XdrOption<string> Metadata {
+            get {
+                return this.metadata;
+            }
+            set {
+                this.metadata = value;
+            }
+        }
+        
+        [Xdr.XdrElementOrderAttribute(4)]
+        public Xdr.XdrOption<string> Key {
+            get {
+                return this.key;
+            }
+            set {
+                this.key = value;
+            }
+        }
+        
+        [Xdr.XdrElementOrderAttribute(5)]
+        public Xdr.XdrOption<string> Uri {
+            get {
+                return this.uri;
+            }
+            set {
+                this.uri = value;
+            }
+        }
+        
+        [Xdr.XdrElementOrderAttribute(6)]
+        public uint Flags {
+            get {
+                return this.flags;
+            }
+            set {
+                this.flags = value;
+            }
+        }
+    }
+    
+    [System.SerializableAttribute()]
+    [Xdr.XdrStructAttribute()]
+    public partial class RemoteNetworkGetMetadataArgs {
+        
+        private RemoteNonnullNetwork network;
+        
+        private int type;
+        
+        private Xdr.XdrOption<string> uri;
+        
+        private uint flags;
+        
+        [Xdr.XdrElementOrderAttribute(1)]
+        public RemoteNonnullNetwork Network {
+            get {
+                return this.network;
+            }
+            set {
+                this.network = value;
+            }
+        }
+        
+        [Xdr.XdrElementOrderAttribute(2)]
+        public int Type {
+            get {
+                return this.type;
+            }
+            set {
+                this.type = value;
+            }
+        }
+        
+        [Xdr.XdrElementOrderAttribute(3)]
+        public Xdr.XdrOption<string> Uri {
+            get {
+                return this.uri;
+            }
+            set {
+                this.uri = value;
+            }
+        }
+        
+        [Xdr.XdrElementOrderAttribute(4)]
+        public uint Flags {
+            get {
+                return this.flags;
+            }
+            set {
+                this.flags = value;
+            }
+        }
+    }
+    
+    [System.SerializableAttribute()]
+    [Xdr.XdrStructAttribute()]
+    public partial class RemoteNetworkGetMetadataRet {
+        
+        private string metadata;
+        
+        [Xdr.XdrElementOrderAttribute(1)]
+        public string Metadata {
+            get {
+                return this.metadata;
+            }
+            set {
+                this.metadata = value;
+            }
+        }
+    }
+    
+    [System.SerializableAttribute()]
+    [Xdr.XdrStructAttribute()]
     public partial class RemoteConnectStoragePoolEventRegisterAnyArgs {
         
         private int eventId;
@@ -21927,6 +22074,10 @@ namespace Binding {
         RemoteProcDomainAbortJobFlags = 442,
         
         RemoteProcDomainFdAssociate = 443,
+        
+        RemoteProcNetworkSetMetadata = 444,
+        
+        RemoteProcNetworkGetMetadata = 445,
     }
     
     [System.SerializableAttribute()]
