@@ -323,7 +323,7 @@ namespace LibvirtRemote {
             return innerRes;
         }
         
-        public async Task<Tuple<byte, ulong, ulong, ushort, ulong>> DomainGetInfoAsync(Binding.RemoteNonnullDomain dom, System.Threading.CancellationToken cancellationToken) {
+        public async Task<Tuple<uint, ulong, ulong, ushort, ulong>> DomainGetInfoAsync(Binding.RemoteNonnullDomain dom, System.Threading.CancellationToken cancellationToken) {
             var innerReq = new Binding.RemoteDomainGetInfoArgs();
             innerReq.Dom = dom;
             var innerTask = this.DomainGetInfoWrappedAsync(innerReq, cancellationToken);
@@ -333,7 +333,7 @@ namespace LibvirtRemote {
             var innerMemory = innerRes.Memory;
             var innerNrVirtCpu = innerRes.NrVirtCpu;
             var innerCpuTime = innerRes.CpuTime;
-            return new Tuple<byte, ulong, ulong, ushort, ulong>(innerState, innerMaxMem, innerMemory, innerNrVirtCpu, innerCpuTime);
+            return new Tuple<uint, ulong, ulong, ushort, ulong>(innerState, innerMaxMem, innerMemory, innerNrVirtCpu, innerCpuTime);
         }
         
         public async Task<Binding.RemoteDomainGetInfoRet> DomainGetInfoWrappedAsync(Binding.RemoteDomainGetInfoArgs arg, System.Threading.CancellationToken cancellationToken) {
@@ -1071,7 +1071,7 @@ namespace LibvirtRemote {
             return innerRes;
         }
         
-        public async Task<Tuple<int, int, System.Collections.Generic.List<byte>>> AuthSaslStartAsync(string mech, int nil, System.Collections.Generic.List<byte> data, System.Threading.CancellationToken cancellationToken) {
+        public async Task<Tuple<int, int, System.Collections.Generic.List<int>>> AuthSaslStartAsync(string mech, int nil, System.Collections.Generic.List<int> data, System.Threading.CancellationToken cancellationToken) {
             var innerReq = new Binding.RemoteAuthSaslStartArgs();
             innerReq.Mech = mech;
             innerReq.Nil = nil;
@@ -1081,7 +1081,7 @@ namespace LibvirtRemote {
             var innerComplete = innerRes.Complete;
             var innerNil = innerRes.Nil;
             var innerData = innerRes.Data;
-            return new Tuple<int, int, System.Collections.Generic.List<byte>>(innerComplete, innerNil, innerData);
+            return new Tuple<int, int, System.Collections.Generic.List<int>>(innerComplete, innerNil, innerData);
         }
         
         public async Task<Binding.RemoteAuthSaslStartRet> AuthSaslStartWrappedAsync(Binding.RemoteAuthSaslStartArgs arg, System.Threading.CancellationToken cancellationToken) {
@@ -1090,7 +1090,7 @@ namespace LibvirtRemote {
             return innerRes;
         }
         
-        public async Task<Tuple<int, int, System.Collections.Generic.List<byte>>> AuthSaslStepAsync(int nil, System.Collections.Generic.List<byte> data, System.Threading.CancellationToken cancellationToken) {
+        public async Task<Tuple<int, int, System.Collections.Generic.List<int>>> AuthSaslStepAsync(int nil, System.Collections.Generic.List<int> data, System.Threading.CancellationToken cancellationToken) {
             var innerReq = new Binding.RemoteAuthSaslStepArgs();
             innerReq.Nil = nil;
             innerReq.Data = data;
@@ -1099,7 +1099,7 @@ namespace LibvirtRemote {
             var innerComplete = innerRes.Complete;
             var innerNil = innerRes.Nil;
             var innerData = innerRes.Data;
-            return new Tuple<int, int, System.Collections.Generic.List<byte>>(innerComplete, innerNil, innerData);
+            return new Tuple<int, int, System.Collections.Generic.List<int>>(innerComplete, innerNil, innerData);
         }
         
         public async Task<Binding.RemoteAuthSaslStepRet> AuthSaslStepWrappedAsync(Binding.RemoteAuthSaslStepArgs arg, System.Threading.CancellationToken cancellationToken) {
@@ -1347,7 +1347,7 @@ namespace LibvirtRemote {
             return innerRes;
         }
         
-        public async Task<Tuple<byte, ulong, ulong, ulong>> StoragePoolGetInfoAsync(Binding.RemoteNonnullStoragePool pool, System.Threading.CancellationToken cancellationToken) {
+        public async Task<Tuple<uint, ulong, ulong, ulong>> StoragePoolGetInfoAsync(Binding.RemoteNonnullStoragePool pool, System.Threading.CancellationToken cancellationToken) {
             var innerReq = new Binding.RemoteStoragePoolGetInfoArgs();
             innerReq.Pool = pool;
             var innerTask = this.StoragePoolGetInfoWrappedAsync(innerReq, cancellationToken);
@@ -1356,7 +1356,7 @@ namespace LibvirtRemote {
             var innerCapacity = innerRes.Capacity;
             var innerAllocation = innerRes.Allocation;
             var innerAvailable = innerRes.Available;
-            return new Tuple<byte, ulong, ulong, ulong>(innerState, innerCapacity, innerAllocation, innerAvailable);
+            return new Tuple<uint, ulong, ulong, ulong>(innerState, innerCapacity, innerAllocation, innerAvailable);
         }
         
         public async Task<Binding.RemoteStoragePoolGetInfoRet> StoragePoolGetInfoWrappedAsync(Binding.RemoteStoragePoolGetInfoArgs arg, System.Threading.CancellationToken cancellationToken) {
@@ -1516,7 +1516,7 @@ namespace LibvirtRemote {
             return innerRes;
         }
         
-        public async Task<Tuple<byte, ulong, ulong>> StorageVolGetInfoAsync(Binding.RemoteNonnullStorageVol vol, System.Threading.CancellationToken cancellationToken) {
+        public async Task<Tuple<int, ulong, ulong>> StorageVolGetInfoAsync(Binding.RemoteNonnullStorageVol vol, System.Threading.CancellationToken cancellationToken) {
             var innerReq = new Binding.RemoteStorageVolGetInfoArgs();
             innerReq.Vol = vol;
             var innerTask = this.StorageVolGetInfoWrappedAsync(innerReq, cancellationToken);
@@ -1524,7 +1524,7 @@ namespace LibvirtRemote {
             var innerType = innerRes.Type;
             var innerCapacity = innerRes.Capacity;
             var innerAllocation = innerRes.Allocation;
-            return new Tuple<byte, ulong, ulong>(innerType, innerCapacity, innerAllocation);
+            return new Tuple<int, ulong, ulong>(innerType, innerCapacity, innerAllocation);
         }
         
         public async Task<Binding.RemoteStorageVolGetInfoRet> StorageVolGetInfoWrappedAsync(Binding.RemoteStorageVolGetInfoArgs arg, System.Threading.CancellationToken cancellationToken) {
@@ -1854,14 +1854,14 @@ namespace LibvirtRemote {
             await innerTask;
         }
         
-        public async Task<Tuple<System.Collections.Generic.List<byte>, int>> DomainGetSecurityLabelAsync(Binding.RemoteNonnullDomain dom, System.Threading.CancellationToken cancellationToken) {
+        public async Task<Tuple<System.Collections.Generic.List<int>, int>> DomainGetSecurityLabelAsync(Binding.RemoteNonnullDomain dom, System.Threading.CancellationToken cancellationToken) {
             var innerReq = new Binding.RemoteDomainGetSecurityLabelArgs();
             innerReq.Dom = dom;
             var innerTask = this.DomainGetSecurityLabelWrappedAsync(innerReq, cancellationToken);
             var innerRes = await innerTask;
             var innerLabel = innerRes.Label;
             var innerEnforcing = innerRes.Enforcing;
-            return new Tuple<System.Collections.Generic.List<byte>, int>(innerLabel, innerEnforcing);
+            return new Tuple<System.Collections.Generic.List<int>, int>(innerLabel, innerEnforcing);
         }
         
         public async Task<Binding.RemoteDomainGetSecurityLabelRet> DomainGetSecurityLabelWrappedAsync(Binding.RemoteDomainGetSecurityLabelArgs arg, System.Threading.CancellationToken cancellationToken) {
@@ -1870,12 +1870,12 @@ namespace LibvirtRemote {
             return innerRes;
         }
         
-        public async Task<Tuple<System.Collections.Generic.List<byte>, System.Collections.Generic.List<byte>>> NodeGetSecurityModelAsync(System.Threading.CancellationToken cancellationToken) {
+        public async Task<Tuple<System.Collections.Generic.List<int>, System.Collections.Generic.List<int>>> NodeGetSecurityModelAsync(System.Threading.CancellationToken cancellationToken) {
             var innerTask = this.NodeGetSecurityModelWrappedAsync(cancellationToken);
             var innerRes = await innerTask;
             var innerModel = innerRes.Model;
             var innerDoi = innerRes.Doi;
-            return new Tuple<System.Collections.Generic.List<byte>, System.Collections.Generic.List<byte>>(innerModel, innerDoi);
+            return new Tuple<System.Collections.Generic.List<int>, System.Collections.Generic.List<int>>(innerModel, innerDoi);
         }
         
         public async Task<Binding.RemoteNodeGetSecurityModelRet> NodeGetSecurityModelWrappedAsync(System.Threading.CancellationToken cancellationToken) {
@@ -5176,7 +5176,7 @@ namespace LibvirtRemote {
             await innerTask;
         }
         
-        public async Task<Tuple<byte, ulong, ulong>> StorageVolGetInfoFlagsAsync(Binding.RemoteNonnullStorageVol vol, uint flags, System.Threading.CancellationToken cancellationToken) {
+        public async Task<Tuple<int, ulong, ulong>> StorageVolGetInfoFlagsAsync(Binding.RemoteNonnullStorageVol vol, uint flags, System.Threading.CancellationToken cancellationToken) {
             var innerReq = new Binding.RemoteStorageVolGetInfoFlagsArgs();
             innerReq.Vol = vol;
             innerReq.Flags = flags;
@@ -5185,7 +5185,7 @@ namespace LibvirtRemote {
             var innerType = innerRes.Type;
             var innerCapacity = innerRes.Capacity;
             var innerAllocation = innerRes.Allocation;
-            return new Tuple<byte, ulong, ulong>(innerType, innerCapacity, innerAllocation);
+            return new Tuple<int, ulong, ulong>(innerType, innerCapacity, innerAllocation);
         }
         
         public async Task<Binding.RemoteStorageVolGetInfoFlagsRet> StorageVolGetInfoFlagsWrappedAsync(Binding.RemoteStorageVolGetInfoFlagsArgs arg, System.Threading.CancellationToken cancellationToken) {

@@ -1193,7 +1193,7 @@ namespace Binding {
     [Xdr.XdrStructAttribute()]
     public partial class RemoteNodeGetInfoRet {
         
-        private byte[] model;
+        private int[] model;
         
         private ulong memory;
         
@@ -1211,7 +1211,7 @@ namespace Binding {
         
         [Xdr.XdrElementOrderAttribute(1)]
         [Xdr.XdrFixedLengthAttribute(32)]
-        public byte[] Model {
+        public int[] Model {
             get {
                 return this.model;
             }
@@ -3760,7 +3760,7 @@ namespace Binding {
     [Xdr.XdrStructAttribute()]
     public partial class RemoteDomainGetInfoRet {
         
-        private byte state;
+        private uint state;
         
         private ulong maxMem;
         
@@ -3771,7 +3771,7 @@ namespace Binding {
         private ulong cpuTime;
         
         [Xdr.XdrElementOrderAttribute(1)]
-        public byte State {
+        public uint State {
             get {
                 return this.state;
             }
@@ -5957,12 +5957,12 @@ namespace Binding {
     [Xdr.XdrStructAttribute()]
     public partial class RemoteDomainGetSecurityLabelRet {
         
-        private System.Collections.Generic.List<byte> label;
+        private System.Collections.Generic.List<int> label;
         
         private int enforcing;
         
         [Xdr.XdrElementOrderAttribute(1)]
-        public System.Collections.Generic.List<byte> Label {
+        public System.Collections.Generic.List<int> Label {
             get {
                 return this.label;
             }
@@ -6032,12 +6032,12 @@ namespace Binding {
     [Xdr.XdrStructAttribute()]
     public partial class RemoteNodeGetSecurityModelRet {
         
-        private System.Collections.Generic.List<byte> model;
+        private System.Collections.Generic.List<int> model;
         
-        private System.Collections.Generic.List<byte> doi;
+        private System.Collections.Generic.List<int> doi;
         
         [Xdr.XdrElementOrderAttribute(1)]
-        public System.Collections.Generic.List<byte> Model {
+        public System.Collections.Generic.List<int> Model {
             get {
                 return this.model;
             }
@@ -6047,7 +6047,7 @@ namespace Binding {
         }
         
         [Xdr.XdrElementOrderAttribute(2)]
-        public System.Collections.Generic.List<byte> Doi {
+        public System.Collections.Generic.List<int> Doi {
             get {
                 return this.doi;
             }
@@ -8519,7 +8519,7 @@ namespace Binding {
         
         private int nil;
         
-        private System.Collections.Generic.List<byte> data;
+        private System.Collections.Generic.List<int> data;
         
         [Xdr.XdrElementOrderAttribute(1)]
         public string Mech {
@@ -8542,7 +8542,7 @@ namespace Binding {
         }
         
         [Xdr.XdrElementOrderAttribute(3)]
-        public System.Collections.Generic.List<byte> Data {
+        public System.Collections.Generic.List<int> Data {
             get {
                 return this.data;
             }
@@ -8560,7 +8560,7 @@ namespace Binding {
         
         private int nil;
         
-        private System.Collections.Generic.List<byte> data;
+        private System.Collections.Generic.List<int> data;
         
         [Xdr.XdrElementOrderAttribute(1)]
         public int Complete {
@@ -8583,7 +8583,7 @@ namespace Binding {
         }
         
         [Xdr.XdrElementOrderAttribute(3)]
-        public System.Collections.Generic.List<byte> Data {
+        public System.Collections.Generic.List<int> Data {
             get {
                 return this.data;
             }
@@ -8599,7 +8599,7 @@ namespace Binding {
         
         private int nil;
         
-        private System.Collections.Generic.List<byte> data;
+        private System.Collections.Generic.List<int> data;
         
         [Xdr.XdrElementOrderAttribute(1)]
         public int Nil {
@@ -8612,7 +8612,7 @@ namespace Binding {
         }
         
         [Xdr.XdrElementOrderAttribute(2)]
-        public System.Collections.Generic.List<byte> Data {
+        public System.Collections.Generic.List<int> Data {
             get {
                 return this.data;
             }
@@ -8630,7 +8630,7 @@ namespace Binding {
         
         private int nil;
         
-        private System.Collections.Generic.List<byte> data;
+        private System.Collections.Generic.List<int> data;
         
         [Xdr.XdrElementOrderAttribute(1)]
         public int Complete {
@@ -8653,7 +8653,7 @@ namespace Binding {
         }
         
         [Xdr.XdrElementOrderAttribute(3)]
-        public System.Collections.Generic.List<byte> Data {
+        public System.Collections.Generic.List<int> Data {
             get {
                 return this.data;
             }
@@ -9286,7 +9286,7 @@ namespace Binding {
     [Xdr.XdrStructAttribute()]
     public partial class RemoteStoragePoolGetInfoRet {
         
-        private byte state;
+        private uint state;
         
         private ulong capacity;
         
@@ -9295,7 +9295,7 @@ namespace Binding {
         private ulong available;
         
         [Xdr.XdrElementOrderAttribute(1)]
-        public byte State {
+        public uint State {
             get {
                 return this.state;
             }
@@ -9886,14 +9886,14 @@ namespace Binding {
     [Xdr.XdrStructAttribute()]
     public partial class RemoteStorageVolGetInfoRet {
         
-        private byte type;
+        private int type;
         
         private ulong capacity;
         
         private ulong allocation;
         
         [Xdr.XdrElementOrderAttribute(1)]
-        public byte Type {
+        public int Type {
             get {
                 return this.type;
             }
@@ -9956,14 +9956,14 @@ namespace Binding {
     [Xdr.XdrStructAttribute()]
     public partial class RemoteStorageVolGetInfoFlagsRet {
         
-        private byte type;
+        private int type;
         
         private ulong capacity;
         
         private ulong allocation;
         
         [Xdr.XdrElementOrderAttribute(1)]
-        public byte Type {
+        public int Type {
             get {
                 return this.type;
             }
