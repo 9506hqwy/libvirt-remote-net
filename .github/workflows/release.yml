@@ -10,21 +10,21 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
-    - name: Prepare
+    - name: Prepare Dependencies
       run: |
         LOCALPKG=`mktemp -d`
         wget -P "${LOCALPKG}" https://github.com/9506hqwy/xdr-net/releases/download/0.4.0/Xdr.0.4.0.nupkg
         dotnet nuget add source --name local "${LOCALPKG}"
 
-    - name: Restore dependencies
+    - name: Restore Dependencies
       run: dotnet restore
 
-    - name: Build
+    - name: Build Release
       run: dotnet build --no-restore -c Release
 
-    - name: Package
+    - name: Create Artifacts
       run: dotnet pack --no-build -c Release -o ./artifacts
 
     - name: Create Release

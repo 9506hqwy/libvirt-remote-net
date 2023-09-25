@@ -11,32 +11,48 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
-    - name: Prepare
+    - name: Prepare Dependencies
       run: |
         LOCALPKG=`mktemp -d`
         wget -P "${LOCALPKG}" https://github.com/9506hqwy/xdr-net/releases/download/0.4.0/Xdr.0.4.0.nupkg
         dotnet nuget add source --name local "${LOCALPKG}"
 
-    - name: Restore dependencies
+    - name: Restore Dependencies
       run: dotnet restore
 
-    - name: Build
+    - name: Build Debug
       run: dotnet build --no-restore
 
-    - name: Check format
+    - name: Check Format
       run: dotnet format --no-restore --verify-no-changes
 
-    - name: Test
-      run: dotnet test --no-build --verbosity normal --collect:"XPlat Code Coverage" --results-directory ./artifacts
+    - name: Run Tests
+      run: dotnet test --no-build --verbosity normal --collect:"XPlat Code Coverage" --results-directory ./coverage
 
-    - name: Generate coverage report
+    - name: Generate Coverage Report
       run: |
         dotnet tool install -g dotnet-reportgenerator-globaltool
-        reportgenerator -reports:"./artifacts/*/coverage.cobertura.xml" -targetdir:"./artifacts" -reporttypes:"MarkdownSummaryGithub;TextSummary"
+        reportgenerator -reports:"./coverage/*/coverage.cobertura.xml" -targetdir:"./artifacts" -reporttypes:"MarkdownSummaryGithub;TextSummary"
 
-    - name: Report coverage
+        reportgenerator -reports:"./coverage/*/coverage.cobertura.xml" -targetdir:"./coverage_html" -reporttypes:"Html"
+        tar -C coverage_html -zcf ./artifacts/coverage.tar.gz .
+
+    - name: Report Coverage
       run: |
         cat "./artifacts/Summary.txt"
         cat "./artifacts/SummaryGithub.md" > $GITHUB_STEP_SUMMARY
+
+    - name: Build Release
+      run: dotnet build --no-restore -c Release
+
+    - name: Create Artifacts
+      run: dotnet pack --no-build -c Release -o ./artifacts
+
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: artifacts-${{ runner.os }}-${{ runner.arch }}-${{ github.run_number }}
+        path: artifacts/
+        retention-days: 1
