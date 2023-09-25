@@ -36,7 +36,8 @@ jobs:
         dotnet tool install -g dotnet-reportgenerator-globaltool
         reportgenerator -reports:"./coverage/*/coverage.cobertura.xml" -targetdir:"./artifacts" -reporttypes:"MarkdownSummaryGithub;TextSummary"
 
-        reportgenerator -reports:"./coverage/*/coverage.cobertura.xml" -targetdir:"./coverage_html" -reporttypes:"Html"
+        # because HTML format is 5 GiB over.
+        reportgenerator -reports:"./coverage/*/coverage.cobertura.xml" -targetdir:"./coverage_html" -reporttypes:"HtmlSummary"
         tar -C coverage_html -zcf ./artifacts/coverage.tar.gz .
 
     - name: Report Coverage
