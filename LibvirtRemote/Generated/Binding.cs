@@ -17271,6 +17271,59 @@ namespace Binding {
     
     [System.SerializableAttribute()]
     [Xdr.XdrStructAttribute()]
+    public partial class RemoteNetworkEventCallbackMetadataChangeMsg {
+        
+        private int callbackId;
+        
+        private RemoteNonnullNetwork net;
+        
+        private int type;
+        
+        private Xdr.XdrOption<string> nsuri;
+        
+        [Xdr.XdrElementOrderAttribute(1)]
+        public int CallbackId {
+            get {
+                return this.callbackId;
+            }
+            set {
+                this.callbackId = value;
+            }
+        }
+        
+        [Xdr.XdrElementOrderAttribute(2)]
+        public RemoteNonnullNetwork Net {
+            get {
+                return this.net;
+            }
+            set {
+                this.net = value;
+            }
+        }
+        
+        [Xdr.XdrElementOrderAttribute(3)]
+        public int Type {
+            get {
+                return this.type;
+            }
+            set {
+                this.type = value;
+            }
+        }
+        
+        [Xdr.XdrElementOrderAttribute(4)]
+        public Xdr.XdrOption<string> Nsuri {
+            get {
+                return this.nsuri;
+            }
+            set {
+                this.nsuri = value;
+            }
+        }
+    }
+    
+    [System.SerializableAttribute()]
+    [Xdr.XdrStructAttribute()]
     public partial class RemoteNetworkSetMetadataArgs {
         
         private RemoteNonnullNetwork network;
@@ -22078,6 +22131,8 @@ namespace Binding {
         RemoteProcNetworkSetMetadata = 444,
         
         RemoteProcNetworkGetMetadata = 445,
+        
+        RemoteProcNetworkEventCallbackMetadataChange = 446,
     }
     
     [System.SerializableAttribute()]

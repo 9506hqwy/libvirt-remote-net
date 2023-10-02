@@ -294,4 +294,12 @@ namespace Binding {
             return this.callbackId;
         }
     }
+    
+    [VirtEventAttribute(Constants.RemoteProgram, RemoteProcedure.RemoteProcNetworkEventCallbackMetadataChange)]
+    public partial class RemoteNetworkEventCallbackMetadataChangeMsg : IVirtEvent {
+        
+        public int GetCallbackId() {
+            return this.callbackId;
+        }
+    }
 }
