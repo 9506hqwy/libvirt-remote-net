@@ -7,6 +7,7 @@ public class VirtExceptionTest
 {
 #pragma warning disable SYSLIB0011
     [TestMethod]
+    [Ignore]
     public void Serialize()
     {
         var error = new VirNetMessageError

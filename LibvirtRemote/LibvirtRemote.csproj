@@ -3,14 +3,14 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Version>9.8.0.0</Version>
-    <LangVersion>10.0</LangVersion>
+    <LangVersion>12.0</LangVersion>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <PropertyGroup>
     <Authors>9506hqwy</Authors>
-    <Copyright>Copyright (c) 2023 9506hqwy. All Rights Reserved.</Copyright>
+    <Copyright>Copyright (c) 2024 9506hqwy. All Rights Reserved.</Copyright>
     <Description>This library is Libvirt remote interface for C#.</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/9506hqwy/libvirt-remote-net</PackageProjectUrl>
