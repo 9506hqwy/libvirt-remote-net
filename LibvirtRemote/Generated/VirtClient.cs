@@ -6138,5 +6138,19 @@ namespace LibvirtRemote {
             var innerRes = await innerTask;
             return innerRes;
         }
+        
+        public async Task NodeDeviceUpdateAsync(string name, string xmlDesc, uint flags, System.Threading.CancellationToken cancellationToken) {
+            var innerReq = new Binding.RemoteNodeDeviceUpdateArgs();
+            innerReq.Name = name;
+            innerReq.XmlDesc = xmlDesc;
+            innerReq.Flags = flags;
+            var innerTask = this.NodeDeviceUpdateWrappedAsync(innerReq, cancellationToken);
+            await innerTask;
+        }
+        
+        public async Task NodeDeviceUpdateWrappedAsync(Binding.RemoteNodeDeviceUpdateArgs arg, System.Threading.CancellationToken cancellationToken) {
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcNodeDeviceUpdate, arg, cancellationToken);
+            await innerTask;
+        }
     }
 }

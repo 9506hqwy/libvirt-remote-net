@@ -10816,6 +10816,47 @@ namespace Binding {
     
     [System.SerializableAttribute()]
     [Xdr.XdrStructAttribute()]
+    public partial class RemoteNodeDeviceUpdateArgs {
+        
+        private string name;
+        
+        private string xmlDesc;
+        
+        private uint flags;
+        
+        [Xdr.XdrElementOrderAttribute(1)]
+        public string Name {
+            get {
+                return this.name;
+            }
+            set {
+                this.name = value;
+            }
+        }
+        
+        [Xdr.XdrElementOrderAttribute(2)]
+        public string XmlDesc {
+            get {
+                return this.xmlDesc;
+            }
+            set {
+                this.xmlDesc = value;
+            }
+        }
+        
+        [Xdr.XdrElementOrderAttribute(3)]
+        public uint Flags {
+            get {
+                return this.flags;
+            }
+            set {
+                this.flags = value;
+            }
+        }
+    }
+    
+    [System.SerializableAttribute()]
+    [Xdr.XdrStructAttribute()]
     public partial class RemoteConnectDomainEventRegisterRet {
         
         private int cbRegistered;
@@ -22133,6 +22174,8 @@ namespace Binding {
         RemoteProcNetworkGetMetadata = 445,
         
         RemoteProcNetworkEventCallbackMetadataChange = 446,
+        
+        RemoteProcNodeDeviceUpdate = 447,
     }
     
     [System.SerializableAttribute()]
