@@ -21188,6 +21188,47 @@ namespace Binding {
     
     [System.SerializableAttribute()]
     [Xdr.XdrStructAttribute()]
+    public partial class RemoteDomainGraphicsReloadArgs {
+        
+        private RemoteNonnullDomain dom;
+        
+        private uint type;
+        
+        private uint flags;
+        
+        [Xdr.XdrElementOrderAttribute(1)]
+        public RemoteNonnullDomain Dom {
+            get {
+                return this.dom;
+            }
+            set {
+                this.dom = value;
+            }
+        }
+        
+        [Xdr.XdrElementOrderAttribute(2)]
+        public uint Type {
+            get {
+                return this.type;
+            }
+            set {
+                this.type = value;
+            }
+        }
+        
+        [Xdr.XdrElementOrderAttribute(3)]
+        public uint Flags {
+            get {
+                return this.flags;
+            }
+            set {
+                this.flags = value;
+            }
+        }
+    }
+    
+    [System.SerializableAttribute()]
+    [Xdr.XdrStructAttribute()]
     public partial class RemoteDomainEventMemoryDeviceSizeChangeMsg {
         
         private int callbackId;
@@ -22176,6 +22217,8 @@ namespace Binding {
         RemoteProcNetworkEventCallbackMetadataChange = 446,
         
         RemoteProcNodeDeviceUpdate = 447,
+        
+        RemoteProcDomainGraphicsReload = 448,
     }
     
     [System.SerializableAttribute()]
