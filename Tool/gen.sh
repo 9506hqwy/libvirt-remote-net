@@ -2,7 +2,7 @@
 
 set -eu
 
-VERSION="v10.5.0"
+VERSION="v10.6.0"
 PROTO_URL="https://raw.githubusercontent.com/libvirt/libvirt/${VERSION}/src/rpc/virnetprotocol.x"
 LXC_URL="https://raw.githubusercontent.com/libvirt/libvirt/${VERSION}/src/remote/lxc_protocol.x"
 QEMU_URL="https://raw.githubusercontent.com/libvirt/libvirt/${VERSION}/src/remote/qemu_protocol.x"
