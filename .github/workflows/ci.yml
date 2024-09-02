@@ -49,7 +49,17 @@ jobs:
       run: dotnet build --no-restore -c Release
 
     - name: Create Artifacts
-      run: dotnet pack --no-build -c Release -o ./artifacts
+      run: |
+        dotnet pack --no-build -c Release -o ./artifacts
+
+        dotnet tool install -g docfx
+        docfx doc/docfx.json
+
+        CUR_DIR=$(pwd)
+        REPOSITORY_NAME=${GITHUB_REPOSITORY#${GITHUB_REPOSITORY_OWNER}/}
+        pushd "./doc/_site"
+        tar -zcf "${CUR_DIR}/artifacts/help-${REPOSITORY_NAME}.tar.gz" *
+        popd
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v4
