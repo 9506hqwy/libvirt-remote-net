@@ -58,7 +58,7 @@ public class VirtNetStream : Stream, IDisposable
 
     public override void Write(byte[] buffer, int offset, int count)
     {
-        this.client.Socket.Send(
+        _ = this.client.Socket.Send(
             this.header.Prog,
             this.header.Vers,
             this.header.Serial,
@@ -78,7 +78,7 @@ public class VirtNetStream : Stream, IDisposable
             VirNetMessageStatus.VirNetOk,
             null,
             cancellationToken);
-        res.ConvertTo<XdrVoid>();
+        _ = res.ConvertTo<XdrVoid>();
     }
 
     protected override void Dispose(bool disposing)

@@ -21,12 +21,24 @@ indent_size = 4
 indent_style = space
 
 # .Net Compiler rule
+dotnet_analyzer_diagnostic.category-Style.severity = warning
+dotnet_diagnostic.IDE0001.severity = silent
+dotnet_diagnostic.IDE0002.severity = silent
+dotnet_diagnostic.IDE0003.severity = silent
+dotnet_diagnostic.IDE0007.severity = silent
+dotnet_diagnostic.IDE0008.severity = silent
+dotnet_diagnostic.IDE0009.severity = warning
+dotnet_diagnostic.IDE0022.severity = silent
+dotnet_diagnostic.IDE0039.severity = silent
+dotnet_diagnostic.IDE0065.severity = silent
+dotnet_diagnostic.IDE0160.severity = silent
+dotnet_diagnostic.CA1031.severity = silent
+dotnet_diagnostic.CA1308.severity = silent
+dotnet_diagnostic.CA1852.severity = silent
+dotnet_diagnostic.CA2201.severity = silent
 dotnet_diagnostic.CS1591.severity = silent
+dotnet_diagnostic.IDE0130.severity = silent # for local
 
-# StyleCop rule
-dotnet_diagnostic.SA1009.severity = silent # for nullable
-dotnet_diagnostic.SA1011.severity = silent # for nullable
-dotnet_diagnostic.SA1600.severity = silent
-dotnet_diagnostic.SA1601.severity = silent
-dotnet_diagnostic.SA1602.severity = silent
-dotnet_diagnostic.SA1633.severity = silent
+[*.json]
+indent_size = 4
+indent_style = space

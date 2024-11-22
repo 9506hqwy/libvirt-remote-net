@@ -4,14 +4,14 @@ using Xdr;
 
 try
 {
-    await Work(args);
+    await Work();
 }
 catch (Exception e)
 {
     await Console.Error.WriteLineAsync(string.Format("{0}", e));
 }
 
-async Task Work(string[] args)
+static async Task Work()
 {
     using var socket = new Socket(AddressFamily.Unix, SocketType.Stream, ProtocolType.Unspecified);
     await socket.ConnectAsync(new UnixDomainSocketEndPoint("/var/run/libvirt/libvirt-sock"));

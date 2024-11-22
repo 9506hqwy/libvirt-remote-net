@@ -25,9 +25,9 @@ public class VirtResponseReceiver : IDisposable
 
         this.socket = socket;
 
-        this.events = new Dictionary<int, VirtEventQueue>();
-        this.requests = new Dictionary<uint, VirtResponseTask>();
-        this.streams = new Dictionary<uint, VirtStream>();
+        this.events = [];
+        this.requests = [];
+        this.streams = [];
 
         this.listening = new CancellationTokenSource();
         this.listener = Task.Run(this.Listen);
@@ -43,7 +43,7 @@ public class VirtResponseReceiver : IDisposable
         {
             if (this.events.TryGetValue(callbackId, out queue))
             {
-                this.events.Remove(callbackId);
+                _ = this.events.Remove(callbackId);
             }
         }
 
@@ -60,12 +60,7 @@ public class VirtResponseReceiver : IDisposable
 
     public VirtStream GetStream(uint serial)
     {
-        if (this.TryGetStream(serial, out var stream))
-        {
-            return stream;
-        }
-
-        throw new InvalidOperationException();
+        return this.TryGetStream(serial, out var stream) ? stream : throw new InvalidOperationException();
     }
 
     public VirtEventQueue GetEventQueue(int callbackId)
@@ -99,7 +94,7 @@ public class VirtResponseReceiver : IDisposable
         {
             if (this.streams.TryGetValue(serial, out var stream))
             {
-                this.streams.Remove(serial);
+                _ = this.streams.Remove(serial);
                 return stream;
             }
         }
@@ -224,7 +219,7 @@ public class VirtResponseReceiver : IDisposable
                     continue;
                 }
 
-                this.TryHandleStream(res);
+                _ = this.TryHandleStream(res);
             }
         }
         catch (OperationCanceledException)
@@ -310,7 +305,7 @@ public class VirtResponseReceiver : IDisposable
         {
             if (this.requests.TryGetValue(serial, out request))
             {
-                this.requests.Remove(serial);
+                _ = this.requests.Remove(serial);
                 return true;
             }
         }

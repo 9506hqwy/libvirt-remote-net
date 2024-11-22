@@ -6,9 +6,9 @@ public class VirtResponseReceiverTest
     [TestMethod]
     public void DeleteEventQueue()
     {
-        var e = this.CreateMsg();
+        var e = CreateMsg();
 
-        using var receiver = this.CreateReceiver(
+        using var receiver = CreateReceiver(
             0,
             RemoteProcedure.RemoteProcStoragePoolEventLifecycle,
             VirNetMessageType.VirNetReply,
@@ -27,9 +27,9 @@ public class VirtResponseReceiverTest
     [TestMethod]
     public void DisposeEventQueue()
     {
-        var e = this.CreateMsg();
+        var e = CreateMsg();
 
-        using var receiver = this.CreateReceiver(
+        using var receiver = CreateReceiver(
             0,
             RemoteProcedure.RemoteProcStoragePoolEventLifecycle,
             VirNetMessageType.VirNetReply,
@@ -52,11 +52,11 @@ public class VirtResponseReceiverTest
     [TestMethod]
     public void DisposeStream()
     {
-        using var receiver = this.CreateReceiver(
+        using var receiver = CreateReceiver(
             100,
             socket =>
             {
-                socket.Send(
+                _ = socket.Send(
                     Binding.Constants.RemoteProgram,
                     Binding.Constants.RemoteProtocolVersion,
                     1,
@@ -64,7 +64,7 @@ public class VirtResponseReceiverTest
                     VirNetMessageType.VirNetStream,
                     VirNetMessageStatus.VirNetOk,
                     null);
-                socket.Send(
+                _ = socket.Send(
                     Binding.Constants.RemoteProgram,
                     Binding.Constants.RemoteProtocolVersion,
                     1,
@@ -74,7 +74,7 @@ public class VirtResponseReceiverTest
                     null);
             });
 
-        receiver.Register(1, true);
+        _ = receiver.Register(1, true);
 
         Thread.Sleep(300);
 
@@ -88,7 +88,7 @@ public class VirtResponseReceiverTest
 
         try
         {
-            receiver.GetStream(1);
+            _ = receiver.GetStream(1);
             Assert.Fail();
         }
         catch (InvalidOperationException)
@@ -99,11 +99,11 @@ public class VirtResponseReceiverTest
     [TestMethod]
     public void GetStream()
     {
-        using var receiver = this.CreateReceiver(
+        using var receiver = CreateReceiver(
             100,
             socket =>
             {
-                socket.Send(
+                _ = socket.Send(
                     Binding.Constants.RemoteProgram,
                     Binding.Constants.RemoteProtocolVersion,
                     1,
@@ -111,7 +111,7 @@ public class VirtResponseReceiverTest
                     VirNetMessageType.VirNetStream,
                     VirNetMessageStatus.VirNetOk,
                     null);
-                socket.Send(
+                _ = socket.Send(
                     Binding.Constants.RemoteProgram,
                     Binding.Constants.RemoteProtocolVersion,
                     1,
@@ -121,7 +121,7 @@ public class VirtResponseReceiverTest
                     null);
             });
 
-        receiver.Register(1, true);
+        _ = receiver.Register(1, true);
 
         Thread.Sleep(300);
 
@@ -131,7 +131,7 @@ public class VirtResponseReceiverTest
 
         try
         {
-            receiver.GetStream(2);
+            _ = receiver.GetStream(2);
             Assert.Fail();
         }
         catch (InvalidOperationException)
@@ -142,9 +142,9 @@ public class VirtResponseReceiverTest
     [TestMethod]
     public void GetEventQueue()
     {
-        var e = this.CreateMsg();
+        var e = CreateMsg();
 
-        using var receiver = this.CreateReceiver(
+        using var receiver = CreateReceiver(
             0,
             RemoteProcedure.RemoteProcStoragePoolEventLifecycle,
             VirNetMessageType.VirNetReply,
@@ -166,18 +166,18 @@ public class VirtResponseReceiverTest
     [TestMethod]
     public void RegisterUnRegister()
     {
-        using var receiver = this.CreateReceiver(
+        using var receiver = CreateReceiver(
             0,
             RemoteProcedure.RemoteProcStorageVolDownload,
             VirNetMessageType.VirNetReply,
             VirNetMessageStatus.VirNetOk,
             null);
 
-        receiver.Register(1, true);
+        _ = receiver.Register(1, true);
         receiver.Unregister(1, true);
     }
 
-    private RemoteStoragePoolEventLifecycleMsg CreateMsg()
+    private static RemoteStoragePoolEventLifecycleMsg CreateMsg()
     {
         return new RemoteStoragePoolEventLifecycleMsg
         {
@@ -192,16 +192,16 @@ public class VirtResponseReceiverTest
         };
     }
 
-    private VirtResponseReceiver CreateReceiver(
+    private static VirtResponseReceiver CreateReceiver(
         int delayRead,
         RemoteProcedure proc,
         VirNetMessageType type,
         VirNetMessageStatus status,
         object? requst)
     {
-        return this.CreateReceiver(delayRead, socket =>
+        return CreateReceiver(delayRead, socket =>
         {
-            socket.Send(
+            _ = socket.Send(
                 Binding.Constants.RemoteProgram,
                 Binding.Constants.RemoteProtocolVersion,
                 1,
@@ -212,16 +212,16 @@ public class VirtResponseReceiverTest
         });
     }
 
-    private VirtResponseReceiver CreateReceiver(
+    private static VirtResponseReceiver CreateReceiver(
         int delayRead,
         Action<VirtSocket> setupSocket)
     {
         var mem = new DelayMemoryStream(delayRead);
-        var socket = new VirtSocket(mem);
+        using var socket = new VirtSocket(mem);
 
         setupSocket(socket);
 
-        mem.Seek(0, SeekOrigin.Begin);
+        _ = mem.Seek(0, SeekOrigin.Begin);
 
         return new VirtResponseReceiver(socket);
     }

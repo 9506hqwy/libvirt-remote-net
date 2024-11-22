@@ -2,7 +2,7 @@
 
 public class VirtResponseTask
 {
-    private TaskCompletionSource<VirtResponse> source;
+    private readonly TaskCompletionSource<VirtResponse> source;
 
     public VirtResponseTask()
     {

@@ -6,12 +6,12 @@ using Xdr;
 
 internal class MainShell
 {
-    internal static void Main(string[] args)
+    internal static void Main()
     {
         try
         {
             var shell = new MainShell();
-            shell.Work(args);
+            shell.Work();
         }
         catch (Exception e)
         {
@@ -19,7 +19,7 @@ internal class MainShell
         }
     }
 
-    internal void Work(string[] args)
+    internal void Work()
     {
         this.WriteEvent();
         this.WriteClient();
@@ -48,7 +48,7 @@ internal class MainShell
         }
 
         var ns = new CodeNamespace("LibvirtRemote");
-        ns.Types.Add(cls);
+        _ = ns.Types.Add(cls);
 
         Code.WriteFile("VirtClient.cs", ns);
     }
@@ -58,24 +58,24 @@ internal class MainShell
         var ns = new CodeNamespace("Binding");
 
         var intf = Code.CreateEventInterface();
-        ns.Types.Add(intf);
+        _ = ns.Types.Add(intf);
 
         foreach ((var procName, var eventType) in Utility.EnumerateEvent<LxcProcedure>(Utility.LxcPrefix))
         {
             var cls = Code.CreateEventImpl(procName, eventType, intf);
-            ns.Types.Add(cls);
+            _ = ns.Types.Add(cls);
         }
 
         foreach ((var procName, var eventType) in Utility.EnumerateEvent<QemuProcedure>(Utility.QemuPrefix))
         {
             var cls = Code.CreateEventImpl(procName, eventType, intf);
-            ns.Types.Add(cls);
+            _ = ns.Types.Add(cls);
         }
 
         foreach ((var procName, var eventType) in Utility.EnumerateEvent<RemoteProcedure>(Utility.RemotePrefix))
         {
             var cls = Code.CreateEventImpl(procName, eventType, intf);
-            ns.Types.Add(cls);
+            _ = ns.Types.Add(cls);
         }
 
         Code.WriteFile("VirtEvent.cs", ns);
@@ -155,7 +155,7 @@ internal class MainShell
 
         parameters.Add(new CodeVariableReferenceExpression(Code.CancelToken.Name));
 
-        var res = Code.AddCallAsyncStatement(method, procName, rType, innerMethod, parameters.ToArray());
+        var res = Code.AddCallAsyncStatement(method, procName, rType, innerMethod, [.. parameters]);
 
         if (res is CodeVariableDeclarationStatement variable)
         {
@@ -183,7 +183,7 @@ internal class MainShell
                 val = Code.CreateFuncRetValue(retTypes.ToArray(), variables);
             }
 
-            method.Statements.Add(new CodeMethodReturnStatement(val));
+            _ = method.Statements.Add(new CodeMethodReturnStatement(val));
         }
     }
 
@@ -207,14 +207,15 @@ internal class MainShell
         }
         else
         {
-            callAsync.TypeArguments.Add(retType);
+            _ = callAsync.TypeArguments.Add(retType);
         }
 
         callAsync.TypeArguments.Add(typeof(T));
 
-        var parameters = new List<CodeExpression>();
-
-        parameters.Add(procFlag);
+        var parameters = new List<CodeExpression>
+        {
+            procFlag
+        };
 
         if (argType is not null)
         {
@@ -227,11 +228,11 @@ internal class MainShell
 
         parameters.Add(new CodeVariableReferenceExpression(Code.CancelToken.Name));
 
-        var res = Code.AddCallAsyncStatement(method, procName, retType, callAsync, parameters.ToArray());
+        var res = Code.AddCallAsyncStatement(method, procName, retType, callAsync, [.. parameters]);
 
         if (res is CodeVariableDeclarationStatement variable)
         {
-            method.Statements.Add(
+            _ = method.Statements.Add(
                 new CodeMethodReturnStatement(new CodeVariableReferenceExpression(variable.Name)));
         }
     }
@@ -239,9 +240,9 @@ internal class MainShell
     private void AddMemberToCls<T>(T procName, string methodName, Type? argType, Type? retType, CodeTypeDeclaration cls)
     {
         var method1 = this.ImplementMethod(procName, methodName, argType, retType);
-        cls.Members.Add(method1);
+        _ = cls.Members.Add(method1);
 
         var method2 = this.ImplementWrappedMethod(procName, methodName, argType, retType);
-        cls.Members.Add(method2);
+        _ = cls.Members.Add(method2);
     }
 }

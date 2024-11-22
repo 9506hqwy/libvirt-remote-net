@@ -46,12 +46,7 @@ public partial class VirtClient : IDisposable
     {
         this.receiver.ThrowIfReceiverIsStopped();
 
-        var queue = this.receiver.GetEventQueue(callbackId);
-        if (queue is null)
-        {
-            throw new InvalidOperationException();
-        }
-
+        var queue = this.receiver.GetEventQueue(callbackId) ?? throw new InvalidOperationException();
         return new VirtEventStream(callbackId, queue);
     }
 
@@ -99,7 +94,7 @@ public partial class VirtClient : IDisposable
     {
         var task = this.receiver.Register(serial, isStream);
 
-        cancellationToken.Register(() =>
+        _ = cancellationToken.Register(() =>
         {
             if (!task.IsCompleted)
             {
@@ -109,7 +104,7 @@ public partial class VirtClient : IDisposable
 
         try
         {
-            await this.Socket.SendAsync(
+            _ = await this.Socket.SendAsync(
                 this.GetProg(proc),
                 this.GetProtoVersion(proc),
                 serial,
@@ -179,9 +174,9 @@ public partial class VirtClient : IDisposable
     {
         return proc switch
         {
-            LxcProcedure _ => Binding.Constants.LxcProtocolVersion,
-            QemuProcedure _ => Binding.Constants.QemuProtocolVersion,
-            RemoteProcedure _ => Binding.Constants.RemoteProtocolVersion,
+            LxcProcedure => Binding.Constants.LxcProtocolVersion,
+            QemuProcedure => Binding.Constants.QemuProtocolVersion,
+            RemoteProcedure => Binding.Constants.RemoteProtocolVersion,
             _ => throw new InvalidProgramException(),
         };
     }
@@ -190,9 +185,9 @@ public partial class VirtClient : IDisposable
     {
         return proc switch
         {
-            LxcProcedure _ => Binding.Constants.LxcProgram,
-            QemuProcedure _ => Binding.Constants.QemuProgram,
-            RemoteProcedure _ => Binding.Constants.RemoteProgram,
+            LxcProcedure => Binding.Constants.LxcProgram,
+            QemuProcedure => Binding.Constants.QemuProgram,
+            RemoteProcedure => Binding.Constants.RemoteProgram,
             _ => throw new InvalidProgramException(),
         };
     }

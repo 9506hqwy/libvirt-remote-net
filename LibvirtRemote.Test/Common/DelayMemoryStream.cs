@@ -1,14 +1,8 @@
 ﻿namespace LibvirtRemote.Test;
 
-public class DelayMemoryStream : MemoryStream
+public class DelayMemoryStream(int delayRead) : MemoryStream()
 {
-    private int delayRead;
-
-    public DelayMemoryStream(int delayRead)
-        : base()
-    {
-        this.delayRead = delayRead;
-    }
+    private int delayRead = delayRead;
 
     public override int Read(byte[] buffer, int offset, int count)
     {

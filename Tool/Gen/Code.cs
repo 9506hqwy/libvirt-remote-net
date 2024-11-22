@@ -12,15 +12,15 @@ internal static class Code
     internal const string EventInterfaceName = "IVirtEvent";
 
     internal static readonly CodeParameterDeclarationExpression CancelToken =
-        new CodeParameterDeclarationExpression(
+        new(
             new CodeTypeReference(typeof(CancellationToken)),
             "cancellationToken");
 
     internal static readonly CodeTypeReference VirtStreamTypeRef =
-        new CodeTypeReference("VirtNetStream");
+        new("VirtNetStream");
 
-    private static readonly RemoteProcedure[] StreamProcs = new[]
-    {
+    private static readonly RemoteProcedure[] StreamProcs =
+    [
         RemoteProcedure.RemoteProcDomainMigratePrepareTunnel,
         RemoteProcedure.RemoteProcDomainOpenConsole,
         RemoteProcedure.RemoteProcStorageVolUpload,
@@ -28,7 +28,7 @@ internal static class Code
         RemoteProcedure.RemoteProcDomainScreenshot,
         RemoteProcedure.RemoteProcDomainMigratePrepareTunnel3,
         RemoteProcedure.RemoteProcDomainOpenChannel,
-    };
+    ];
 
     internal static CodeStatement AddCallAsyncStatement<T>(
         CodeMemberMethod method,
@@ -47,7 +47,7 @@ internal static class Code
             InitExpression = invoke,
         };
 
-        method.Statements.Add(ret);
+        _ = method.Statements.Add(ret);
 
         CodeStatement res =
             Code.IsStreamProc(procName) ?
@@ -64,7 +64,7 @@ internal static class Code
             :
             new CodeExpressionStatement(new CodeVariableReferenceExpression($"await {task}"));
 
-        method.Statements.Add(res);
+        _ = method.Statements.Add(res);
 
         return res;
     }
@@ -80,7 +80,7 @@ internal static class Code
         {
             InitExpression = ctor,
         };
-        method.Statements.Add(req);
+        _ = method.Statements.Add(req);
 
         foreach (var arg in args.Exprs)
         {
@@ -89,7 +89,7 @@ internal static class Code
                     new CodeVariableReferenceExpression(request),
                     Utility.ToPropertyName(arg.Name)),
                 new CodeVariableReferenceExpression(arg.Name));
-            method.Statements.Add(assign);
+            _ = method.Statements.Add(assign);
         }
 
         return req;
@@ -103,7 +103,7 @@ internal static class Code
         var properties = type.GetProperties();
         if (properties.Length > 7)
         {
-            return new CodeVariableDeclarationStatement[0];
+            return [];
         }
 
         var variables = new List<CodeVariableDeclarationStatement>();
@@ -119,10 +119,10 @@ internal static class Code
             };
             variables.Add(assign);
 
-            method.Statements.Add(assign);
+            _ = method.Statements.Add(assign);
         }
 
-        return variables.ToArray();
+        return [.. variables];
     }
 
     internal static CodeVariableDeclarationStatement[] AddDeconstructTupleStatement(
@@ -135,7 +135,7 @@ internal static class Code
         var properties = type.GetProperties();
         if (properties.Length > 7)
         {
-            return new CodeVariableDeclarationStatement[0];
+            return [];
         }
 
         var variables = new List<CodeVariableDeclarationStatement>();
@@ -148,7 +148,7 @@ internal static class Code
             };
             variables.Add(assign);
 
-            method.Statements.Add(assign);
+            _ = method.Statements.Add(assign);
         }
 
         {
@@ -159,7 +159,7 @@ internal static class Code
                 InitExpression = Code.CreateTupleProperty(response.VariableName, 2),
             };
 
-            method.Statements.Add(assign);
+            _ = method.Statements.Add(assign);
         }
 
         foreach (var property in properties)
@@ -174,10 +174,10 @@ internal static class Code
             };
             variables.Add(assign);
 
-            method.Statements.Add(assign);
+            _ = method.Statements.Add(assign);
         }
 
-        return variables.ToArray();
+        return [.. variables];
     }
 
     internal static FuncArgs? AddFuncArgs(CodeMemberMethod method, Type? type, bool isWrapped)
@@ -188,7 +188,7 @@ internal static class Code
             method.Parameters.AddRange(args.Exprs);
         }
 
-        method.Parameters.Add(Code.CancelToken);
+        _ = method.Parameters.Add(Code.CancelToken);
 
         return args;
     }
@@ -207,28 +207,28 @@ internal static class Code
             else if (type is null && isWrapped)
             {
                 tuple = new CodeTypeReference("Tuple");
-                tuple.TypeArguments.Add(Code.VirtStreamTypeRef);
+                _ = tuple.TypeArguments.Add(Code.VirtStreamTypeRef);
                 tuple.TypeArguments.Add(typeof(Xdr.XdrVoid));
             }
             else if (isWrapped)
             {
                 tuple = new CodeTypeReference("Tuple");
-                tuple.TypeArguments.Add(Code.VirtStreamTypeRef);
-                tuple.TypeArguments.Add(new CodeTypeReference(type!));
+                _ = tuple.TypeArguments.Add(Code.VirtStreamTypeRef);
+                _ = tuple.TypeArguments.Add(new CodeTypeReference(type!));
             }
             else
             {
                 tuple = new CodeTypeReference("Tuple");
-                tuple.TypeArguments.Add(Code.VirtStreamTypeRef);
-                tuple.TypeArguments.Add(Code.CreateFuncRetType(type!, isWrapped));
+                _ = tuple.TypeArguments.Add(Code.VirtStreamTypeRef);
+                _ = tuple.TypeArguments.Add(Code.CreateFuncRetType(type!, isWrapped));
             }
 
-            method.ReturnType.TypeArguments.Add(tuple!);
+            _ = method.ReturnType.TypeArguments.Add(tuple!);
             return type;
         }
         else if (type is not null)
         {
-            method.ReturnType.TypeArguments.Add(Code.CreateFuncRetType(type, isWrapped));
+            _ = method.ReturnType.TypeArguments.Add(Code.CreateFuncRetType(type, isWrapped));
             return type;
         }
         else
@@ -244,14 +244,14 @@ internal static class Code
     {
         var progFlag = procName switch
         {
-            LxcProcedure _ => new CodeFieldReferenceExpression(
-                new CodeTypeReferenceExpression(typeof(Constants).Name),
+            LxcProcedure => new CodeFieldReferenceExpression(
+                new CodeTypeReferenceExpression(nameof(Constants)),
                 nameof(Constants.LxcProgram)),
-            QemuProcedure _ => new CodeFieldReferenceExpression(
-                new CodeTypeReferenceExpression(typeof(Constants).Name),
+            QemuProcedure => new CodeFieldReferenceExpression(
+                new CodeTypeReferenceExpression(nameof(Constants)),
                 nameof(Constants.QemuProgram)),
-            RemoteProcedure _ => new CodeFieldReferenceExpression(
-                new CodeTypeReferenceExpression(typeof(Constants).Name),
+            RemoteProcedure => new CodeFieldReferenceExpression(
+                new CodeTypeReferenceExpression(nameof(Constants)),
                 nameof(Constants.RemoteProgram)),
             _ => throw new InvalidProgramException(),
         };
@@ -265,12 +265,12 @@ internal static class Code
             IsPartial = true,
         };
 
-        cls.CustomAttributes.Add(new CodeAttributeDeclaration(
+        _ = cls.CustomAttributes.Add(new CodeAttributeDeclaration(
             "VirtEventAttribute",
             new CodeAttributeArgument(progFlag),
             new CodeAttributeArgument(procFlag)));
 
-        cls.BaseTypes.Add(new CodeTypeReference(intf.Name));
+        _ = cls.BaseTypes.Add(new CodeTypeReference(intf.Name));
 
         foreach (var intfMethod in intf.Members.OfType<CodeMemberMethod>())
         {
@@ -285,9 +285,9 @@ internal static class Code
                 new CodeThisReferenceExpression(),
                 Utility.ToArgName(intfMethod.Name.Replace("Get", string.Empty)));
             var impl = new CodeMethodReturnStatement(field);
-            method.Statements.Add(impl);
+            _ = method.Statements.Add(impl);
 
-            cls.Members.Add(method);
+            _ = cls.Members.Add(method);
         }
 
         return cls;
@@ -305,24 +305,20 @@ internal static class Code
         {
             IsInterface = true,
         };
-        intf.Members.Add(baseMethod);
+        _ = intf.Members.Add(baseMethod);
 
         return intf;
     }
 
     internal static CodeParameterDeclarationExpression[] CreateFuncArgs(Type type, bool isWrapped)
     {
-        if (isWrapped)
-        {
-            return new[]
-            {
+        return isWrapped
+            ? ([
                 new CodeParameterDeclarationExpression(
                     new CodeTypeReference(type),
                     "arg"),
-            };
-        }
-
-        return type.GetProperties()
+            ])
+            : type.GetProperties()
             .Select(p => new CodeParameterDeclarationExpression(
                 new CodeTypeReference(p.PropertyType),
                 Utility.ToArgName(p.Name)))
@@ -434,7 +430,7 @@ internal static class Code
     internal static void WriteFile(string path, CodeNamespace ns)
     {
         var compileUnit = new CodeCompileUnit();
-        compileUnit.Namespaces.Add(ns);
+        _ = compileUnit.Namespaces.Add(ns);
 
         var provider = new CSharpCodeProvider();
 

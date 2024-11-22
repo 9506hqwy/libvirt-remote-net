@@ -5,14 +5,14 @@ using Xdr;
 
 try
 {
-    await Work(args);
+    await Work();
 }
 catch (Exception e)
 {
     await Console.Error.WriteLineAsync(string.Format("{0}", e));
 }
 
-async Task Work(string[] args)
+static async Task Work()
 {
     using var tcp = new TcpClient("127.0.0.1", 16509);
 
@@ -31,7 +31,7 @@ async Task Work(string[] args)
         await Console.Out.WriteLineAsync(string.Format("{0} event={1} detail={2}", m.Msg.Dom.Name, m.Msg.Event, m.Msg.Detail));
     }
 
-    client.DeleteEventStream(eventStream);
+    _ = client.DeleteEventStream(eventStream);
 
     await client.ConnectDomainEventCallbackDeregisterAnyAsync(callbackId, default);
 

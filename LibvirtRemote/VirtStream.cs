@@ -2,33 +2,21 @@
 
 using Protocol;
 
-public class VirtStream : IDisposable
+public class VirtStream(uint serial, VirtResponseReceiver receiver) : IDisposable
 {
-    private readonly ManualResetEventSlim hasItem;
+    private readonly ManualResetEventSlim hasItem = new();
 
-    private readonly Queue<byte> inner;
+    private readonly Queue<byte> inner = new();
 
-    private readonly VirtResponseReceiver receiver;
+    private readonly VirtResponseReceiver receiver = receiver;
 
-    private readonly uint serial;
+    private readonly uint serial = serial;
 
     private bool disposed;
 
-    private VirNetMessageError? error;
+    private VirNetMessageError? error = null;
 
-    public VirtStream(uint serial, VirtResponseReceiver receiver)
-    {
-        this.serial = serial;
-        this.receiver = receiver;
-
-        this.hasItem = new ManualResetEventSlim();
-        this.inner = new Queue<byte>();
-
-        this.error = null;
-        this.IsWriteCompleted = false;
-    }
-
-    public bool IsWriteCompleted { get; private set; }
+    public bool IsWriteCompleted { get; private set; } = false;
 
     public void Dispose()
     {
@@ -138,7 +126,7 @@ public class VirtStream : IDisposable
         if (disposing)
         {
             this.inner.Clear();
-            this.receiver.RemoveStream(this.serial);
+            _ = this.receiver.RemoveStream(this.serial);
             this.hasItem.Dispose();
         }
 

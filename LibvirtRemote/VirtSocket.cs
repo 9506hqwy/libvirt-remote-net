@@ -2,22 +2,13 @@
 
 using Protocol;
 
-public class VirtSocket : IDisposable
+public class VirtSocket(Stream stream) : IDisposable
 {
-    private readonly Stream stream;
+    private readonly Stream stream = stream;
 
-    private readonly SemaphoreSlim writeLock;
+    private readonly SemaphoreSlim writeLock = new(1, 1);
 
-    private bool disposed;
-
-    public VirtSocket(Stream stream)
-    {
-        this.disposed = false;
-
-        this.stream = stream;
-
-        this.writeLock = new SemaphoreSlim(1, 1);
-    }
+    private bool disposed = false;
 
     public void Dispose()
     {
@@ -41,16 +32,16 @@ public class VirtSocket : IDisposable
 
         var resHeaderBytes = await this.ReadByteAsync(24, cancellationToken);
         var resHeader = Utility.ConvertFromBytes<VirNetMessageHeader>(resHeaderBytes);
-        if (resHeader.Prog != Binding.Constants.LxcProgram &&
-            resHeader.Prog != Binding.Constants.QemuProgram &&
-            resHeader.Prog != Binding.Constants.RemoteProgram)
+        if (resHeader.Prog is not Binding.Constants.LxcProgram and
+            not Binding.Constants.QemuProgram and
+            not Binding.Constants.RemoteProgram)
         {
             throw new VirtException($"Invalid program number: {resHeader.Prog}");
         }
         else if (
-            resHeader.Vers != Binding.Constants.LxcProtocolVersion &&
-            resHeader.Vers != Binding.Constants.QemuProtocolVersion &&
-            resHeader.Vers != Binding.Constants.RemoteProtocolVersion)
+            resHeader.Vers is not Binding.Constants.LxcProtocolVersion and
+            not Binding.Constants.QemuProtocolVersion and
+            not Binding.Constants.RemoteProtocolVersion)
         {
             throw new VirtException($"Invalid protocol version: {resHeader.Vers}");
         }
@@ -174,7 +165,7 @@ public class VirtSocket : IDisposable
         }
         finally
         {
-            this.writeLock.Release();
+            _ = this.writeLock.Release();
         }
     }
 }

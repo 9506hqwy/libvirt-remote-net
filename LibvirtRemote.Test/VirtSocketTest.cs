@@ -6,10 +6,10 @@ public class VirtSocketTest
     [TestMethod]
     public void ReceiveNotEnoughData()
     {
-        var mem = new MemoryStream(new byte[] { 0x00, 0x00, 0x00, 0x01 });
+        var mem = new MemoryStream([0x00, 0x00, 0x00, 0x01]);
         using var socket = new VirtSocket(mem);
 
-        mem.Seek(0, SeekOrigin.Begin);
+        _ = mem.Seek(0, SeekOrigin.Begin);
 
         var res = socket.Receive();
         Assert.IsNull(res);
@@ -18,14 +18,14 @@ public class VirtSocketTest
     [TestMethod]
     public void ReceivePending()
     {
-        var mem = new MemoryStream(new byte[] { 0x00, 0x00, 0x00 });
+        var mem = new MemoryStream([0x00, 0x00, 0x00]);
         using var socket = new VirtSocket(mem);
 
-        mem.Seek(0, SeekOrigin.Begin);
+        _ = mem.Seek(0, SeekOrigin.Begin);
 
         try
         {
-            socket.Receive();
+            _ = socket.Receive();
             Assert.Fail();
         }
         catch (AggregateException e) when (e.InnerException is TaskCanceledException)
@@ -39,11 +39,11 @@ public class VirtSocketTest
         var mem = new MemoryStream();
         using var socket = new VirtSocket(mem);
 
-        mem.Seek(0, SeekOrigin.Begin);
+        _ = mem.Seek(0, SeekOrigin.Begin);
 
         try
         {
-            socket.Receive();
+            _ = socket.Receive();
             Assert.Fail();
         }
         catch (AggregateException e) when (e.InnerException is TaskCanceledException)
@@ -67,7 +67,7 @@ public class VirtSocketTest
             null);
         Assert.AreEqual(28u, n);
 
-        mem.Seek(0, SeekOrigin.Begin);
+        _ = mem.Seek(0, SeekOrigin.Begin);
 
         var res = socket.Receive();
         Assert.AreEqual(Binding.Constants.RemoteProgram, res!.Header.Prog);
@@ -95,7 +95,7 @@ public class VirtSocketTest
             1);
         Assert.AreEqual(32u, n);
 
-        mem.Seek(0, SeekOrigin.Begin);
+        _ = mem.Seek(0, SeekOrigin.Begin);
 
         var res = socket.Receive();
         Assert.AreEqual(Binding.Constants.RemoteProgram, res!.Header.Prog);
@@ -117,8 +117,8 @@ public class VirtSocketTest
 
         var t1 = Task.Run(() =>
         {
-            blocking.WaitOne();
-            socket.Send(
+            _ = blocking.WaitOne();
+            _ = socket.Send(
                 Binding.Constants.RemoteProgram,
                 Binding.Constants.RemoteProtocolVersion,
                 1,
@@ -130,8 +130,8 @@ public class VirtSocketTest
 
         var t2 = Task.Run(() =>
         {
-            blocking.WaitOne();
-            socket.Send(
+            _ = blocking.WaitOne();
+            _ = socket.Send(
                 Binding.Constants.RemoteProgram,
                 Binding.Constants.RemoteProtocolVersion,
                 3,
@@ -141,11 +141,11 @@ public class VirtSocketTest
                 null);
         });
 
-        blocking.Set();
+        _ = blocking.Set();
         t1.Wait();
         t2.Wait();
 
-        mem.Seek(0, SeekOrigin.Begin);
+        _ = mem.Seek(0, SeekOrigin.Begin);
 
         var res1 = socket.Receive();
         var res2 = socket.Receive();

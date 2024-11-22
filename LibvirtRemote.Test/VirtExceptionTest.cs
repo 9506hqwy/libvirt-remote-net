@@ -23,9 +23,13 @@ public class VirtExceptionTest
         var formater = new BinaryFormatter();
         formater.Serialize(mem, exp);
 
-        mem.Seek(0, SeekOrigin.Begin);
+        _ = mem.Seek(0, SeekOrigin.Begin);
 
+#pragma warning disable CA2300
+#pragma warning disable CA2301
         var ret = (VirtException)formater.Deserialize(mem);
+#pragma warning restore CA2300
+#pragma warning restore CA2301
 
         Assert.IsNotNull(ret);
         Assert.IsNotNull(ret.Error);

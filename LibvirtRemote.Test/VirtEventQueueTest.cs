@@ -6,7 +6,7 @@ public class VirtEventQueueTest
     [TestMethod]
     public void ClearAsync()
     {
-        var queue = new VirtEventQueue();
+        using var queue = new VirtEventQueue();
         queue.EnqueueAsync(new Event(), default).Wait();
         queue.ClearAsync(default).Wait();
         Assert.AreEqual(0, queue.Count);
@@ -34,7 +34,7 @@ public class VirtEventQueueTest
         var e1 = new Event();
         var e2 = new Event();
 
-        var queue = new VirtEventQueue();
+        using var queue = new VirtEventQueue();
 
         Assert.IsFalse(queue.ContainsAsync(e1, default).Result);
 
@@ -49,7 +49,7 @@ public class VirtEventQueueTest
     {
         var e1 = new Event();
 
-        var queue = new VirtEventQueue();
+        using var queue = new VirtEventQueue();
         queue.EnqueueAsync(e1, default).Wait();
 
         var e2 = queue.DequeueAsync(default).Result;
@@ -63,6 +63,7 @@ public class VirtEventQueueTest
         queue.EnqueueAsync(new Event(), default).Wait();
         queue.Dispose();
         Assert.AreEqual(0, queue.Count);
+        queue.Dispose();
 
         queue = new VirtEventQueue();
 
@@ -82,6 +83,7 @@ public class VirtEventQueueTest
         }
 
         task.Wait();
+        queue.Dispose();
     }
 
     [TestMethod]
@@ -90,7 +92,7 @@ public class VirtEventQueueTest
         var e1 = new Event();
         var e2 = new Event();
 
-        var queue = new VirtEventQueue();
+        using var queue = new VirtEventQueue();
 
         Assert.IsFalse(queue.ContainsAsync(e1, default).Result);
 
@@ -104,7 +106,7 @@ public class VirtEventQueueTest
     [TestMethod]
     public void PeekAsync()
     {
-        var queue = new VirtEventQueue();
+        using var queue = new VirtEventQueue();
 
         queue.EnqueueAsync(new Event(), default).Wait();
 

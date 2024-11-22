@@ -4,6 +4,7 @@ using System.Net.Sockets;
 using Xdr;
 
 [TestClass]
+#pragma warning disable CA1001
 public class ClientTest
 {
     private VirtClient? client;
@@ -84,7 +85,7 @@ public class ClientTest
         var e = eventStream.ReadAsync(default).Result;
         Assert.IsNotNull(e);
 
-        this.client.DeleteEventStream(eventStream);
+        _ = this.client.DeleteEventStream(eventStream);
     }
 
     [TestMethod]
@@ -109,3 +110,4 @@ public class ClientTest
         virStream.WriteCompletedAsync(default).Wait();
     }
 }
+#pragma warning restore CA1001

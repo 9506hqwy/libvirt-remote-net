@@ -4,9 +4,9 @@ using Binding;
 using Protocol;
 using System.Reflection;
 
-public class VirtResponse
+public class VirtResponse(VirNetMessageHeader header, byte[]? body)
 {
-    private static IDictionary<uint, Dictionary<int, MethodInfo>> bytesToEvent;
+    private static readonly IDictionary<uint, Dictionary<int, MethodInfo>> bytesToEvent;
 
     static VirtResponse()
     {
@@ -15,15 +15,9 @@ public class VirtResponse
             .ToDictionary(a => a.Key, a => a.ToDictionary(b => b.Proc, VirtResponse.GetBytesToEvent));
     }
 
-    public VirtResponse(VirNetMessageHeader header, byte[]? body)
-    {
-        this.Header = header;
-        this.Body = body;
-    }
+    public VirNetMessageHeader Header { get; } = header;
 
-    public VirNetMessageHeader Header { get; }
-
-    public byte[]? Body { get; }
+    public byte[]? Body { get; } = body;
 
     public T? ConvertTo<T>()
     {
@@ -33,20 +27,14 @@ public class VirtResponse
             throw new VirtException(errMsg);
         }
 
-        if (this.Body is null)
-        {
-            return default;
-        }
-
-        if (this.Header.Type == VirNetMessageType.VirNetReply ||
-            this.Header.Type == VirNetMessageType.VirNetMessage ||
-            this.Header.Type == VirNetMessageType.VirNetStream ||
-            this.Header.Type == VirNetMessageType.VirNetStreamHole)
-        {
-            return Utility.ConvertFromBytes<T>(this.Body!);
-        }
-
-        throw new NotSupportedException();
+        return this.Body is null
+            ? default
+            : this.Header.Type is VirNetMessageType.VirNetReply or
+            VirNetMessageType.VirNetMessage or
+            VirNetMessageType.VirNetStream or
+            VirNetMessageType.VirNetStreamHole
+            ? Utility.ConvertFromBytes<T>(this.Body!)
+            : throw new NotSupportedException();
     }
 
     public IVirtEvent? ConvertToEvent()

@@ -7,12 +7,7 @@ internal static class Utility
     internal static T ConvertFromBytes<T>(byte[] source)
     {
         var obj = (T)XdrDeserializer.Deserialize<T>(source, out var remain);
-        if (remain.Any())
-        {
-            throw new InvalidOperationException();
-        }
-
-        return obj;
+        return remain.Any() ? throw new InvalidOperationException() : obj;
     }
 
     internal static byte[] ConvertToBytes<T>(T source)
