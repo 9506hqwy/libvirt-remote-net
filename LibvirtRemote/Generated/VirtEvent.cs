@@ -302,4 +302,12 @@ namespace Binding {
             return this.callbackId;
         }
     }
+    
+    [VirtEventAttribute(Constants.RemoteProgram, RemoteProcedure.RemoteProcDomainEventNicMacChange)]
+    public partial class RemoteDomainEventNicMacChangeMsg : IVirtEvent {
+        
+        public int GetCallbackId() {
+            return this.callbackId;
+        }
+    }
 }

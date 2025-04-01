@@ -6166,5 +6166,62 @@ namespace LibvirtRemote {
             var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainGraphicsReload, arg, cancellationToken);
             await innerTask;
         }
+        
+        public async Task<int> DomainGetAutostartOnceAsync(Binding.RemoteNonnullDomain dom, System.Threading.CancellationToken cancellationToken) {
+            var innerReq = new Binding.RemoteDomainGetAutostartOnceArgs();
+            innerReq.Dom = dom;
+            var innerTask = this.DomainGetAutostartOnceWrappedAsync(innerReq, cancellationToken);
+            var innerRes = await innerTask;
+            var innerAutostart = innerRes.Autostart;
+            return innerAutostart;
+        }
+        
+        public async Task<Binding.RemoteDomainGetAutostartOnceRet> DomainGetAutostartOnceWrappedAsync(Binding.RemoteDomainGetAutostartOnceArgs arg, System.Threading.CancellationToken cancellationToken) {
+            var innerTask = this.CallAsync<Binding.RemoteDomainGetAutostartOnceRet, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainGetAutostartOnce, arg, cancellationToken);
+            var innerRes = await innerTask;
+            return innerRes;
+        }
+        
+        public async Task DomainSetAutostartOnceAsync(Binding.RemoteNonnullDomain dom, int autostart, System.Threading.CancellationToken cancellationToken) {
+            var innerReq = new Binding.RemoteDomainSetAutostartOnceArgs();
+            innerReq.Dom = dom;
+            innerReq.Autostart = autostart;
+            var innerTask = this.DomainSetAutostartOnceWrappedAsync(innerReq, cancellationToken);
+            await innerTask;
+        }
+        
+        public async Task DomainSetAutostartOnceWrappedAsync(Binding.RemoteDomainSetAutostartOnceArgs arg, System.Threading.CancellationToken cancellationToken) {
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainSetAutostartOnce, arg, cancellationToken);
+            await innerTask;
+        }
+        
+        public async Task DomainSetThrottleGroupAsync(Binding.RemoteNonnullDomain dom, string group, System.Collections.Generic.List<Binding.RemoteTypedParam> @params, uint flags, System.Threading.CancellationToken cancellationToken) {
+            var innerReq = new Binding.RemoteDomainSetThrottleGroupArgs();
+            innerReq.Dom = dom;
+            innerReq.Group = group;
+            innerReq.Params = @params;
+            innerReq.Flags = flags;
+            var innerTask = this.DomainSetThrottleGroupWrappedAsync(innerReq, cancellationToken);
+            await innerTask;
+        }
+        
+        public async Task DomainSetThrottleGroupWrappedAsync(Binding.RemoteDomainSetThrottleGroupArgs arg, System.Threading.CancellationToken cancellationToken) {
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainSetThrottleGroup, arg, cancellationToken);
+            await innerTask;
+        }
+        
+        public async Task DomainDelThrottleGroupAsync(Binding.RemoteNonnullDomain dom, Xdr.XdrOption<string> group, uint flags, System.Threading.CancellationToken cancellationToken) {
+            var innerReq = new Binding.RemoteDomainDelThrottleGroupArgs();
+            innerReq.Dom = dom;
+            innerReq.Group = group;
+            innerReq.Flags = flags;
+            var innerTask = this.DomainDelThrottleGroupWrappedAsync(innerReq, cancellationToken);
+            await innerTask;
+        }
+        
+        public async Task DomainDelThrottleGroupWrappedAsync(Binding.RemoteDomainDelThrottleGroupArgs arg, System.Threading.CancellationToken cancellationToken) {
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainDelThrottleGroup, arg, cancellationToken);
+            await innerTask;
+        }
     }
 }

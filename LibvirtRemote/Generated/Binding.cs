@@ -7086,6 +7086,100 @@ namespace Binding {
     
     [System.SerializableAttribute()]
     [Xdr.XdrStructAttribute()]
+    public partial class RemoteDomainSetThrottleGroupArgs {
+        
+        private RemoteNonnullDomain dom;
+        
+        private string group;
+        
+        private System.Collections.Generic.List<RemoteTypedParam> @params;
+        
+        private uint flags;
+        
+        [Xdr.XdrElementOrderAttribute(1)]
+        public RemoteNonnullDomain Dom {
+            get {
+                return this.dom;
+            }
+            set {
+                this.dom = value;
+            }
+        }
+        
+        [Xdr.XdrElementOrderAttribute(2)]
+        public string Group {
+            get {
+                return this.group;
+            }
+            set {
+                this.group = value;
+            }
+        }
+        
+        [Xdr.XdrElementOrderAttribute(3)]
+        public System.Collections.Generic.List<RemoteTypedParam> Params {
+            get {
+                return this.@params;
+            }
+            set {
+                this.@params = value;
+            }
+        }
+        
+        [Xdr.XdrElementOrderAttribute(4)]
+        public uint Flags {
+            get {
+                return this.flags;
+            }
+            set {
+                this.flags = value;
+            }
+        }
+    }
+    
+    [System.SerializableAttribute()]
+    [Xdr.XdrStructAttribute()]
+    public partial class RemoteDomainDelThrottleGroupArgs {
+        
+        private RemoteNonnullDomain dom;
+        
+        private Xdr.XdrOption<string> group;
+        
+        private uint flags;
+        
+        [Xdr.XdrElementOrderAttribute(1)]
+        public RemoteNonnullDomain Dom {
+            get {
+                return this.dom;
+            }
+            set {
+                this.dom = value;
+            }
+        }
+        
+        [Xdr.XdrElementOrderAttribute(2)]
+        public Xdr.XdrOption<string> Group {
+            get {
+                return this.group;
+            }
+            set {
+                this.group = value;
+            }
+        }
+        
+        [Xdr.XdrElementOrderAttribute(3)]
+        public uint Flags {
+            get {
+                return this.flags;
+            }
+            set {
+                this.flags = value;
+            }
+        }
+    }
+    
+    [System.SerializableAttribute()]
+    [Xdr.XdrStructAttribute()]
     public partial class RemoteDomainGetCpuStatsArgs {
         
         private RemoteNonnullDomain dom;
@@ -21322,6 +21416,134 @@ namespace Binding {
     }
     
     [System.SerializableAttribute()]
+    [Xdr.XdrStructAttribute()]
+    public partial class RemoteDomainGetAutostartOnceArgs {
+        
+        private RemoteNonnullDomain dom;
+        
+        [Xdr.XdrElementOrderAttribute(1)]
+        public RemoteNonnullDomain Dom {
+            get {
+                return this.dom;
+            }
+            set {
+                this.dom = value;
+            }
+        }
+    }
+    
+    [System.SerializableAttribute()]
+    [Xdr.XdrStructAttribute()]
+    public partial class RemoteDomainGetAutostartOnceRet {
+        
+        private int autostart;
+        
+        [Xdr.XdrElementOrderAttribute(1)]
+        public int Autostart {
+            get {
+                return this.autostart;
+            }
+            set {
+                this.autostart = value;
+            }
+        }
+    }
+    
+    [System.SerializableAttribute()]
+    [Xdr.XdrStructAttribute()]
+    public partial class RemoteDomainSetAutostartOnceArgs {
+        
+        private RemoteNonnullDomain dom;
+        
+        private int autostart;
+        
+        [Xdr.XdrElementOrderAttribute(1)]
+        public RemoteNonnullDomain Dom {
+            get {
+                return this.dom;
+            }
+            set {
+                this.dom = value;
+            }
+        }
+        
+        [Xdr.XdrElementOrderAttribute(2)]
+        public int Autostart {
+            get {
+                return this.autostart;
+            }
+            set {
+                this.autostart = value;
+            }
+        }
+    }
+    
+    [System.SerializableAttribute()]
+    [Xdr.XdrStructAttribute()]
+    public partial class RemoteDomainEventNicMacChangeMsg {
+        
+        private int callbackId;
+        
+        private RemoteNonnullDomain dom;
+        
+        private string alias;
+        
+        private string oldMac;
+        
+        private string newMac;
+        
+        [Xdr.XdrElementOrderAttribute(1)]
+        public int CallbackId {
+            get {
+                return this.callbackId;
+            }
+            set {
+                this.callbackId = value;
+            }
+        }
+        
+        [Xdr.XdrElementOrderAttribute(2)]
+        public RemoteNonnullDomain Dom {
+            get {
+                return this.dom;
+            }
+            set {
+                this.dom = value;
+            }
+        }
+        
+        [Xdr.XdrElementOrderAttribute(3)]
+        public string Alias {
+            get {
+                return this.alias;
+            }
+            set {
+                this.alias = value;
+            }
+        }
+        
+        [Xdr.XdrElementOrderAttribute(4)]
+        public string OldMac {
+            get {
+                return this.oldMac;
+            }
+            set {
+                this.oldMac = value;
+            }
+        }
+        
+        [Xdr.XdrElementOrderAttribute(5)]
+        public string NewMac {
+            get {
+                return this.newMac;
+            }
+            set {
+                this.newMac = value;
+            }
+        }
+    }
+    
+    [System.SerializableAttribute()]
     public enum RemoteProcedure {
         
         RemoteProcConnectOpen = 1,
@@ -22219,6 +22441,16 @@ namespace Binding {
         RemoteProcNodeDeviceUpdate = 447,
         
         RemoteProcDomainGraphicsReload = 448,
+        
+        RemoteProcDomainGetAutostartOnce = 449,
+        
+        RemoteProcDomainSetAutostartOnce = 450,
+        
+        RemoteProcDomainSetThrottleGroup = 451,
+        
+        RemoteProcDomainDelThrottleGroup = 452,
+        
+        RemoteProcDomainEventNicMacChange = 453,
     }
     
     [System.SerializableAttribute()]
