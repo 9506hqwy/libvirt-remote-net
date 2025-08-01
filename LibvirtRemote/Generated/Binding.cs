@@ -4326,7 +4326,7 @@ namespace Binding {
         
         private Xdr.XdrOption<string> dname;
         
-        private ulong resource;
+        private ulong bandwidth;
         
         [Xdr.XdrElementOrderAttribute(1)]
         public Xdr.XdrOption<string> UriIn {
@@ -4359,12 +4359,12 @@ namespace Binding {
         }
         
         [Xdr.XdrElementOrderAttribute(4)]
-        public ulong Resource {
+        public ulong Bandwidth {
             get {
-                return this.resource;
+                return this.bandwidth;
             }
             set {
-                this.resource = value;
+                this.bandwidth = value;
             }
         }
     }
@@ -4412,7 +4412,7 @@ namespace Binding {
         
         private Xdr.XdrOption<string> dname;
         
-        private ulong resource;
+        private ulong bandwidth;
         
         [Xdr.XdrElementOrderAttribute(1)]
         public RemoteNonnullDomain Dom {
@@ -4465,12 +4465,12 @@ namespace Binding {
         }
         
         [Xdr.XdrElementOrderAttribute(6)]
-        public ulong Resource {
+        public ulong Bandwidth {
             get {
-                return this.resource;
+                return this.bandwidth;
             }
             set {
-                this.resource = value;
+                this.bandwidth = value;
             }
         }
     }
@@ -4555,7 +4555,7 @@ namespace Binding {
         
         private Xdr.XdrOption<string> dname;
         
-        private ulong resource;
+        private ulong bandwidth;
         
         private string domXml;
         
@@ -4590,12 +4590,12 @@ namespace Binding {
         }
         
         [Xdr.XdrElementOrderAttribute(4)]
-        public ulong Resource {
+        public ulong Bandwidth {
             get {
-                return this.resource;
+                return this.bandwidth;
             }
             set {
-                this.resource = value;
+                this.bandwidth = value;
             }
         }
         
@@ -11505,7 +11505,7 @@ namespace Binding {
         
         private Xdr.XdrOption<string> dname;
         
-        private ulong resource;
+        private ulong bandwidth;
         
         private string domXml;
         
@@ -11530,12 +11530,12 @@ namespace Binding {
         }
         
         [Xdr.XdrElementOrderAttribute(3)]
-        public ulong Resource {
+        public ulong Bandwidth {
             get {
-                return this.resource;
+                return this.bandwidth;
             }
             set {
-                this.resource = value;
+                this.bandwidth = value;
             }
         }
         
@@ -14798,7 +14798,7 @@ namespace Binding {
         
         private Xdr.XdrOption<string> dname;
         
-        private ulong resource;
+        private ulong bandwidth;
         
         [Xdr.XdrElementOrderAttribute(1)]
         public RemoteNonnullDomain Dom {
@@ -14841,12 +14841,12 @@ namespace Binding {
         }
         
         [Xdr.XdrElementOrderAttribute(5)]
-        public ulong Resource {
+        public ulong Bandwidth {
             get {
-                return this.resource;
+                return this.bandwidth;
             }
             set {
-                this.resource = value;
+                this.bandwidth = value;
             }
         }
     }
@@ -14892,7 +14892,7 @@ namespace Binding {
         
         private Xdr.XdrOption<string> dname;
         
-        private ulong resource;
+        private ulong bandwidth;
         
         private string domXml;
         
@@ -14937,12 +14937,12 @@ namespace Binding {
         }
         
         [Xdr.XdrElementOrderAttribute(5)]
-        public ulong Resource {
+        public ulong Bandwidth {
             get {
-                return this.resource;
+                return this.bandwidth;
             }
             set {
-                this.resource = value;
+                this.bandwidth = value;
             }
         }
         
@@ -14996,7 +14996,7 @@ namespace Binding {
         
         private Xdr.XdrOption<string> dname;
         
-        private ulong resource;
+        private ulong bandwidth;
         
         private string domXml;
         
@@ -15031,12 +15031,12 @@ namespace Binding {
         }
         
         [Xdr.XdrElementOrderAttribute(4)]
-        public ulong Resource {
+        public ulong Bandwidth {
             get {
-                return this.resource;
+                return this.bandwidth;
             }
             set {
-                this.resource = value;
+                this.bandwidth = value;
             }
         }
         
@@ -15086,7 +15086,7 @@ namespace Binding {
         
         private Xdr.XdrOption<string> dname;
         
-        private ulong resource;
+        private ulong bandwidth;
         
         [Xdr.XdrElementOrderAttribute(1)]
         public RemoteNonnullDomain Dom {
@@ -15159,12 +15159,12 @@ namespace Binding {
         }
         
         [Xdr.XdrElementOrderAttribute(8)]
-        public ulong Resource {
+        public ulong Bandwidth {
             get {
-                return this.resource;
+                return this.bandwidth;
             }
             set {
-                this.resource = value;
+                this.bandwidth = value;
             }
         }
     }

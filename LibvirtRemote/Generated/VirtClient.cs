@@ -956,12 +956,12 @@ namespace LibvirtRemote {
             return innerRes;
         }
         
-        public async Task<Tuple<System.Collections.Generic.List<byte>, Xdr.XdrOption<string>>> DomainMigratePrepareAsync(Xdr.XdrOption<string> uriIn, ulong flags, Xdr.XdrOption<string> dname, ulong resource, System.Threading.CancellationToken cancellationToken) {
+        public async Task<Tuple<System.Collections.Generic.List<byte>, Xdr.XdrOption<string>>> DomainMigratePrepareAsync(Xdr.XdrOption<string> uriIn, ulong flags, Xdr.XdrOption<string> dname, ulong bandwidth, System.Threading.CancellationToken cancellationToken) {
             var innerReq = new Binding.RemoteDomainMigratePrepareArgs();
             innerReq.UriIn = uriIn;
             innerReq.Flags = flags;
             innerReq.Dname = dname;
-            innerReq.Resource = resource;
+            innerReq.Bandwidth = bandwidth;
             var innerTask = this.DomainMigratePrepareWrappedAsync(innerReq, cancellationToken);
             var innerRes = await innerTask;
             var innerCookie = innerRes.Cookie;
@@ -975,14 +975,14 @@ namespace LibvirtRemote {
             return innerRes;
         }
         
-        public async Task DomainMigratePerformAsync(Binding.RemoteNonnullDomain dom, System.Collections.Generic.List<byte> cookie, string uri, ulong flags, Xdr.XdrOption<string> dname, ulong resource, System.Threading.CancellationToken cancellationToken) {
+        public async Task DomainMigratePerformAsync(Binding.RemoteNonnullDomain dom, System.Collections.Generic.List<byte> cookie, string uri, ulong flags, Xdr.XdrOption<string> dname, ulong bandwidth, System.Threading.CancellationToken cancellationToken) {
             var innerReq = new Binding.RemoteDomainMigratePerformArgs();
             innerReq.Dom = dom;
             innerReq.Cookie = cookie;
             innerReq.Uri = uri;
             innerReq.Flags = flags;
             innerReq.Dname = dname;
-            innerReq.Resource = resource;
+            innerReq.Bandwidth = bandwidth;
             var innerTask = this.DomainMigratePerformWrappedAsync(innerReq, cancellationToken);
             await innerTask;
         }
@@ -1656,12 +1656,12 @@ namespace LibvirtRemote {
             return innerRes;
         }
         
-        public async Task<Tuple<System.Collections.Generic.List<byte>, Xdr.XdrOption<string>>> DomainMigratePrepare2Async(Xdr.XdrOption<string> uriIn, ulong flags, Xdr.XdrOption<string> dname, ulong resource, string domXml, System.Threading.CancellationToken cancellationToken) {
+        public async Task<Tuple<System.Collections.Generic.List<byte>, Xdr.XdrOption<string>>> DomainMigratePrepare2Async(Xdr.XdrOption<string> uriIn, ulong flags, Xdr.XdrOption<string> dname, ulong bandwidth, string domXml, System.Threading.CancellationToken cancellationToken) {
             var innerReq = new Binding.RemoteDomainMigratePrepare2Args();
             innerReq.UriIn = uriIn;
             innerReq.Flags = flags;
             innerReq.Dname = dname;
-            innerReq.Resource = resource;
+            innerReq.Bandwidth = bandwidth;
             innerReq.DomXml = domXml;
             var innerTask = this.DomainMigratePrepare2WrappedAsync(innerReq, cancellationToken);
             var innerRes = await innerTask;
@@ -2253,11 +2253,11 @@ namespace LibvirtRemote {
             return innerRes;
         }
         
-        public async Task<VirtNetStream> DomainMigratePrepareTunnelAsync(ulong flags, Xdr.XdrOption<string> dname, ulong resource, string domXml, System.Threading.CancellationToken cancellationToken) {
+        public async Task<VirtNetStream> DomainMigratePrepareTunnelAsync(ulong flags, Xdr.XdrOption<string> dname, ulong bandwidth, string domXml, System.Threading.CancellationToken cancellationToken) {
             var innerReq = new Binding.RemoteDomainMigratePrepareTunnelArgs();
             innerReq.Flags = flags;
             innerReq.Dname = dname;
-            innerReq.Resource = resource;
+            innerReq.Bandwidth = bandwidth;
             innerReq.DomXml = domXml;
             var innerTask = this.DomainMigratePrepareTunnelWrappedAsync(innerReq, cancellationToken);
             var innerRes = await innerTask;
@@ -3139,13 +3139,13 @@ namespace LibvirtRemote {
             return innerRes;
         }
         
-        public async Task<Tuple<System.Collections.Generic.List<byte>, string>> DomainMigrateBegin3Async(Binding.RemoteNonnullDomain dom, Xdr.XdrOption<string> xmlin, ulong flags, Xdr.XdrOption<string> dname, ulong resource, System.Threading.CancellationToken cancellationToken) {
+        public async Task<Tuple<System.Collections.Generic.List<byte>, string>> DomainMigrateBegin3Async(Binding.RemoteNonnullDomain dom, Xdr.XdrOption<string> xmlin, ulong flags, Xdr.XdrOption<string> dname, ulong bandwidth, System.Threading.CancellationToken cancellationToken) {
             var innerReq = new Binding.RemoteDomainMigrateBegin3Args();
             innerReq.Dom = dom;
             innerReq.Xmlin = xmlin;
             innerReq.Flags = flags;
             innerReq.Dname = dname;
-            innerReq.Resource = resource;
+            innerReq.Bandwidth = bandwidth;
             var innerTask = this.DomainMigrateBegin3WrappedAsync(innerReq, cancellationToken);
             var innerRes = await innerTask;
             var innerCookieOut = innerRes.CookieOut;
@@ -3159,13 +3159,13 @@ namespace LibvirtRemote {
             return innerRes;
         }
         
-        public async Task<Tuple<System.Collections.Generic.List<byte>, Xdr.XdrOption<string>>> DomainMigratePrepare3Async(System.Collections.Generic.List<byte> cookieIn, Xdr.XdrOption<string> uriIn, ulong flags, Xdr.XdrOption<string> dname, ulong resource, string domXml, System.Threading.CancellationToken cancellationToken) {
+        public async Task<Tuple<System.Collections.Generic.List<byte>, Xdr.XdrOption<string>>> DomainMigratePrepare3Async(System.Collections.Generic.List<byte> cookieIn, Xdr.XdrOption<string> uriIn, ulong flags, Xdr.XdrOption<string> dname, ulong bandwidth, string domXml, System.Threading.CancellationToken cancellationToken) {
             var innerReq = new Binding.RemoteDomainMigratePrepare3Args();
             innerReq.CookieIn = cookieIn;
             innerReq.UriIn = uriIn;
             innerReq.Flags = flags;
             innerReq.Dname = dname;
-            innerReq.Resource = resource;
+            innerReq.Bandwidth = bandwidth;
             innerReq.DomXml = domXml;
             var innerTask = this.DomainMigratePrepare3WrappedAsync(innerReq, cancellationToken);
             var innerRes = await innerTask;
@@ -3180,12 +3180,12 @@ namespace LibvirtRemote {
             return innerRes;
         }
         
-        public async Task<Tuple<VirtNetStream, System.Collections.Generic.List<byte>>> DomainMigratePrepareTunnel3Async(System.Collections.Generic.List<byte> cookieIn, ulong flags, Xdr.XdrOption<string> dname, ulong resource, string domXml, System.Threading.CancellationToken cancellationToken) {
+        public async Task<Tuple<VirtNetStream, System.Collections.Generic.List<byte>>> DomainMigratePrepareTunnel3Async(System.Collections.Generic.List<byte> cookieIn, ulong flags, Xdr.XdrOption<string> dname, ulong bandwidth, string domXml, System.Threading.CancellationToken cancellationToken) {
             var innerReq = new Binding.RemoteDomainMigratePrepareTunnel3Args();
             innerReq.CookieIn = cookieIn;
             innerReq.Flags = flags;
             innerReq.Dname = dname;
-            innerReq.Resource = resource;
+            innerReq.Bandwidth = bandwidth;
             innerReq.DomXml = domXml;
             var innerTask = this.DomainMigratePrepareTunnel3WrappedAsync(innerReq, cancellationToken);
             var innerRes = await innerTask;
@@ -3201,7 +3201,7 @@ namespace LibvirtRemote {
             return innerRes;
         }
         
-        public async Task<System.Collections.Generic.List<byte>> DomainMigratePerform3Async(Binding.RemoteNonnullDomain dom, Xdr.XdrOption<string> xmlin, System.Collections.Generic.List<byte> cookieIn, Xdr.XdrOption<string> dconnuri, Xdr.XdrOption<string> uri, ulong flags, Xdr.XdrOption<string> dname, ulong resource, System.Threading.CancellationToken cancellationToken) {
+        public async Task<System.Collections.Generic.List<byte>> DomainMigratePerform3Async(Binding.RemoteNonnullDomain dom, Xdr.XdrOption<string> xmlin, System.Collections.Generic.List<byte> cookieIn, Xdr.XdrOption<string> dconnuri, Xdr.XdrOption<string> uri, ulong flags, Xdr.XdrOption<string> dname, ulong bandwidth, System.Threading.CancellationToken cancellationToken) {
             var innerReq = new Binding.RemoteDomainMigratePerform3Args();
             innerReq.Dom = dom;
             innerReq.Xmlin = xmlin;
@@ -3210,7 +3210,7 @@ namespace LibvirtRemote {
             innerReq.Uri = uri;
             innerReq.Flags = flags;
             innerReq.Dname = dname;
-            innerReq.Resource = resource;
+            innerReq.Bandwidth = bandwidth;
             var innerTask = this.DomainMigratePerform3WrappedAsync(innerReq, cancellationToken);
             var innerRes = await innerTask;
             var innerCookieOut = innerRes.CookieOut;
