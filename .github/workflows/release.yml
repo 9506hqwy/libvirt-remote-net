@@ -4,42 +4,11 @@ on:
   push:
     tags: [ '**' ]
 
+permissions:
+  contents: read
+
 jobs:
   release:
-
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v4
-
-    - name: Prepare Dependencies
-      run: |
-        LOCALPKG=`mktemp -d`
-        wget -P "${LOCALPKG}" https://github.com/9506hqwy/xdr-net/releases/download/0.4.0/Xdr.0.4.0.nupkg
-        dotnet nuget add source --name local "${LOCALPKG}"
-
-    - name: Restore Dependencies
-      run: dotnet restore
-
-    - name: Build Release
-      run: dotnet build --no-restore -c Release
-
-    - name: Create Artifacts
-      run: |
-        dotnet pack --no-build -c Release -o ./artifacts
-
-        dotnet tool install -g docfx
-        docfx doc/docfx.json
-
-        CUR_DIR=$(pwd)
-        REPOSITORY_NAME=${GITHUB_REPOSITORY#${GITHUB_REPOSITORY_OWNER}/}
-        pushd "./doc/_site"
-        tar -zcf "${CUR_DIR}/artifacts/help-${REPOSITORY_NAME}.tar.gz" *
-        popd
-
-    - name: Create Release
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: |
-        gh config set prompt disabled
-        gh release create ${GITHUB_REF_NAME} ./artifacts/*  -t v${GITHUB_REF_NAME} -d
+    uses: 9506hqwy/actions/.github/workflows/dotnet-release.yml@main
+    permissions:
+      contents: write

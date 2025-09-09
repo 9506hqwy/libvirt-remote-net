@@ -10,9 +10,9 @@ public class VirtResponse(VirNetMessageHeader header, byte[]? body)
 
     static VirtResponse()
     {
-        VirtResponse.bytesToEvent = VirtEventAttribute.Attrs
+        bytesToEvent = VirtEventAttribute.Attrs
             .GroupBy(a => a.Prog)
-            .ToDictionary(a => a.Key, a => a.ToDictionary(b => b.Proc, VirtResponse.GetBytesToEvent));
+            .ToDictionary(a => a.Key, a => a.ToDictionary(b => b.Proc, GetBytesToEvent));
     }
 
     public VirNetMessageHeader Header { get; } = header;
@@ -39,7 +39,7 @@ public class VirtResponse(VirNetMessageHeader header, byte[]? body)
 
     public IVirtEvent? ConvertToEvent()
     {
-        if (VirtResponse.bytesToEvent.TryGetValue(this.Header.Prog, out var methods))
+        if (bytesToEvent.TryGetValue(this.Header.Prog, out var methods))
         {
             if (methods.TryGetValue(this.Header.Proc, out var method))
             {
@@ -53,7 +53,7 @@ public class VirtResponse(VirNetMessageHeader header, byte[]? body)
     private static MethodInfo GetBytesToEvent(VirtEventAttribute attr)
     {
         return typeof(VirtResponse)
-            .GetMethod(nameof(VirtResponse.ConvertTo))
+            .GetMethod(nameof(ConvertTo))
             .MakeGenericMethod(attr.Type);
     }
 }

@@ -7,12 +7,11 @@ public class VirtEventAttribute : Attribute
 {
     static VirtEventAttribute()
     {
-        VirtEventAttribute.Attrs = typeof(VirtEventAttribute).Assembly
+        Attrs = [.. typeof(VirtEventAttribute).Assembly
             .GetTypes()
             .Where(typeof(IVirtEvent).IsAssignableFrom)
             .Where(t => t.IsClass)
-            .Select(VirtEventAttribute.Get)
-            .ToArray();
+            .Select(Get)];
     }
 
     public VirtEventAttribute(uint prog, LxcProcedure proc)

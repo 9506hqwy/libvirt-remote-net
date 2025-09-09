@@ -15,7 +15,7 @@ public class VirtEventQueue : IDisposable
     private bool disposed;
 
     public VirtEventQueue()
-        : this(VirtEventQueue.DefaultMaxCapacity)
+        : this(DefaultMaxCapacity)
     {
     }
 
@@ -23,7 +23,7 @@ public class VirtEventQueue : IDisposable
     {
         this.disposed = false;
 
-        this.Capacity = capacity > 0 ? capacity : VirtEventQueue.DefaultMaxCapacity;
+        this.Capacity = capacity > 0 ? capacity : DefaultMaxCapacity;
         this.inner = new Queue<IVirtEvent>();
 
         this.hasItem = this.ResetHasItem();

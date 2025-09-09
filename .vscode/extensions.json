@@ -1,8 +1,11 @@
 {
     "recommendations": [
+        "davidanson.vscode-markdownlint",
         "dotnettools.vscodeintellicode-csharp",
         "editorconfig.editorconfig",
+        "github.vscode-github-actions",
         "ms-dotnettools.csdevkit",
-        "ms-vscode-remote.remote-containers"
+        "timonwong.shellcheck",
+        "yzhang.markdown-all-in-one"
     ]
 }

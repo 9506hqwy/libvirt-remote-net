@@ -1,4 +1,13 @@
 {
     "dotnet.defaultSolution": "libvirt-remote-net.sln",
-    "editor.codeLens": false
+    "editor.codeLens": false,
+    "editor.formatOnPaste": false,
+    "editor.formatOnSave": true,
+    "editor.formatOnType": false,
+    "[markdown]": {
+        "editor.codeActionsOnSave": {
+            "source.fixAll.markdownlint": "explicit"
+        },
+        "editor.defaultFormatter": "yzhang.markdown-all-in-one"
+    }
 }

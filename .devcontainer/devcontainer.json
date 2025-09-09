@@ -12,6 +12,8 @@
         "label=disable",
         "seccomp=unconfined"
     ],
+    // Use 'onCreateCommand' to run commands after the container is created.
+    "onCreateCommand": "/bin/bash ${containerWorkspaceFolder}/.devcontainer/on-create.sh",
     // Uncomment to connect as root instead.
     //"remoteUser": "root",
     // Use default container `USER`,

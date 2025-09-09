@@ -16,9 +16,9 @@ internal static class Utility
 
     internal static IEnumerable<Tuple<T, Type>> EnumerateEvent<T>(string prefix)
     {
-        foreach ((var procName, var proc) in Utility.EnumerateProc<T>($"{prefix}Proc"))
+        foreach ((var procName, var proc) in EnumerateProc<T>($"{prefix}Proc"))
         {
-            var eventType = Utility.FindEventType(prefix, procName);
+            var eventType = FindEventType(prefix, procName);
             if (eventType is null)
             {
                 continue;
@@ -35,16 +35,16 @@ internal static class Utility
 
     internal static IEnumerable<Tuple<T, string, Type?, Type?>> EnumerateMethod<T>(string prefix)
     {
-        foreach ((var procName, var proc) in Utility.EnumerateProc<T>($"{prefix}Proc"))
+        foreach ((var procName, var proc) in EnumerateProc<T>($"{prefix}Proc"))
         {
-            var eventType = Utility.FindEventType(prefix, procName);
+            var eventType = FindEventType(prefix, procName);
             if (eventType is not null)
             {
                 continue;
             }
 
-            var argType = Utility.FindFuncArgsType(prefix, procName);
-            var retType = Utility.FindFuncRetType(prefix, procName);
+            var argType = FindFuncArgsType(prefix, procName);
+            var retType = FindFuncRetType(prefix, procName);
             yield return new Tuple<T, string, Type?, Type?>(
                 (T)proc.GetValue(null)!,
                 procName,
@@ -55,12 +55,12 @@ internal static class Utility
 
     internal static string ToArgName(string value)
     {
-        return Utility.ToLowerCamelCase(value);
+        return ToLowerCamelCase(value);
     }
 
     internal static string ToPropertyName(string value)
     {
-        return Utility.ToUpperCamelCase(value);
+        return ToUpperCamelCase(value);
     }
 
     private static IEnumerable<Tuple<string, FieldInfo>> EnumerateProc<T>(string prefix)
@@ -77,21 +77,21 @@ internal static class Utility
 
     private static Type? FindEventType(string prefix, string procName)
     {
-        return Utility.BindingAsm
+        return BindingAsm
             .GetTypes()
             .FirstOrDefault(t => t.Name == $"{prefix}{procName}Msg");
     }
 
     private static Type? FindFuncArgsType(string prefix, string procName)
     {
-        return Utility.BindingAsm
+        return BindingAsm
             .GetTypes()
             .FirstOrDefault(t => t.Name == $"{prefix}{procName}Args");
     }
 
     private static Type? FindFuncRetType(string prefix, string procName)
     {
-        return Utility.BindingAsm
+        return BindingAsm
             .GetTypes()
             .FirstOrDefault(t => t.Name == $"{prefix}{procName}Ret");
     }
@@ -102,7 +102,7 @@ internal static class Utility
             .Trim('_')
             .Split('_')
             .Select(t => t.ToLowerInvariant())
-            .Select((t, i) => i == 0 ? t : Utility.ToCaption(t));
+            .Select((t, i) => i == 0 ? t : ToCaption(t));
         return string.Join(string.Empty, terms);
     }
 
@@ -111,7 +111,7 @@ internal static class Utility
         var terms = Regex.Replace(value, @"([A-Z]+)", "_$1")
             .Trim('_')
             .Split('_')
-            .Select(Utility.ToCaption);
+            .Select(ToCaption);
         return string.Join(string.Empty, terms);
     }
 

@@ -50,7 +50,7 @@ internal static class Code
         _ = method.Statements.Add(ret);
 
         CodeStatement res =
-            Code.IsStreamProc(procName) ?
+            IsStreamProc(procName) ?
             new CodeVariableDeclarationStatement("var", response)
             {
                 InitExpression = new CodeVariableReferenceExpression($"await {ret.Name}"),
@@ -144,7 +144,7 @@ internal static class Code
                 "var",
                 $"innerStream")
             {
-                InitExpression = Code.CreateTupleProperty(response.VariableName, 1),
+                InitExpression = CreateTupleProperty(response.VariableName, 1),
             };
             variables.Add(assign);
 
@@ -156,7 +156,7 @@ internal static class Code
                 "var",
                 response2)
             {
-                InitExpression = Code.CreateTupleProperty(response.VariableName, 2),
+                InitExpression = CreateTupleProperty(response.VariableName, 2),
             };
 
             _ = method.Statements.Add(assign);
@@ -188,7 +188,7 @@ internal static class Code
             method.Parameters.AddRange(args.Exprs);
         }
 
-        _ = method.Parameters.Add(Code.CancelToken);
+        _ = method.Parameters.Add(CancelToken);
 
         return args;
     }
@@ -197,30 +197,30 @@ internal static class Code
     {
         method.ReturnType = new CodeTypeReference("async Task");
 
-        if (Code.IsStreamProc(procName))
+        if (IsStreamProc(procName))
         {
             CodeTypeReference? tuple;
             if (type is null && !isWrapped)
             {
-                tuple = Code.VirtStreamTypeRef;
+                tuple = VirtStreamTypeRef;
             }
             else if (type is null && isWrapped)
             {
                 tuple = new CodeTypeReference("Tuple");
-                _ = tuple.TypeArguments.Add(Code.VirtStreamTypeRef);
+                _ = tuple.TypeArguments.Add(VirtStreamTypeRef);
                 tuple.TypeArguments.Add(typeof(Xdr.XdrVoid));
             }
             else if (isWrapped)
             {
                 tuple = new CodeTypeReference("Tuple");
-                _ = tuple.TypeArguments.Add(Code.VirtStreamTypeRef);
+                _ = tuple.TypeArguments.Add(VirtStreamTypeRef);
                 _ = tuple.TypeArguments.Add(new CodeTypeReference(type!));
             }
             else
             {
                 tuple = new CodeTypeReference("Tuple");
-                _ = tuple.TypeArguments.Add(Code.VirtStreamTypeRef);
-                _ = tuple.TypeArguments.Add(Code.CreateFuncRetType(type!, isWrapped));
+                _ = tuple.TypeArguments.Add(VirtStreamTypeRef);
+                _ = tuple.TypeArguments.Add(CreateFuncRetType(type!, isWrapped));
             }
 
             _ = method.ReturnType.TypeArguments.Add(tuple!);
@@ -228,7 +228,7 @@ internal static class Code
         }
         else if (type is not null)
         {
-            _ = method.ReturnType.TypeArguments.Add(Code.CreateFuncRetType(type, isWrapped));
+            _ = method.ReturnType.TypeArguments.Add(CreateFuncRetType(type, isWrapped));
             return type;
         }
         else
@@ -297,11 +297,11 @@ internal static class Code
     {
         var baseMethod = new CodeMemberMethod()
         {
-            Name = $"Get{Code.EventCallbackId}",
+            Name = $"Get{EventCallbackId}",
             ReturnType = new CodeTypeReference(typeof(int)),
         };
 
-        var intf = new CodeTypeDeclaration(Code.EventInterfaceName)
+        var intf = new CodeTypeDeclaration(EventInterfaceName)
         {
             IsInterface = true,
         };
@@ -313,16 +313,15 @@ internal static class Code
     internal static CodeParameterDeclarationExpression[] CreateFuncArgs(Type type, bool isWrapped)
     {
         return isWrapped
-            ? ([
+            ? [
                 new CodeParameterDeclarationExpression(
                     new CodeTypeReference(type),
                     "arg"),
-            ])
-            : type.GetProperties()
+            ]
+            : [.. type.GetProperties()
             .Select(p => new CodeParameterDeclarationExpression(
                 new CodeTypeReference(p.PropertyType),
-                Utility.ToArgName(p.Name)))
-            .ToArray();
+                Utility.ToArgName(p.Name)))];
     }
 
     internal static CodeTypeReference CreateFuncRetType(Type type, bool isWrapped)
@@ -341,7 +340,7 @@ internal static class Code
         else if (props.Length < 8)
         {
             // Tuple は 7 個まで。
-            return Code.CreateTupleRef(props);
+            return CreateTupleRef(props);
         }
         else
         {
@@ -368,7 +367,7 @@ internal static class Code
         {
             // Tuple は 7 個まで。
             var retTypes = type!.GetProperties().Select(p => p.PropertyType).ToArray();
-            return Code.CreateFuncRetValue(retTypes, variables);
+            return CreateFuncRetValue(retTypes, variables);
         }
 
         return new CodeVariableReferenceExpression(variable.Name);
@@ -378,7 +377,7 @@ internal static class Code
         Type[] types,
         CodeVariableDeclarationStatement[] variables)
     {
-        return Code.CreateFuncRetValue(
+        return CreateFuncRetValue(
             types.Select(t => new CodeTypeReference(t)).ToArray(),
             variables);
     }
@@ -387,7 +386,7 @@ internal static class Code
         CodeTypeReference[] types,
         CodeVariableDeclarationStatement[] variables)
     {
-        var tuple = Code.CreateTupleRef(types);
+        var tuple = CreateTupleRef(types);
 
         var ctor = new CodeObjectCreateExpression(tuple);
         ctor.Parameters.AddRange(variables
@@ -408,7 +407,7 @@ internal static class Code
 
     internal static CodeTypeReference CreateTupleRef(Type[] types)
     {
-        return Code.CreateTupleRef(types.Select(t => new CodeTypeReference(t)).ToArray());
+        return CreateTupleRef(types.Select(t => new CodeTypeReference(t)).ToArray());
     }
 
     internal static CodeTypeReference CreateTupleRef(CodeTypeReference[] types)
@@ -422,7 +421,7 @@ internal static class Code
     {
         return procName switch
         {
-            RemoteProcedure remote => Code.StreamProcs.Contains(remote),
+            RemoteProcedure remote => StreamProcs.Contains(remote),
             _ => false,
         };
     }
