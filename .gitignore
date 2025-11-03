@@ -400,3 +400,6 @@ FodyWeavers.xsd
 # docfx
 doc/_site/
 doc/api/
+
+# NuGet lock file
+packages.lock.json

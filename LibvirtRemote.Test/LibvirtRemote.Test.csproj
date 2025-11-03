@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
+    <RollForward>LatestMajor</RollForward>
     <IsPackable>false</IsPackable>
     <LangVersion>12.0</LangVersion>
     <ImplicitUsings>enable</ImplicitUsings>
@@ -13,12 +14,13 @@
     <AnalysisMode>All</AnalysisMode>
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
-    <PackageReference Include="MSTest.TestAdapter" Version="3.10.3" />
-    <PackageReference Include="MSTest.TestFramework" Version="3.10.3" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.0.0" />
+    <PackageReference Include="MSTest.TestAdapter" Version="4.0.1" />
+    <PackageReference Include="MSTest.TestFramework" Version="4.0.1" />
     <PackageReference Include="coverlet.collector" Version="6.0.4" />
   </ItemGroup>
 
