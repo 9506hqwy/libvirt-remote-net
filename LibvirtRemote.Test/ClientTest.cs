@@ -44,7 +44,7 @@ public class ClientTest
     public void ConnectGetVersionAsync()
     {
         var ver = this.client!.ConnectGetVersionAsync(default).Result;
-        Assert.IsNotNull(ver);
+        Assert.AreNotEqual(0UL, ver);
     }
 
     [TestMethod]
