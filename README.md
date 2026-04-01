@@ -16,6 +16,10 @@ The packet encoding and decoding and stub code generation uses [xdr-net](https:/
   see [PollDomainEvent Example](./Examples/PollDomainEvent/Program.cs).
   The event stream has maximum latest 1000 event.
 
+## TODO
+
+- event support.
+
 ## Examples
 
 see [Examples](./Examples) directory.
