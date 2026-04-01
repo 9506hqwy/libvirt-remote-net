@@ -258,7 +258,7 @@ internal static class Code
 
         var procFlag = new CodeFieldReferenceExpression(
             new CodeTypeReferenceExpression(typeof(T).Name),
-            procName!.ToString()!);
+            procName.ToString());
 
         var cls = new CodeTypeDeclaration(eventType.Name)
         {
@@ -366,7 +366,7 @@ internal static class Code
         else if (variables.Length < 8)
         {
             // Tuple は 7 個まで。
-            var retTypes = type!.GetProperties().Select(p => p.PropertyType).ToArray();
+            var retTypes = type.GetProperties().Select(p => p.PropertyType).ToArray();
             return CreateFuncRetValue(retTypes, variables);
         }
 
