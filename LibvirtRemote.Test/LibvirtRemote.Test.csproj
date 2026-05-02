@@ -18,6 +18,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <!-- https://learn.microsoft.com/en-us/dotnet/api/microsoft.visualstudio.testtools.unittesting.donotparallelizeattribute?view=mstest-net-4.0 -->
+    <AssemblyAttribute Include="Microsoft.VisualStudio.TestTools.UnitTesting.DoNotParallelize">
+    </AssemblyAttribute>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.0.0" />
     <PackageReference Include="MSTest.TestAdapter" Version="4.0.1" />
     <PackageReference Include="MSTest.TestFramework" Version="4.0.1" />

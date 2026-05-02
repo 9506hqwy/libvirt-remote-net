@@ -2,7 +2,7 @@
     // Dev Container's Name.
     "name": "C# (.NET)",
     // Base Container Image.
-    "image": "mcr.microsoft.com/devcontainers/dotnet:1-8.0-bookworm",
+    "image": "mcr.microsoft.com/devcontainers/dotnet:10.0-noble",
     // For running using Podman.
     // https://github.com/microsoft/vscode-remote-release/issues/4443
     "runArgs": [

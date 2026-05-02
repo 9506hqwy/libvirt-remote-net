@@ -21,11 +21,11 @@ dotnet_diagnostic.IDE0007.severity = silent
 dotnet_diagnostic.IDE0008.severity = silent
 dotnet_diagnostic.IDE0009.severity = warning
 dotnet_diagnostic.IDE0022.severity = silent
-dotnet_diagnostic.IDE0065.severity = silent
 dotnet_diagnostic.IDE0160.severity = silent
-dotnet_diagnostic.CA1852.severity = silent
 dotnet_diagnostic.CS1591.severity = silent
 dotnet_diagnostic.IDE0130.severity = silent # for local
+dotnet_diagnostic.IDE0065.severity = silent # for local
+dotnet_diagnostic.CA1852.severity = silent # for local
 
 [*.{ini,toml}]
 indent_size = 2
