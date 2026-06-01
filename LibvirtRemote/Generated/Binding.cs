@@ -21376,6 +21376,47 @@ namespace Binding {
     
     [System.SerializableAttribute()]
     [Xdr.XdrStructAttribute()]
+    public partial class RemoteDomainEventVcpuRemovedMsg {
+        
+        private int callbackId;
+        
+        private RemoteNonnullDomain dom;
+        
+        private uint vcpuid;
+        
+        [Xdr.XdrElementOrderAttribute(1)]
+        public int CallbackId {
+            get {
+                return this.callbackId;
+            }
+            set {
+                this.callbackId = value;
+            }
+        }
+        
+        [Xdr.XdrElementOrderAttribute(2)]
+        public RemoteNonnullDomain Dom {
+            get {
+                return this.dom;
+            }
+            set {
+                this.dom = value;
+            }
+        }
+        
+        [Xdr.XdrElementOrderAttribute(3)]
+        public uint Vcpuid {
+            get {
+                return this.vcpuid;
+            }
+            set {
+                this.vcpuid = value;
+            }
+        }
+    }
+    
+    [System.SerializableAttribute()]
+    [Xdr.XdrStructAttribute()]
     public partial class RemoteDomainFdAssociateArgs {
         
         private RemoteNonnullDomain dom;
@@ -21539,6 +21580,71 @@ namespace Binding {
             }
             set {
                 this.newMac = value;
+            }
+        }
+    }
+    
+    [System.SerializableAttribute()]
+    [Xdr.XdrStructAttribute()]
+    public partial class RemoteDomainEventCallbackChannelLifecycleMsg {
+        
+        private int callbackId;
+        
+        private RemoteNonnullDomain dom;
+        
+        private string channelName;
+        
+        private int state;
+        
+        private int reason;
+        
+        [Xdr.XdrElementOrderAttribute(1)]
+        public int CallbackId {
+            get {
+                return this.callbackId;
+            }
+            set {
+                this.callbackId = value;
+            }
+        }
+        
+        [Xdr.XdrElementOrderAttribute(2)]
+        public RemoteNonnullDomain Dom {
+            get {
+                return this.dom;
+            }
+            set {
+                this.dom = value;
+            }
+        }
+        
+        [Xdr.XdrElementOrderAttribute(3)]
+        public string ChannelName {
+            get {
+                return this.channelName;
+            }
+            set {
+                this.channelName = value;
+            }
+        }
+        
+        [Xdr.XdrElementOrderAttribute(4)]
+        public int State {
+            get {
+                return this.state;
+            }
+            set {
+                this.state = value;
+            }
+        }
+        
+        [Xdr.XdrElementOrderAttribute(5)]
+        public int Reason {
+            get {
+                return this.reason;
+            }
+            set {
+                this.reason = value;
             }
         }
     }
@@ -22451,6 +22557,10 @@ namespace Binding {
         RemoteProcDomainDelThrottleGroup = 452,
         
         RemoteProcDomainEventNicMacChange = 453,
+        
+        RemoteProcDomainEventVcpuRemoved = 454,
+        
+        RemoteProcDomainEventCallbackChannelLifecycle = 455,
     }
     
     [System.SerializableAttribute()]

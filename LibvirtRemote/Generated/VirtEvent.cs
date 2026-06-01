@@ -310,4 +310,20 @@ namespace Binding {
             return this.callbackId;
         }
     }
+    
+    [VirtEventAttribute(Constants.RemoteProgram, RemoteProcedure.RemoteProcDomainEventVcpuRemoved)]
+    public partial class RemoteDomainEventVcpuRemovedMsg : IVirtEvent {
+        
+        public int GetCallbackId() {
+            return this.callbackId;
+        }
+    }
+    
+    [VirtEventAttribute(Constants.RemoteProgram, RemoteProcedure.RemoteProcDomainEventCallbackChannelLifecycle)]
+    public partial class RemoteDomainEventCallbackChannelLifecycleMsg : IVirtEvent {
+        
+        public int GetCallbackId() {
+            return this.callbackId;
+        }
+    }
 }
