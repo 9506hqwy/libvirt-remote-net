@@ -6223,5 +6223,20 @@ namespace LibvirtRemote {
             var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainDelThrottleGroup, arg, cancellationToken);
             await innerTask;
         }
+        
+        public async Task DomainAnnounceInterfaceAsync(Binding.RemoteNonnullDomain dom, Xdr.XdrOption<string> device, System.Collections.Generic.List<Binding.RemoteTypedParam> @params, uint flags, System.Threading.CancellationToken cancellationToken) {
+            var innerReq = new Binding.RemoteDomainAnnounceInterfaceArgs();
+            innerReq.Dom = dom;
+            innerReq.Device = device;
+            innerReq.Params = @params;
+            innerReq.Flags = flags;
+            var innerTask = this.DomainAnnounceInterfaceWrappedAsync(innerReq, cancellationToken);
+            await innerTask;
+        }
+        
+        public async Task DomainAnnounceInterfaceWrappedAsync(Binding.RemoteDomainAnnounceInterfaceArgs arg, System.Threading.CancellationToken cancellationToken) {
+            var innerTask = this.CallAsync<Xdr.XdrVoid, Binding.RemoteProcedure>(Binding.RemoteProcedure.RemoteProcDomainAnnounceInterface, arg, cancellationToken);
+            await innerTask;
+        }
     }
 }

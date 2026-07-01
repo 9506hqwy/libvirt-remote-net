@@ -150,6 +150,8 @@ namespace Binding {
         
         public const uint RemoteDomainMessagesMax = 2048u;
         
+        public const uint RemoteDomainAnnounceInterfaceParamsMax = 16u;
+        
         public const uint RemoteDomainEventGraphicsIdentityMax = 20u;
         
         public const uint RemoteProgram = 536903814u;
@@ -21650,6 +21652,59 @@ namespace Binding {
     }
     
     [System.SerializableAttribute()]
+    [Xdr.XdrStructAttribute()]
+    public partial class RemoteDomainAnnounceInterfaceArgs {
+        
+        private RemoteNonnullDomain dom;
+        
+        private Xdr.XdrOption<string> device;
+        
+        private System.Collections.Generic.List<RemoteTypedParam> @params;
+        
+        private uint flags;
+        
+        [Xdr.XdrElementOrderAttribute(1)]
+        public RemoteNonnullDomain Dom {
+            get {
+                return this.dom;
+            }
+            set {
+                this.dom = value;
+            }
+        }
+        
+        [Xdr.XdrElementOrderAttribute(2)]
+        public Xdr.XdrOption<string> Device {
+            get {
+                return this.device;
+            }
+            set {
+                this.device = value;
+            }
+        }
+        
+        [Xdr.XdrElementOrderAttribute(3)]
+        public System.Collections.Generic.List<RemoteTypedParam> Params {
+            get {
+                return this.@params;
+            }
+            set {
+                this.@params = value;
+            }
+        }
+        
+        [Xdr.XdrElementOrderAttribute(4)]
+        public uint Flags {
+            get {
+                return this.flags;
+            }
+            set {
+                this.flags = value;
+            }
+        }
+    }
+    
+    [System.SerializableAttribute()]
     public enum RemoteProcedure {
         
         RemoteProcConnectOpen = 1,
@@ -22561,6 +22616,8 @@ namespace Binding {
         RemoteProcDomainEventVcpuRemoved = 454,
         
         RemoteProcDomainEventCallbackChannelLifecycle = 455,
+        
+        RemoteProcDomainAnnounceInterface = 456,
     }
     
     [System.SerializableAttribute()]
