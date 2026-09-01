@@ -1,11 +1,25 @@
 pre-commit:
   jobs:
     - name: dotnet Format
-      glob: "*.{cs,csproj}"
+      glob:
+        - "*.cs"
+        - "*.csproj"
+        - "*.sln"
+        - "*.slnx"
+        - ".editorconfig"
+        - "global.json"
+        - "packages.lock.json"
       run: dotnet format --verify-no-changes
 
     - name: dotnet Test
-      glob: "*.{cs,csproj}"
+      glob:
+        - "*.cs"
+        - "*.csproj"
+        - "*.sln"
+        - "*.slnx"
+        - ".editorconfig"
+        - "global.json"
+        - "packages.lock.json"
       run: dotnet test
 
     - name: Actions Lint
