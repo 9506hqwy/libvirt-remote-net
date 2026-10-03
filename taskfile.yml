@@ -24,3 +24,9 @@ tasks:
   pkg-gen:
     cmds:
       - dotnet pack -o ./artifacts
+
+  sbom-gen:
+    cmds:
+      - mkdir -p artifacts
+      - find ./artifacts -name "*.sbom.json" -delete
+      - ./Tools/gen-sbom.sh -o ./artifacts
