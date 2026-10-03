@@ -4,8 +4,8 @@
     <Project Path="Examples/ListAllDomain/ListAllDomain.csproj" />
     <Project Path="Examples/PollDomainEvent/PollDomainEvent.csproj" />
   </Folder>
-  <Folder Name="/Tool/">
-    <Project Path="Tool/Gen/Gen.csproj" />
+  <Folder Name="/Tools/">
+    <Project Path="Tools/Gen/Gen.csproj" />
   </Folder>
   <Project Path="LibvirtRemote.Test/LibvirtRemote.Test.csproj" />
   <Project Path="LibvirtRemote/LibvirtRemote.csproj" />
